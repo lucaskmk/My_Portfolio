@@ -1,14 +1,27 @@
-/* General reset */
+/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Default body styling */
+html, body {
+  height: 100%;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Wrapper that holds header, main and footer */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 /* Header styling */
@@ -32,6 +45,66 @@ nav a {
   margin-left: 20px;
   text-decoration: none;
 }
+
+/* Main content grows to push footer to the bottom */
+.main-content {
+  flex: 1;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.main-content h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.main-content p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+/* Footer styling */
+footer {
+  background: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-name {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ddd;
+}
+
+.footer-copy {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #aaa;
+}
+
+
+
 
 /* Projects page styling */
 body.projects-page {
@@ -115,11 +188,41 @@ body.projects-page {
   padding: 0 20px;
 }
 .arrow-btn {
-  background-color: rgba(255, 255, 255, 0);
+  color: #ffffff;
   border: none;
   font-size: 2rem;
   cursor: pointer;
   user-select: none;
   margin: 0 20px;
   opacity: 0.3; /* Lower opacity to de-emphasize */
+}
+
+/* Project widget styling */
+.project-widget {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  text-align: left;
+}
+
+.project-widget h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.project-widget h2 a {
+  color: #00ccff; /* Light blue for the link */
+  text-decoration: none;
+}
+
+.project-widget h2 a:hover {
+  text-decoration: underline;
+}
+
+.project-widget p {
+  font-size: 1.1em;
+  color: #ccc;
 }

@@ -6,6 +6,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const rouletteContainer = document.querySelector('.roulette');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+    const projectTitle = document.getElementById('projectTitle');
+    const projectDescription = document.getElementById('projectDescription');
+  
+    // Sample project data with multiple projects per language and URLs
+    const projects = {
+      python: [
+        {
+          title: "Web Scraper",
+          description: "A Python project using BeautifulSoup and Requests to scrape data from websites and save it to a CSV file.",
+          url: "https://github.com/yourusername/web-scraper"
+        },
+        {
+          title: "Task Scheduler",
+          description: "A Python script using APScheduler to automate recurring tasks like sending emails or backups.",
+          url: "https://github.com/yourusername/task-scheduler"
+        },
+        {
+          title: "Data Analyzer",
+          description: "A Python project with Pandas and Matplotlib to analyze and visualize CSV data.",
+          url: "https://github.com/yourusername/data-analyzer"
+        }
+      ],
+      java: [
+        {
+          title: "REST API Server",
+          description: "A Java project using Spring Boot to create a RESTful API for managing a simple inventory system.",
+          url: "https://github.com/yourusername/rest-api-server"
+        },
+        {
+          title: "Chat Application",
+          description: "A Java project using JavaFX and sockets for a simple client-server chat system.",
+          url: "https://github.com/yourusername/chat-application"
+        },
+        {
+          title: "File Converter",
+          description: "A Java utility to convert files between formats like CSV to JSON.",
+          url: "https://github.com/yourusername/file-converter"
+        }
+      ],
+      csharp: [
+        {
+          title: "2D Platformer Game",
+          description: "A C# project built with Unity to create a 2D platformer game with player movement and collectibles.",
+          url: "https://github.com/yourusername/2d-platformer"
+        },
+        {
+          title: "Desktop Notepad",
+          description: "A C# WPF application for a lightweight text editor with save/load features.",
+          url: "https://github.com/yourusername/desktop-notepad"
+        },
+        {
+          title: "Weather App",
+          description: "A C# project using .NET to fetch and display weather data from an API.",
+          url: "https://github.com/yourusername/weather-app"
+        }
+      ],
+      default: {
+        title: "No Project Selected",
+        description: "Click a language to view a sample project.",
+        url: null // No link for default
+      }
+    };
   
     // Calculate angles and initialize rotation
     const totalItems = items.length;
@@ -14,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isDragging = false;
     let previousX = 0;
     let rotationVelocity = 0;
+    let widgetActive = false;
   
     // Position each item around the circle
     items.forEach((item, index) => {
@@ -26,38 +89,60 @@ document.addEventListener('DOMContentLoaded', () => {
       rouletteInner.style.transform = `translate(-50%, -50%) rotateY(${currentRotation}deg)`;
     }
   
+    // Function to update project widget
+    function updateProjectWidget(language) {
+      if (language === 'default') {
+        projectTitle.innerHTML = projects.default.title; // Plain text for default
+        projectDescription.textContent = projects.default.description;
+      } else {
+        const projectList = projects[language];
+        const randomIndex = Math.floor(Math.random() * projectList.length);
+        const selectedProject = projectList[randomIndex];
+        projectTitle.innerHTML = `<a href="${selectedProject.url}" target="_blank">${selectedProject.title}</a>`;
+        projectDescription.textContent = selectedProject.description;
+      }
+    }
+  
+    // Function to get front-facing language
+    function getFrontLanguage() {
+      let normalizedRotation = currentRotation % 360;
+      if (normalizedRotation < 0) normalizedRotation += 360;
+      const nearestSlot = Math.round(normalizedRotation / angleIncrement) % totalItems;
+      return items[nearestSlot].dataset.language;
+    }
+  
     // Arrow button functionality
     prevBtn.addEventListener('click', () => {
       currentRotation += angleIncrement;
-      rotationVelocity = 0; // Reset velocity on manual click
+      rotationVelocity = 0;
       updateRoulette();
+      if (widgetActive) updateProjectWidget(getFrontLanguage());
     });
   
     nextBtn.addEventListener('click', () => {
       currentRotation -= angleIncrement;
-      rotationVelocity = 0; // Reset velocity on manual click
+      rotationVelocity = 0;
       updateRoulette();
+      if (widgetActive) updateProjectWidget(getFrontLanguage());
     });
   
-    // Start dragging anywhere in the roulette container
+    // Start dragging
     rouletteContainer.addEventListener('mousedown', (e) => {
       isDragging = true;
       previousX = e.clientX;
-      rotationVelocity = 0; // Reset velocity when starting a new drag
-      e.preventDefault(); // Prevent text selection
+      rotationVelocity = 0;
+      e.preventDefault();
     });
   
     // Dragging movement
     document.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
-  
       const currentX = e.clientX;
       const deltaX = currentX - previousX;
-      const sensitivity = 0.4; // Precise control
-      currentRotation += deltaX * sensitivity; // Drag direction fixed
-      rotationVelocity = deltaX * sensitivity; // Store velocity for momentum
+      const sensitivity = 0.2;
+      currentRotation += deltaX * sensitivity;
+      rotationVelocity = deltaX * sensitivity;
       previousX = currentX;
-  
       updateRoulette();
     });
   
@@ -69,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   
-    // Optional: Stop dragging if mouse leaves window
     document.addEventListener('mouseleave', () => {
       if (isDragging) {
         isDragging = false;
@@ -77,12 +161,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   
-    // Apply momentum effect and snap to nearest logo
+    // Apply momentum and snap to nearest logo
     function applyMomentum() {
-      let decay = 0.95; // How quickly the spin slows down
+      let decay = 0.95;
       function animate() {
         if (Math.abs(rotationVelocity) < 0.1) {
-          // When velocity is low, snap to the nearest logo
           snapToNearestLogo();
           return;
         }
@@ -94,53 +177,60 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(animate);
     }
   
-    // Snap to the nearest logo position
     function snapToNearestLogo() {
-      // Normalize currentRotation to 0-360 range
       let normalizedRotation = currentRotation % 360;
       if (normalizedRotation < 0) normalizedRotation += 360;
-  
-      // Find the nearest multiple of angleIncrement (0°, 120°, 240°)
       const nearestSlot = Math.round(normalizedRotation / angleIncrement) * angleIncrement;
-      
-      // Adjust currentRotation to align with the nearest slot
       const fullRotations = Math.floor(currentRotation / 360) * 360;
       const targetRotation = fullRotations + nearestSlot;
-  
-      // Smoothly animate to the target rotation
       smoothSnap(targetRotation);
     }
   
-    // Smoothly animate to the snapped position
     function smoothSnap(targetRotation) {
-      const duration = 500; // Animation duration in ms
+      const duration = 500;
       const startRotation = currentRotation;
       const startTime = performance.now();
-  
       function animateSnap(currentTime) {
         const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1); // 0 to 1
-        const easeProgress = 1 - Math.pow(1 - progress, 4); // Ease-out effect
-  
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 4);
         currentRotation = startRotation + (targetRotation - startRotation) * easeProgress;
         updateRoulette();
-  
         if (progress < 1) {
           requestAnimationFrame(animateSnap);
+        } else if (widgetActive) {
+          updateProjectWidget(getFrontLanguage());
         }
       }
-  
       requestAnimationFrame(animateSnap);
     }
   
-    // Update description on hover
+    // Click behavior for language items
     items.forEach(item => {
+      item.addEventListener('click', () => {
+        const language = item.dataset.language;
+        if (!widgetActive) {
+          // First click: Show a random project for the clicked language
+          widgetActive = true;
+          updateProjectWidget(language);
+        } else {
+          // Second click: Reset to default
+          widgetActive = false;
+          updateProjectWidget('default');
+        }
+      });
+  
+      // Hover for description only
       item.addEventListener('mouseenter', () => {
         const img = item.querySelector('img');
         description.textContent = img.dataset.description;
       });
+  
       item.addEventListener('mouseleave', () => {
-        description.textContent = 'Hover over the logo to see details.';
+        description.textContent = 'Hover over the logo to see details or spin to select.';
       });
     });
+  
+    // Initial state
+    updateProjectWidget('default');
   });
