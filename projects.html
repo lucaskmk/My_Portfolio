@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Programming Languages Roulette</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="projects-page">
+  <header>
+    <a href="index.html" class="logo">MyLogo</a>
+    <nav>
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <div class="projects-container">
+    <h1>Programming Languages Roulette</h1>
+    
+    <!-- 3D Roulette Container -->
+    <div class="roulette">
+      <div class="roulette-inner" id="rouletteInner">
+        <div class="roulette-item">
+          <img src="images/python-icon.png" alt="Python Icon" data-description="Python: Flask, Django, and more.">
+        </div>
+        <div class="roulette-item">
+          <img src="images/java-icon.png" alt="Java Icon" data-description="Java: Spring Boot, REST APIs, etc.">
+        </div>
+        <div class="roulette-item">
+          <img src="images/csharp-icon.png" alt="C# Icon" data-description="C#: .NET, Unity, and beyond.">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Navigation Arrows -->
+    <div class="roulette-controls">
+      <button id="prevBtn" class="arrow-btn">&#10094;</button>
+      <button id="nextBtn" class="arrow-btn">&#10095;</button>
+    </div>
+    
+    <!-- Description Area -->
+    <p id="rouletteDescription">Hover over the logo to see details.</p>
+  </div>
+
+  <!-- Link to external JS file -->
+  <script src="roulette.js"></script>
+</body>
+</html>
