@@ -47,10 +47,10 @@ body.projects-page {
 
 /* Roulette container with 3D perspective */
 .roulette {
-  width: 300px;
+  width: 100%;
   height: 300px;
   margin: 40px auto;
-  position: relative; /* Changed from center to relative */
+  position: relative;
   perspective: 1000px;
 }
 
@@ -113,4 +113,13 @@ body.projects-page {
   max-width: 600px;
   margin: 20px auto;
   padding: 0 20px;
+}
+.arrow-btn {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  margin: 0 20px;
+  opacity: 0.3; /* Lower opacity to de-emphasize */
 }
