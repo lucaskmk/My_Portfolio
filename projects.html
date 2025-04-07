@@ -8,59 +8,69 @@
 </head>
 <body class="projects-page">
   <header>
-    <a href="index.html" class="logo">MyLogo</a>
+    <a href="index.html" class="logo"><img src="images\Kamikawa.png" alt=""></a>
     <nav>
       <a href="index.html">Home</a>
     </nav>
   </header>
 
   <div class="projects-container">
-    <h1>Programming Languages Roulette</h1>
-    
-    <!-- 3D Roulette Container -->
-    <div class="roulette">
-      <div class="roulette-inner" id="rouletteInner">
-        <div class="roulette-item" data-language="python">
-          <img src="images/python-icon.png" alt="Python Icon" data-description="Python: Flask, Django, and more.">
-        </div>
-        <div class="roulette-item" data-language="java">
-          <img src="images/java-icon.png" alt="Java Icon" data-description="Java: Spring Boot, REST APIs, etc.">
-        </div>
-        <div class="roulette-item" data-language="csharp">
-          <img src="images/csharp-icon.png" alt="C# Icon" data-description="C#: .NET, Unity, and beyond.">
+    <div class="roulette-section">
+      <h1 class="roulette-title">Meus Projetos</h1>
+      
+      <!-- 3D Roulette Container -->
+      <div class="roulette">
+        <div class="roulette-inner" id="rouletteInner">
+          <div class="roulette-item" data-language="python">
+            <img src="images/python-icon.png" alt="Python Icon" data-description="Python: Flask, Django, and more.">
+          </div>
+          <div class="roulette-item" data-language="java">
+            <img src="images/java-icon.png" alt="Java Icon" data-description="Java: Spring Boot, REST APIs, etc.">
+          </div>
+          <div class="roulette-item" data-language="csharp">
+            <img src="images/csharp-icon.png" alt="C# Icon" data-description="C#: .NET, Unity, and beyond.">
+          </div>
         </div>
       </div>
+      
+      <!-- Navigation Arrows -->
+      <div class="roulette-controls">
+        <button id="prevBtn" class="arrow-btn">❮</button>
+        <button id="nextBtn" class="arrow-btn">❯</button>
+      </div>
+      
+      <!-- Description Area -->
+      <p id="rouletteDescription">Hover over the logo to see details or spin to select.</p>
     </div>
-    
-    <!-- Navigation Arrows -->
-    <div class="roulette-controls">
-      <button id="prevBtn" class="arrow-btn">❮</button>
-      <button id="nextBtn" class="arrow-btn">❯</button>
-    </div>
-    
-    <!-- Description Area -->
-    <p id="rouletteDescription">Hover over the logo to see details or spin to select.</p>
 
-    <!-- Project Widget -->
-    <div class="project-widget">
-      <h2 id="projectTitle">No Project Selected</h2>
-      <p id="projectDescription">Click a language to view a sample project.</p>
+    <div class="projects-section">
+      <!-- Project Widget -->
+      <div class="project-widget" id="projectWidget">
+        <h2 id="projectTitle">No Project Selected</h2>
+        <p id="projectDescription">Click a language to view a sample project.</p>
+      </div>
     </div>
   </div>
 
-
   <footer>
     <div class="footer-content">
-      <p class="footer-name">Lucas Kamikawa</p>
       <div class="footer-links">
-        <a href="mailto:lucaskamikawa@gmail.com">lucaskamikawa@gmail.com</a>
-        <a href="https://www.linkedin.com/in/lucaskamikawa" target="_blank">LinkedIn</a>
-        <a href="https://github.com/lucaskmk" target="_blank">GitHub</a>
+        <a href="mailto:lucaskamikawa@gmail.com" class="icon-link">
+          <img src="images/email.png" alt="Email" class="footer-icon">
+        </a>
+        <a href="https://www.linkedin.com/in/lucaskamikawa" target="_blank" class="icon-link">
+          <img src="images/linkedin.png" alt="LinkedIn" class="footer-icon">
+        </a>
+        <a href="https://github.com/lucaskmk" target="_blank" class="icon-link">
+          <img src="images/github.png" alt="GitHub" class="footer-icon">
+        </a>
       </div>
+      <p class="footer-phone">+55 (11) 96843-2900</p>
     </div>
-    <p class="footer-copy">&copy; 2024 Lucas Portfolio. All rights reserved.</p>
+    <p class="footer-copy">© 2024 Lucas Portfolio. All rights reserved.</p>
   </footer>
   
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script src="roulette.js"></script>
 </body>
 </html>

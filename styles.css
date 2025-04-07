@@ -11,12 +11,18 @@ html, body {
 
 body {
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  background: #5f99cf44;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-
+header img {
+  max-height: 80px;
+  height: auto;
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
 /* Wrapper that holds header, main and footer */
 .wrapper {
   display: flex;
@@ -26,8 +32,9 @@ body {
 
 /* Header styling */
 header {
-  background: #333;
-  padding: 20px;
+  background: #33333300;
+  padding-left: 20px;
+  padding-right: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,7 +48,7 @@ header a.logo {
 }
 
 nav a {
-  color: #fff;
+  color: #000000;
   margin-left: 20px;
   text-decoration: none;
 }
@@ -65,64 +72,115 @@ nav a {
 
 /* Footer styling */
 footer {
-  background: #333;
+  background: transparent; /* Transparent background */
   color: #fff;
-  padding: 20px 0;
+  padding: 20px;
   text-align: center;
+  position: relative;
 }
 
 .footer-content {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Stack by default for mobile */
+  justify-content: space-between;
   align-items: center;
-}
-
-.footer-name {
-  font-size: 1.5em;
-  margin-bottom: 10px;
 }
 
 .footer-links {
   display: flex;
+  flex-direction: column; /* Stack icons vertically on mobile */
   gap: 15px;
 }
 
-.footer-links a {
-  color: #fff;
+.icon-link {
+  display: inline-block;
+  width: 40px; /* Circular icon size */
+  height: 40px;
+  border-radius: 50%; /* Makes it circular */
+  background: rgba(255, 255, 255, 0.2); /* Slight background for visibility */
+  transition: background 0.3s ease;
   text-decoration: none;
-  transition: color 0.3s ease;
 }
 
-.footer-links a:hover {
-  color: #ddd;
+.icon-link:hover {
+  background: rgba(255, 255, 255, 0.4); /* Hover effect */
+}
+
+.footer-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensures icons fit nicely */
+  border-radius: 50%; /* Keeps circular shape */
+}
+
+.footer-phone {
+  font-size: 1.1em;
+  margin-top: 15px; /* Space from icons on mobile */
 }
 
 .footer-copy {
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 0.9em;
   color: #aaa;
 }
 
+/* Media query for desktop (screens wider than 768px) */
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row; /* Horizontal layout on desktop */
+    justify-content: space-between; /* Icons left, phone right */
+    align-items: center;
+    width: 100%;
+  }
 
+  .footer-links {
+    flex-direction: row; /* Icons in a horizontal line */
+    gap: 20px; /* Space between icons */
+  }
 
+  .footer-phone {
+    margin-top: 0; /* Remove mobile spacing */
+  }
+
+  .footer-copy {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%); /* Center copyright text */
+    width: 100%;
+  }
+}
 
 /* Projects page styling */
 body.projects-page {
-  background: linear-gradient(to bottom, #000, #333);
+  background: none; /* Remove the gradient from body */
   color: #fff;
 }
 
 .projects-container {
   text-align: center;
-  margin-top: 60px;
-  padding: 20px;
+}
+.roulette-title{
+  padding-top: 50px;
+}
+/* Roulette section with dark gradient */
+.roulette-section {
+  background: linear-gradient(to bottom, #5f99cf44, #184b68);
+  padding-bottom: 20px;
+}
+
+/* Projects section with white background */
+.projects-section {
+  background: #5f99cf44;
+  padding: 20px 0;
+  color: #333; /* Dark text for white background */
 }
 
 /* Roulette container with 3D perspective */
 .roulette {
   width: 100%;
   height: 300px;
-  margin: 40px auto;
+  margin: 0px;
   position: relative;
   perspective: 1000px;
 }
@@ -146,20 +204,15 @@ body.projects-page {
   height: 100px;
   top: 50%;
   left: 50%;
-  transform-origin: center center; /* Simplified transform-origin */
-  margin-left: -50px; /* Center the item horizontally */
-  margin-top: -50px; /* Center the item vertically */
+  transform-origin: center center;
+  margin-left: -50px;
+  margin-top: -50px;
 }
 
-/* Logo styling and hover lift effect */
+/* Logo styling */
 .roulette-item img {
   width: 100%;
-  transition: transform 0.3s ease;
   cursor: pointer;
-}
-
-.roulette-item img:hover {
-  transform: translateY(-10px);
 }
 
 /* Roulette controls container */
@@ -171,12 +224,14 @@ body.projects-page {
 
 /* Arrow button styling */
 .arrow-btn {
+  color: #ffffff;
   background-color: rgba(255, 255, 255, 0);
   border: none;
   font-size: 2rem;
   cursor: pointer;
   user-select: none;
   margin: 0 20px;
+  opacity: 0.3;
 }
 
 /* Roulette description text styling */
@@ -187,42 +242,49 @@ body.projects-page {
   margin: 20px auto;
   padding: 0 20px;
 }
-.arrow-btn {
-  color: #ffffff;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  user-select: none;
-  margin: 0 20px;
-  opacity: 0.3; /* Lower opacity to de-emphasize */
-}
 
 /* Project widget styling */
 .project-widget {
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  text-align: left;
+  text-align: center;
 }
 
 .project-widget h2 {
   font-size: 1.5em;
   margin-bottom: 10px;
-  color: #fff;
-}
-
-.project-widget h2 a {
-  color: #00ccff; /* Light blue for the link */
-  text-decoration: none;
-}
-
-.project-widget h2 a:hover {
-  text-decoration: underline;
+  color: #333; /* Dark text for white background */
 }
 
 .project-widget p {
   font-size: 1.1em;
-  color: #ccc;
+  color: #666; /* Slightly lighter for contrast */
+}
+
+/* Project tile styling */
+.project-tile {
+  background: #5f99cf44; /* Light gray background for tiles */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 15px auto;
+  max-width: 500px;
+  padding: 15px;
+  text-align: left;
+}
+
+.project-tile a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.project-tile h3 {
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.project-tile p {
+  font-size: 1em;
+  color: #666;
 }
