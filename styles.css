@@ -16,6 +16,49 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
+/* Base style for nav links */
+nav a {
+  position: relative; /* Required for proper positioning of the ::after element */
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+/* Underline pseudo-element for all nav links */
+nav a::after {
+  content: "";
+  width: 30%;                /* Adjust the width of the underline */
+  height: 0.125rem;          /* Adjust the thickness of the underline */
+  background-color: #5f99cf; /* Same color as the active text */
+  position: absolute;
+  bottom: -0.25rem;          /* Position the underline just below the text */
+  left: 1.25rem;             /* Adjust the horizontal position as needed */
+  transform: scaleX(0);      /* Initially hidden */
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effects for nav links */
+nav a:hover {
+  color: #5f99cf;       /* Change text color on hover */
+  font-weight: bold;    /* Make text bolder on hover */
+}
+
+nav a:hover::after {
+  transform: scaleX(1); /* Reveal the underline on hover */
+}
+
+/* Active/current page nav link */
+nav a.active {
+  color: #5f99cf;       /* Fixed color when active */
+  font-weight: bold;    /* Bold text when active */
+}
+
+nav a.active::after {
+  transform: scaleX(1); /* Underline always visible for the active link */
+}
+
+
 header img {
   max-height: 80px;
   height: auto;
@@ -38,11 +81,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #fff;
 }
 
 header a.logo {
-  color: #fff;
   font-size: 1.5em;
   text-decoration: none;
 }
@@ -69,11 +110,9 @@ nav a {
   font-size: 1.2em;
   color: #555;
 }
-
 /* Footer styling */
 footer {
   background: transparent; /* Transparent background */
-  color: #fff;
   padding: 20px;
   text-align: center;
   position: relative;
@@ -81,14 +120,14 @@ footer {
 
 .footer-content {
   display: flex;
-  flex-direction: column; /* Stack by default for mobile */
+  flex-direction: column; /* Stack sections on mobile */
   justify-content: space-between;
   align-items: center;
 }
 
 .footer-links {
   display: flex;
-  flex-direction: column; /* Stack icons vertically on mobile */
+  flex-direction: row; /* Always arrange icons horizontally */
   gap: 15px;
 }
 
@@ -133,11 +172,6 @@ footer {
     width: 100%;
   }
 
-  .footer-links {
-    flex-direction: row; /* Icons in a horizontal line */
-    gap: 20px; /* Space between icons */
-  }
-
   .footer-phone {
     margin-top: 0; /* Remove mobile spacing */
   }
@@ -151,10 +185,10 @@ footer {
   }
 }
 
+
 /* Projects page styling */
 body.projects-page {
   background: none; /* Remove the gradient from body */
-  color: #fff;
 }
 
 .projects-container {
@@ -162,18 +196,17 @@ body.projects-page {
 }
 .roulette-title{
   padding-top: 50px;
+  color: #ffffff;
 }
 /* Roulette section with dark gradient */
 .roulette-section {
-  background: linear-gradient(to bottom, #5f99cf44, #184b68);
   padding-bottom: 20px;
 }
 
 /* Projects section with white background */
 .projects-section {
-  background: #5f99cf44;
   padding: 20px 0;
-  color: #333; /* Dark text for white background */
+  color: #e20000; /* Dark text for white background */
 }
 
 /* Roulette container with 3D perspective */
@@ -237,7 +270,7 @@ body.projects-page {
 /* Roulette description text styling */
 #rouletteDescription {
   font-size: 1.2em;
-  color: #ccc;
+  color: #ffffff;
   max-width: 600px;
   margin: 20px auto;
   padding: 0 20px;
@@ -265,7 +298,7 @@ body.projects-page {
 /* Project tile styling */
 .project-tile {
   background: #5f99cf44; /* Light gray background for tiles */
-  border: 1px solid #ddd;
+  border: 1px solid #9e9d9d;
   border-radius: 10px;
   margin: 15px auto;
   max-width: 500px;
@@ -286,5 +319,76 @@ body.projects-page {
 
 .project-tile p {
   font-size: 1em;
+  color: #666;
+}
+
+/* Certificates page styling */
+.certificates-container {
+  text-align: center;
+  padding: 20px;
+  flex: 1; /* Ensures it grows to push footer down */
+}
+
+.certificates-title {
+  padding-top: 50px;
+  font-size: 2.5em;
+  margin-bottom: 40px;
+}
+
+.certificates-section {
+  padding: 20px 0;
+}
+
+/* Certificate item styling */
+.certificate-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+  margin: 40px auto;
+  opacity: 0; /* Start hidden for animation */
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Direction-specific styling */
+.certificate-item[data-direction="left"] {
+  flex-direction: row;
+  transform: translateX(-100%); /* Start off-screen left */
+}
+
+.certificate-item[data-direction="right"] {
+  flex-direction: row-reverse;
+  transform: translateX(100%); /* Start off-screen right */
+}
+
+/* Visible state when scrolled into view */
+.certificate-item.visible {
+  transform: translateX(0); /* Slide to center */
+  opacity: 1;
+}
+
+/* Certificate image styling */
+.certificate-item img {
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Certificate description styling */
+.certificate-description {
+  padding: 20px;
+  text-align: left;
+  max-width: 400px;
+}
+
+.certificate-description h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.certificate-description p {
+  font-size: 1.1em;
   color: #666;
 }

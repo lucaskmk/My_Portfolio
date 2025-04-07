@@ -12,19 +12,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const projects = {
     python: [
       {
-        title: "Filtro_cores",
-        description: "Filtro de cores interativo que facilita a obtenção dos valores high/low nas escalas HSV, BGR ou RGB para segmentação precisa de imagens.",
-        url: "https://github.com/lucaskmk/Filtro_cores"
+        "title": "Aulas",
+        "description": "Aulas e anotacoes com varios exercicios",
+        "url": "https://github.com/lucaskmk/Python"
       },
       {
-        title: "Batalha Naval",
-        description: "Jogo de Batalha Naval onde o jogador enfrenta o computador em partidas estratégicas de acertos no oceano.",
-        url: "https://github.com/lucaskmk/EP2"
+        "title": "Filtro_cores",
+        "description": "Interactive color filter that simplifies obtaining high/low values in the HSV, BGR, or RGB scales for precise image segmentation.",
+        "url": "https://github.com/lucaskmk/Filtro_cores"
       },
       {
-        title: "PyGame",
-        description: "Projeto Pygame inspirado no clássico Donkey Kong, onde Mario desvia de barris e escala. Rumo ao topo em uma jornada nostálgica.",
-        url: "https://github.com/lucaskmk/PyGame-DKarcade"
+        "title": "Batalha Naval",
+        "description": "Battleship game where the player competes against the computer in strategic ocean battles.",
+        "url": "https://github.com/lucaskmk/EP2"
+      },
+      {
+        "title": "PyGame",
+        "description": "A Pygame project inspired by the classic Donkey Kong, where Mario dodges barrels and climbs. Embark on a nostalgic journey to the top.",
+        "url": "https://github.com/lucaskmk/PyGame-DKarcade"
+      }
+    ],
+    web: [
+      {
+        title: "Enhanced Get-it Note Manager",
+        description: "This project upgrades the Get-it system by integrating a refined CSS style, transitioning data storage from a text file to a SQLite database, and adding new functionalities for editing and deleting notes. Building on previous handouts and challenges, it delivers a more robust and visually appealing note-taking application",
+        url: "https://github.com/insper-tecnologias-web/projeto-1a-lucaskmk"
+      },
+      {
+        title: "Django-Based Notes Platform",
+        description: "This project transforms the original note-taking application into a fully dynamic, web-based platform built with Django. It replaces the previous SQLite storage with a robust PostgreSQL database running in a Docker container. The application features complete CRUD functionality for notes, including creation, editing, deletion, and listing, while implementing advanced database relationships—many-to-many for tagging and many-to-one for organizing notes. Styled with custom CSS and rendered through Django templates, the platform is designed for efficient data management and public deployment.",
+        url: "https://github.com/insper-tecnologias-web/projeto-1b-lucaskmk"
+      },
+      {
+        title: "CalmU",
+        description: "Projeto modelo de aplicativo para crises de ansiedade com ex e forum",
+        url: "https://github.com/lucaskmk/Equipe6TurmaB_CalmU"
+      },
+      {
+        title: "Projeto Informar",
+        description: "solução tecnológica que permita aos alunos praticar programação e lógica entre as aulas. site interativo em React , com a possibilidade de um backend em FastAPI",
+        url: "https://github.com/lucaskmk/Grupo2-InsperCode"
       }
     ],
     java: [
@@ -46,20 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
     ],
     csharp: [
       {
-        title: "2D Platformer Game",
-        description: "A C# project built with Unity to create a 2D platformer game with player movement and collectibles.",
-        url: "https://github.com/yourusername/2d-platformer"
+        title: "To-Do-List-Manager",
+        description: "allows users to add, view, and delete tasks. You can later extend it with features like saving tasks to a file or implementing a basic GUI using Windows Forms.",
+        url: "https://github.com/lucaskmk/To-Do-List-Manager"
       },
       {
-        title: "Desktop Notepad",
-        description: "A C# WPF application for a lightweight text editor with save/load features.",
-        url: "https://github.com/yourusername/desktop-notepad"
+        title: "Simple File Organizer",
+        description: "sorts files in a directory into subfolders based on their file type. This can introduce you to file I/O operations and working with the System.IO namespace.",
+        url: "https://github.com/lucaskmk/Simple-File-Organizer"
       },
-      {
-        title: "Weather App",
-        description: "A C# project using .NET to fetch and display weather data from an API.",
-        url: "https://github.com/yourusername/weather-app"
-      }
     ],
     default: {
       title: "No Project Selected",
@@ -128,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to get front-facing language
   function getFrontLanguage() {
-    let normalizedRotation = currentRotation % 360;
+    let normalizedRotation = (currentRotation % 360 + 360) % 360;
     if (normalizedRotation < 0) normalizedRotation += 360;
     const nearestSlot = Math.round(normalizedRotation / angleIncrement) % totalItems;
     return items[nearestSlot].dataset.language;
@@ -162,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isDragging) return;
     const currentX = e.clientX;
     const deltaX = currentX - previousX;
-    const sensitivity = 0.2;
+    const sensitivity = 0.4;
     currentRotation += deltaX * sensitivity;
     rotationVelocity = deltaX * sensitivity;
     previousX = currentX;
@@ -229,19 +251,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Click behavior for language items
-  items.forEach(item => {
-    item.addEventListener('click', () => {
-      const language = item.dataset.language;
-      if (!widgetActive) {
-        // First click: Show all projects for the clicked language
-        widgetActive = true;
-        updateProjectWidget(language);
-      } else {
-        // Second click: Reset to default
-        widgetActive = false;
-        updateProjectWidget('default');
-      }
-    });
+items.forEach(item => {
+  item.addEventListener('click', () => {
+    const language = item.dataset.language;
+    if (!widgetActive || getFrontLanguage() !== language) {
+      // Show projects for clicked language
+      widgetActive = true;
+      updateProjectWidget(language);
+    } else {
+      // Hide projects if clicking the same language again
+      widgetActive = false;
+      updateProjectWidget('default');
+    }
+  });
 
     // Hover for description only
     item.addEventListener('mouseenter', () => {

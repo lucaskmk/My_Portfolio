@@ -6,28 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="projects-page">
-  <header>
+<body>
+  <section style="background: linear-gradient(to bottom, #54bdfa44, #1c374d)">
+  <header >
     <a href="index.html" class="logo"><img src="images\Kamikawa.png" alt=""></a>
     <nav>
-      <a href="index.html">Home</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="certificates.html">Certificates</a>
     </nav>
   </header>
 
   <div class="projects-container">
     <div class="roulette-section">
-      <h1 class="roulette-title">Meus Projetos</h1>
+      <h1 class="roulette-title">My Projects</h1>
       
       <!-- 3D Roulette Container -->
       <div class="roulette">
         <div class="roulette-inner" id="rouletteInner">
           <div class="roulette-item" data-language="python">
-            <img src="images/python-icon.png" alt="Python Icon" data-description="Python: Flask, Django, and more.">
+            <img src="images/python-icon.png" alt="Python Icon" data-description="Python: Ai, and more.">
+          </div>
+          <div class="roulette-item" data-language="csharp">
+            <img src="images/HTML-CSS-JS-icon.png" alt="HTML-CSS-JS-icon" data-description="Django, sql and more.">
           </div>
           <div class="roulette-item" data-language="java">
             <img src="images/java-icon.png" alt="Java Icon" data-description="Java: Spring Boot, REST APIs, etc.">
           </div>
-          <div class="roulette-item" data-language="csharp">
+          <div class="roulette-item" data-language="web">
             <img src="images/csharp-icon.png" alt="C# Icon" data-description="C#: .NET, Unity, and beyond.">
           </div>
         </div>
@@ -41,7 +46,7 @@
       
       <!-- Description Area -->
       <p id="rouletteDescription">Hover over the logo to see details or spin to select.</p>
-    </div>
+    </div></section>
 
     <div class="projects-section">
       <!-- Project Widget -->
@@ -58,7 +63,7 @@
         <a href="mailto:lucaskamikawa@gmail.com" class="icon-link">
           <img src="images/email.png" alt="Email" class="footer-icon">
         </a>
-        <a href="https://www.linkedin.com/in/lucaskamikawa" target="_blank" class="icon-link">
+        <a href="https://www.linkedin.com/in/lucas-kenji-kamikawa-28417629a/" target="_blank" class="icon-link">
           <img src="images/linkedin.png" alt="LinkedIn" class="footer-icon">
         </a>
         <a href="https://github.com/lucaskmk" target="_blank" class="icon-link">
@@ -67,10 +72,9 @@
       </div>
       <p class="footer-phone">+55 (11) 96843-2900</p>
     </div>
-    <p class="footer-copy">© 2024 Lucas Portfolio. All rights reserved.</p>
+    <p class="footer-copy">© Lucas Kenji Malheiros Kamikawa</p>
   </footer>
   
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script src="roulette.js"></script>
 </body>
 </html>
