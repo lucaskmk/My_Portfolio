@@ -10,80 +10,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Sample project data with multiple projects per language and URLs
   const projects = {
-      python: [
-        {
-          title: "Lessons",
-          description: "Lessons and notes with various exercises.",
-          url: "https://github.com/lucaskmk/Python"
-        },
-        {
-          title: "Filtro_cores",
-          description: "Interactive color filter that simplifies obtaining high/low values in the HSV, BGR, or RGB scales for precise image segmentation.",
-          url: "https://github.com/lucaskmk/Filtro_cores"
-        },
-        {
-          title: "Battleship",
-          description: "Battleship game where the player competes against the computer in strategic ocean battles.",
-          url: "https://github.com/lucaskmk/EP2"
-        },
-        {
-          title: "PyGame",
-          description: "A Pygame project inspired by the classic Donkey Kong, where Mario dodges barrels and climbs. Embark on a nostalgic journey to the top.",
-          url: "https://github.com/lucaskmk/PyGame-DKarcade"
-        }
-      ],
-      web: [
-        {
-          title: "Enhanced Get-it Note Manager",
-          description: "This project upgrades the Get-it system by integrating a refined CSS style, transitioning data storage from a text file to a SQLite database, and adding new functionalities for editing and deleting notes. Building on previous handouts and challenges, it delivers a more robust and visually appealing note-taking application.",
-          url: "https://github.com/insper-tecnologias-web/projeto-1a-lucaskmk"
-        },
-        {
-          title: "Django-Based Notes Platform",
-          description: "This project transforms the original note-taking application into a fully dynamic, web-based platform built with Django. It replaces the previous SQLite storage with a robust PostgreSQL database running in a Docker container. The application features complete CRUD functionality for notes, including creation, editing, deletion, and listing, while implementing advanced database relationships—many-to-many for tagging and many-to-one for organizing notes. Styled with custom CSS and rendered through Django templates, the platform is designed for efficient data management and public deployment.",
-          url: "https://github.com/insper-tecnologias-web/projeto-1b-lucaskmk"
-        },
-        {
-          title: "Frontend React App for Scheduling Gym Workouts",
-          description: "A technological solution that allows students to practice programming and logic between classes. An interactive website built with React, with the possibility of a FastAPI backend.",
-          url: "https://github.com/desagil-2024-2/frontend-1"
-        },
-        {
-          title: "CalmU",
-          description: "A model project for an app to manage anxiety crises, featuring exercises and a forum.",
-          url: "https://github.com/lucaskmk/Equipe6TurmaB_CalmU"
-        },
-        {
-          title: "Informar Project",
-          description: "A technological solution that allows students to practice programming and logic between classes. An interactive website built with React, with the possibility of a FastAPI backend.",
-          url: "https://github.com/lucaskmk/Grupo2-InsperCode"
-        }
-      ],
-      java: [
-        {
-          title: "Backend",
-          description: "Backend for a project built with React.",
-          url: "https://github.com/desagil-2024-2/backend-1"
-        }
-      ],
-      csharp: [
-        {
-          title: "To-Do List Manager",
-          description: "Allows users to add, view, and delete tasks. You can later extend it with features like saving tasks to a file or implementing a basic GUI using Windows Forms.",
-          url: "https://github.com/lucaskmk/To-Do-List-Manager"
-        },
-        {
-          title: "Simple File Organizer",
-          description: "Sorts files in a directory into subfolders based on their file type. This can introduce you to file I/O operations and working with the System.IO namespace.",
-          url: "https://github.com/lucaskmk/Simple-File-Organizer"
-        }
-      ],
-      default: {
-        title: "No Project Selected",
-        description: "Click a language to view a sample project.",
-        url: null
+    python: [
+      {
+        title: "Lessons",
+        description: "Lessons and notes with various exercises.",
+        url: "https://github.com/lucaskmk/Python"
+      },
+      {
+        title: "Filtro_cores",
+        description: "Interactive color filter that simplifies obtaining high/low values in the HSV, BGR, or RGB scales for precise image segmentation.",
+        url: "https://github.com/lucaskmk/Filtro_cores"
+      },
+      {
+        title: "Battleship",
+        description: "Battleship game where the player competes against the computer in strategic ocean battles.",
+        url: "https://github.com/lucaskmk/EP2"
+      },
+      {
+        title: "PyGame",
+        description: "A Pygame project inspired by the classic Donkey Kong, where Mario dodges barrels and climbs. Embark on a nostalgic journey to the top.",
+        url: "https://github.com/lucaskmk/PyGame-DKarcade"
       }
-    };
+    ],
+    web: [
+      {
+        title: "Enhanced Get-it Note Manager",
+        description: "This project upgrades the Get-it system by integrating a refined CSS style, transitioning data storage from a text file to a SQLite database, and adding new functionalities for editing and deleting notes. Building on previous handouts and challenges, it delivers a more robust and visually appealing note-taking application.",
+        url: "https://github.com/insper-tecnologias-web/projeto-1a-lucaskmk"
+      },
+      {
+        title: "Django-Based Notes Platform",
+        description: "This project transforms the original note-taking application into a fully dynamic, web-based platform built with Django. It replaces the previous SQLite storage with a robust PostgreSQL database running in a Docker container. The application features complete CRUD functionality for notes, including creation, editing, deletion, and listing, while implementing advanced database relationships—many-to-many for tagging and many-to-one for organizing notes. Styled with custom CSS and rendered through Django templates, the platform is designed for efficient data management and public deployment.",
+        url: "https://github.com/insper-tecnologias-web/projeto-1b-lucaskmk"
+      },
+      {
+        title: "Frontend React App for Scheduling Gym Workouts",
+        description: "A technological solution that allows students to practice programming and logic between classes. An interactive website built with React, with the possibility of a FastAPI backend.",
+        url: "https://github.com/desagil-2024-2/frontend-1"
+      },
+      {
+        title: "CalmU",
+        description: "A model project for an app to manage anxiety crises, featuring exercises and a forum.",
+        url: "https://github.com/lucaskmk/Equipe6TurmaB_CalmU"
+      },
+      {
+        title: "Informar Project",
+        description: "A technological solution that allows students to practice programming and logic between classes. An interactive website built with React, with the possibility of a FastAPI backend.",
+        url: "https://github.com/lucaskmk/Grupo2-InsperCode"
+      }
+    ],
+    java: [
+      {
+        title: "Backend",
+        description: "Backend for a project built with React.",
+        url: "https://github.com/desagil-2024-2/backend-1"
+      }
+    ],
+    csharp: [
+      {
+        title: "To-Do List Manager",
+        description: "Allows users to add, view, and delete tasks. You can later extend it with features like saving tasks to a file or implementing a basic GUI using Windows Forms.",
+        url: "https://github.com/lucaskmk/To-Do-List-Manager"
+      },
+      {
+        title: "Simple File Organizer",
+        description: "Sorts files in a directory into subfolders based on their file type. This can introduce you to file I/O operations and working with the System.IO namespace.",
+        url: "https://github.com/lucaskmk/Simple-File-Organizer"
+      }
+    ],
+    default: {
+      title: "No Project Selected",
+      description: "Click a language to view a sample project.",
+      url: null
+    }
+  };
 
   // Calculate angles and initialize rotation
   const totalItems = items.length;
@@ -93,6 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let previousX = 0;
   let rotationVelocity = 0;
   let widgetActive = false;
+  let touchStartX = 0; // To track the starting X position of a touch
+  let touchMoved = false; // To track if the touch moved significantly
 
   // Position each item around the circle
   items.forEach((item, index) => {
@@ -138,9 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to get front-facing language
   function getFrontLanguage() {
     let normalizedRotation = (currentRotation % 360 + 360) % 360;
-    // Invert the rotation to find the front-facing item
     const effectiveRotation = (360 - normalizedRotation) % 360;
-    // Map the rotation to a slot (0 to 3)
     const slot = Math.round(effectiveRotation / angleIncrement) % totalItems;
     const frontLanguage = items[slot].dataset.language;
     console.log(`Current Rotation: ${currentRotation}, Normalized: ${normalizedRotation}, Effective: ${effectiveRotation}, Slot: ${slot}, Language: ${frontLanguage}`);
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     previousX = e.clientX;
     rotationVelocity = 0;
     e.preventDefault();
-    rouletteContainer.style.cursor = 'grabbing'; // Visual feedback for dragging
+    rouletteContainer.style.cursor = 'grabbing';
   });
 
   document.addEventListener('mousemove', (e) => {
@@ -212,20 +212,28 @@ document.addEventListener('DOMContentLoaded', () => {
   rouletteContainer.addEventListener('touchstart', (e) => {
     isDragging = true;
     previousX = e.touches[0].clientX;
+    touchStartX = e.touches[0].clientX; // Store the starting X position
+    touchMoved = false; // Reset touch movement flag
     rotationVelocity = 0;
-    e.preventDefault(); // Prevent default touch behavior
+    e.preventDefault();
   });
 
   document.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
     const currentX = e.touches[0].clientX;
     const deltaX = currentX - previousX;
-    const sensitivity = 0.4; // Same sensitivity as mouse
+    const sensitivity = 0.4;
     currentRotation += deltaX * sensitivity;
     rotationVelocity = deltaX * sensitivity;
     previousX = currentX;
+
+    // Check if the touch has moved significantly (more than 10 pixels)
+    if (Math.abs(currentX - touchStartX) > 10) {
+      touchMoved = true;
+    }
+
     updateRoulette();
-    e.preventDefault(); // Prevent page scrolling while swiping
+    e.preventDefault();
   }, { passive: false });
 
   document.addEventListener('touchend', () => {
@@ -282,9 +290,10 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(animateSnap);
   }
 
-  // Click behavior for language items
+  // Click and tap behavior for language items
   items.forEach(item => {
-    item.addEventListener('click', () => {
+    // Handle click for desktop
+    item.addEventListener('click', (e) => {
       const language = item.dataset.language;
       if (!widgetActive || getFrontLanguage() !== language) {
         widgetActive = true;
@@ -295,14 +304,43 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Hover for description only
+    // Handle tap for touch devices
+    item.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchMoved = false;
+      e.stopPropagation(); // Prevent the touchstart from bubbling up to rouletteContainer
+    });
+
+    item.addEventListener('touchmove', (e) => {
+      const currentX = e.touches[0].clientX;
+      if (Math.abs(currentX - touchStartX) > 10) {
+        touchMoved = true;
+      }
+    });
+
+    item.addEventListener('touchend', (e) => {
+      if (!touchMoved) {
+        // If the touch didn't move significantly, treat it as a tap
+        const language = item.dataset.language;
+        if (!widgetActive || getFrontLanguage() !== language) {
+          widgetActive = true;
+          updateProjectWidget(language);
+        } else {
+          widgetActive = false;
+          updateProjectWidget('default');
+        }
+      }
+      e.stopPropagation(); // Prevent the touchend from bubbling up to rouletteContainer
+    });
+
+    // Hover for description (desktop only)
     item.addEventListener('mouseenter', () => {
       const img = item.querySelector('img');
       description.textContent = img.dataset.description;
     });
 
     item.addEventListener('mouseleave', () => {
-      description.textContent = 'Hover over the logo to see details or spin to select.';
+      description.textContent = 'Tap or click a logo to see projects, or spin to select.';
     });
   });
 
