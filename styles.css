@@ -58,14 +58,14 @@ nav a.active::after {
   transform: scaleX(1); /* Underline always visible for the active link */
 }
 
-
 header img {
-  max-height: 80px;
+  max-height: 120px;
   height: auto;
   width: auto;
   margin: 0;
-  padding: 0;
+  padding-top: 20px;
 }
+
 /* Wrapper that holds header, main and footer */
 .wrapper {
   display: flex;
@@ -98,7 +98,7 @@ nav a {
 .main-content {
   flex: 1;
   text-align: center;
-  padding: 100px 20px;
+  padding: 10px 20px;
 }
 
 .main-content h1 {
@@ -110,6 +110,7 @@ nav a {
   font-size: 1.2em;
   color: #555;
 }
+
 /* Footer styling */
 footer {
   background: transparent; /* Transparent background */
@@ -185,7 +186,6 @@ footer {
   }
 }
 
-
 /* Projects page styling */
 body.projects-page {
   background: none; /* Remove the gradient from body */
@@ -194,10 +194,12 @@ body.projects-page {
 .projects-container {
   text-align: center;
 }
-.roulette-title{
+
+.roulette-title {
   padding-top: 50px;
   color: #ffffff;
 }
+
 /* Roulette section with dark gradient */
 .roulette-section {
   padding-bottom: 20px;
@@ -391,4 +393,102 @@ body.projects-page {
 .certificate-description p {
   font-size: 1.1em;
   color: #666;
+}
+
+/* ============================
+   Seção de Currículo - Estilo
+   ============================ */
+#curriculo {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 30px;
+  margin: 40px auto;
+  max-width: 800px;
+  text-align: left;
+}
+
+#curriculo h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #5f99cf;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+#curriculo h3 {
+  font-size: 1.5em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+#curriculo p {
+  font-size: 1em;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+#curriculo ul {
+  margin-left: 20px;
+  margin-bottom: 10px;
+  list-style-type: disc;
+}
+
+#curriculo li {
+  margin-bottom: 5px;
+}
+
+/* Estilos para os botões de idioma */
+.language-button {
+  margin-top: 20px;
+  background-color: #5f99cf;     /* Cor de fundo */
+  color: #fff;                   /* Cor do texto */
+  border: none;                  /* Sem borda */
+  padding: 8px 16px;             /* Espaçamento interno */
+  margin-left: 10px;             /* Espaçamento entre botões */
+  border-radius: 4px;   
+  width: 150px;         /* Bordas arredondadas */
+  cursor: pointer;               /* Cursor de apontador */
+  font-weight: bold;             /* Texto em negrito */
+  transition: background-color 0.3s ease; /* Transição suave */
+}
+
+.language-button:hover {
+  background-color: #3b7ab9;     /* Cor de fundo ao passar o mouse */
+}
+.identity {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.identity h3 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.identity p {
+  font-size: 1.2em;
+  color: #555;
+  margin: 5px 0;
+}
+
+.identity a {
+  display: inline-block;
+  font-size: 1em;
+  color: #5f99cf;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: text-decoration 0.3s ease;
+}
+
+.identity a:hover {
+  text-decoration: underline;
 }

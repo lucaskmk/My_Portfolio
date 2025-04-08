@@ -44,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
         url: "https://github.com/insper-tecnologias-web/projeto-1b-lucaskmk"
       },
       {
+        title: "Frontend-react-app de programar treinos na academia",
+        description: "solução tecnológica que permita aos alunos praticar programação e lógica entre as aulas. site interativo em React , com a possibilidade de um backend em FastAPI",
+        url: "https://github.com/desagil-2024-2/frontend-1"
+      },
+      {
         title: "CalmU",
         description: "Projeto modelo de aplicativo para crises de ansiedade com ex e forum",
         url: "https://github.com/lucaskmk/Equipe6TurmaB_CalmU"
@@ -52,24 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
         title: "Projeto Informar",
         description: "solução tecnológica que permita aos alunos praticar programação e lógica entre as aulas. site interativo em React , com a possibilidade de um backend em FastAPI",
         url: "https://github.com/lucaskmk/Grupo2-InsperCode"
-      }
+      },
     ],
     java: [
       {
-        title: "REST API Server",
-        description: "A Java project using Spring Boot to create a RESTful API for managing a simple inventory system.",
-        url: "https://github.com/yourusername/rest-api-server"
+        title: "backend",
+        description: "backend para um projeto em react",
+        url: "https://github.com/desagil-2024-2/backend-1"
       },
-      {
-        title: "Chat Application",
-        description: "A Java project using JavaFX and sockets for a simple client-server chat system.",
-        url: "https://github.com/yourusername/chat-application"
-      },
-      {
-        title: "File Converter",
-        description: "A Java utility to convert files between formats like CSV to JSON.",
-        url: "https://github.com/yourusername/file-converter"
-      }
     ],
     csharp: [
       {

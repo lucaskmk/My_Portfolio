@@ -1,24 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>My Portfolio</title>
+  <title>Meu Portfólio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Link to the single CSS file -->
+  <!-- Link para o arquivo CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <a href="index.html" class="logo"><img src="images\Kamikawa.png" alt=""></a>
+    <a href="index.html" class="logo"><img src="images/Kamikawa.png" alt="Logo"></a>
     <nav>
       <a href="projects.html">Projects</a>
       <a href="certificates.html">Certificates</a>
     </nav>
   </header>
-
+  
   <div class="main-content">
-    <h1>Welcome to My Portfolio</h1>
-    <p>This is where I showcase my skills and projects.</p>
+    <h1>Bem-vindo ao Meu Portfólio</h1>
+    <p>Aqui eu mostro minhas habilidades, projetos e trajetória profissional.</p>
+
+
+<div class="identity">
+  <h3>Lucas Kenji Malheiros Kamikawa</h3>
+  <p>20 anos • São Paulo (SP)</p>
+  <p>E-mail: <a href="mailto:lucaskamikawa@gmail.com">lucaskamikawa@gmail.com</a></p>
+  <a href="https://www.linkedin.com/in/lucas-kenji-kamikawa-28417629a/">LinkedIn</a>
+</div>
+
+    <!-- Seção do Currículo com conteúdo em dois idiomas -->
+              <!-- Botões de mudança de idioma -->
+              <button id="btnPt" class="language-button">Português</button>
+              <button id="btnEn" class="language-button">English</button>
+    <section id="curriculo">
+      <!-- Conteúdo em Português -->
+      <div id="pt" class="language">
+        <h2>Currículo</h2>
+         <div id="perfil"> 
+          <h3>Perfil Profissional</h3>
+          <p>
+            Sou uma pessoa dedicada e determinada, com vontade de concluir projetos com excelência e sempre pronto para iniciar novos desafios. Acredito na constante busca por melhorias e na superação dos obstáculos, transformando cada dificuldade em oportunidade de crescimento. Minha formação multicultural e experiência internacional me proporcionam adaptabilidade, visão global e comunicação eficaz.
+          </p>
+        </div>
+        
+        <div id="formacao">
+          <h3>Formação Acadêmica</h3>
+          <ul>
+            <li>
+              <strong>Insper</strong> – Engenharia da Computação (Previsão de Conclusão: 2028)
+            </li>
+            <li>
+              <strong>Colégio Visconde de Porto Seguro</strong> – Aulas de Inglês e Alemão
+            </li>
+          </ul>
+        </div>
+        
+        <div id="experiencia-internacional">
+          <h3>Experiência Internacional</h3>
+          <ul>
+            <li>
+              <strong>Estados Unidos:</strong> Alfabetizado e residente por 4 anos, onde aprimorei o domínio do idioma e desenvolvi uma forte base multicultural.
+            </li>
+            <li>
+              <strong>Canadá:</strong> Participação em intercâmbio, que reforçou minha capacidade de adaptação e ampliou meu entendimento sobre diferentes culturas.
+            </li>
+          </ul>
+        </div>
+        
+        <div id="experiencia-atividades">
+          <h3>Experiência e Atividades</h3>
+          <p><strong>Projetos Acadêmicos e Pessoais:</strong></p>
+          <ul>
+            <li>Linguagens de Programação: Python, Java, JavaScript, HTML e CSS.</li>
+            <li>Ferramentas e Frameworks: React e Django.</li>
+            <li>Bibliotecas: Pandas, Matplotlib e Numpy – utilizadas para análise de dados, manipulação de tabelas e criação de gráficos.</li>
+            <li>Desenvolvimento de diversos projetos e atividades de aula que fortalecem minhas habilidades técnicas e de trabalho em equipe.</li>
+          </ul>
+          <p><strong>Atividades Complementares:</strong></p>
+          <ul>
+            <li>Participação em trabalhos em grupo, apresentações e iniciativas extracurriculares focadas em inovação e tecnologia.</li>
+          </ul>
+        </div>
+        
+        <div id="comentarios">
+          <h3>Comentários Finais</h3>
+          <p>
+            Minha trajetória é marcada pela busca contínua por conhecimento e evolução, sempre visando a excelência em cada projeto e atividade. Estou aberto a novos desafios que permitam aplicar tanto meu conhecimento técnico quanto minhas habilidades interpessoais, contribuindo de forma significativa para os objetivos da equipe e da organização.
+          </p>
+        </div>
+      </div>
+
+      <!-- Conteúdo em Inglês -->
+      <div id="en" class="language" style="display: none;">
+        <h2>Resume</h2>
+        
+        <div id="profile">
+          <h3>Professional Profile</h3>
+          <p>
+            I am a dedicated and determined person with a passion for completing projects with excellence and a readiness to take on new challenges. I believe in the constant quest for improvement and overcoming obstacles by turning each difficulty into an opportunity for growth. My multicultural background and international experience provide me with adaptability, a global vision, and effective communication skills.
+          </p>
+        </div>
+        
+        <div id="education">
+          <h3>Educational Background</h3>
+          <ul>
+            <li>
+              <strong>Insper</strong> – Computer Engineering (Expected Graduation: 2028)
+            </li>
+            <li>
+              <strong>Colégio Visconde de Porto Seguro</strong> – English and German courses
+            </li>
+          </ul>
+        </div>
+        
+        <div id="international-experience">
+          <h3>International Experience</h3>
+          <ul>
+            <li>
+              <strong>United States:</strong> Received my early education and lived there for 4 years, enhancing my language skills and developing a multicultural perspective.
+            </li>
+            <li>
+              <strong>Canada:</strong> Participated in an exchange program, which boosted my adaptability and deepened my understanding of diverse cultures.
+            </li>
+          </ul>
+        </div>
+        
+        <div id="experience-activities">
+          <h3>Experience and Activities</h3>
+          <p><strong>Academic and Personal Projects:</strong></p>
+          <ul>
+            <li>Programming Languages: Python, Java, JavaScript, HTML, and CSS.</li>
+            <li>Tools and Frameworks: React and Django.</li>
+            <li>Libraries: Pandas, Matplotlib, and Numpy – used for data analysis, table manipulation, and creating charts.</li>
+            <li>Development of various projects and classroom activities that enhance both my technical and teamwork skills.</li>
+          </ul>
+          <p><strong>Additional Activities:</strong></p>
+          <ul>
+            <li>Participation in group projects, presentations, and extracurricular initiatives focused on innovation and technology.</li>
+          </ul>
+        </div>
+        
+        <div id="final-comments">
+          <h3>Final Comments</h3>
+          <p>
+            My career is defined by a continuous pursuit of knowledge and evolution, always aiming for excellence in every project and activity. I am open to new challenges that allow me to apply both my technical expertise and interpersonal skills, contributing significantly to team and organizational goals.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- Fim da seção do Currículo -->
+    
   </div>
 
   <footer>
@@ -39,5 +170,16 @@
     <p class="footer-copy">© Lucas Kenji Malheiros Kamikawa</p>
   </footer>
   
+  <!-- Script para alternar entre os idiomas -->
+  <script>
+    document.getElementById("btnPt").addEventListener("click", function() {
+      document.getElementById("pt").style.display = "block";
+      document.getElementById("en").style.display = "none";
+    });
+    document.getElementById("btnEn").addEventListener("click", function() {
+      document.getElementById("pt").style.display = "none";
+      document.getElementById("en").style.display = "block";
+    });
+  </script>
 </body>
 </html>
