@@ -10,7 +10,7 @@ html, body {
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   background: #5f99cf44;
   display: flex;
   flex-direction: column;
@@ -21,6 +21,7 @@ body {
 nav a {
   position: relative; /* Required for proper positioning of the ::after element */
   color: inherit;
+  font-size: 1.4em;
   transition: color 0.3s ease;
 }
 
@@ -183,9 +184,57 @@ footer {
     left: 50%;
     transform: translateX(-50%); /* Center copyright text */
     width: 100%;
+  }}
+  /* Media query for mobile (screens narrower than 768px) */
+  @media (max-width: 767px) {
+    header {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+    }
+  
+    header img {
+      max-height: 80px; /* Reduce logo size on mobile */
+      padding-top: 10px;
+    }
+  
+    .certificates-title {
+      padding-top: 5px;
+      margin-bottom: 20px;
+      font-size: 2em; /* Smaller title on mobile */
+    }
+  
+    .certificates-section {
+      padding: 10px 0; /* Reduce padding */
+    }
+  
+.certificate-item {
+    flex-direction: column;
+    text-align: center;
+    margin: 20px auto;
   }
-}
 
+  .certificate-item[data-direction="left"],
+  .certificate-item[data-direction="right"] {
+    flex-direction: column;
+    transform: translateX(0);
+  }
+
+  .certificate-item.visible {
+    transform: translateX(0);
+  }
+
+  .certificate-item img {
+    max-width: 200px;
+    margin-bottom: 10px;
+  }
+
+  .certificate-description {
+    padding: 10px;
+    max-width: 100%;
+    text-align: center;
+  }
+  }
 /* Projects page styling */
 body.projects-page {
   background: none; /* Remove the gradient from body */
@@ -196,19 +245,14 @@ body.projects-page {
 }
 
 .roulette-title {
-  padding-top: 50px;
+  padding-top: 0px;
+  font-size: 2.5em;
   color: #ffffff;
 }
 
 /* Roulette section with dark gradient */
 .roulette-section {
   padding-bottom: 20px;
-}
-
-/* Projects section with white background */
-.projects-section {
-  padding: 20px 0;
-  color: #e20000; /* Dark text for white background */
 }
 
 /* Roulette container with 3D perspective */
@@ -242,6 +286,28 @@ body.projects-page {
   transform-origin: center center;
   margin-left: -50px;
   margin-top: -50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Wrapper for the content inside the roulette item */
+.roulette-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Hover effect to make the content "jump" up */
+.roulette-content:hover {
+  transform: translateY(-20px);
+}
+
+/* Logo styling */
+.roulette-content img {
+  width: 100%;
+  cursor: pointer;
 }
 
 /* Logo styling */
@@ -325,16 +391,15 @@ body.projects-page {
   font-size: 1em;
   color: #666;
 }
-
 /* Certificates page styling */
 .certificates-container {
   text-align: center;
-  padding: 20px;
+  padding: 0px 20px;
   flex: 1; /* Ensures it grows to push footer down */
 }
 
 .certificates-title {
-  padding-top: 50px;
+  padding-top: 10px;
   font-size: 2.5em;
   margin-bottom: 40px;
 }
@@ -395,6 +460,70 @@ body.projects-page {
 .certificate-description p {
   font-size: 1.1em;
   color: #666;
+}
+
+/* Media query for mobile (screens narrower than 768px) */
+@media (max-width: 767px) {
+  header {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+  }
+
+  header img {
+    max-height: 80px; /* Reduce logo size on mobile */
+    padding-top: 10px;
+  }
+
+  .certificates-container {
+    padding: 10px 15px; /* Reduce padding on mobile */
+  }
+
+  .certificates-title {
+    padding-top: 5px;
+    margin-bottom: 20px;
+    font-size: 2em; /* Smaller title on mobile */
+  }
+
+  .certificates-section {
+    padding: 10px 0; /* Reduce padding */
+  }
+
+  .certificate-item {
+    flex-direction: column; /* Stack image and description vertically */
+    align-items: center; /* Center items */
+    text-align: center;
+    margin: 30px auto; /* Increased margin to prevent overlap */
+  }
+
+  /* Keep the sliding effect on mobile */
+  .certificate-item[data-direction="left"] {
+    flex-direction: column;
+    transform: translateX(-100%); /* Restore sliding effect */
+  }
+
+  .certificate-item[data-direction="right"] {
+    flex-direction: column;
+    transform: translateX(100%); /* Restore sliding effect */
+  }
+
+  .certificate-item.visible {
+    transform: translateX(0); /* Slide to center */
+  }
+
+  /* Reorder elements to ensure image is always first */
+  .certificate-item img {
+    order: 1; /* Image first */
+    max-width: 200px;
+    margin-bottom: 15px; /* Space between image and description */
+  }
+
+  .certificate-item .certificate-description {
+    order: 2; /* Description second */
+    padding: 10px;
+    max-width: 100%;
+    text-align: center;
+  }
 }
 
 /* ============================
