@@ -10,80 +10,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Sample project data with multiple projects per language and URLs
   const projects = {
-    python: [
-      {
-        "title": "Aulas",
-        "description": "Aulas e anotacoes com varios exercicios",
-        "url": "https://github.com/lucaskmk/Python"
-      },
-      {
-        "title": "Filtro_cores",
-        "description": "Interactive color filter that simplifies obtaining high/low values in the HSV, BGR, or RGB scales for precise image segmentation.",
-        "url": "https://github.com/lucaskmk/Filtro_cores"
-      },
-      {
-        "title": "Batalha Naval",
-        "description": "Battleship game where the player competes against the computer in strategic ocean battles.",
-        "url": "https://github.com/lucaskmk/EP2"
-      },
-      {
-        "title": "PyGame",
-        "description": "A Pygame project inspired by the classic Donkey Kong, where Mario dodges barrels and climbs. Embark on a nostalgic journey to the top.",
-        "url": "https://github.com/lucaskmk/PyGame-DKarcade"
+      python: [
+        {
+          title: "Lessons",
+          description: "Lessons and notes with various exercises.",
+          url: "https://github.com/lucaskmk/Python"
+        },
+        {
+          title: "Filtro_cores",
+          description: "Interactive color filter that simplifies obtaining high/low values in the HSV, BGR, or RGB scales for precise image segmentation.",
+          url: "https://github.com/lucaskmk/Filtro_cores"
+        },
+        {
+          title: "Battleship",
+          description: "Battleship game where the player competes against the computer in strategic ocean battles.",
+          url: "https://github.com/lucaskmk/EP2"
+        },
+        {
+          title: "PyGame",
+          description: "A Pygame project inspired by the classic Donkey Kong, where Mario dodges barrels and climbs. Embark on a nostalgic journey to the top.",
+          url: "https://github.com/lucaskmk/PyGame-DKarcade"
+        }
+      ],
+      web: [
+        {
+          title: "Enhanced Get-it Note Manager",
+          description: "This project upgrades the Get-it system by integrating a refined CSS style, transitioning data storage from a text file to a SQLite database, and adding new functionalities for editing and deleting notes. Building on previous handouts and challenges, it delivers a more robust and visually appealing note-taking application.",
+          url: "https://github.com/insper-tecnologias-web/projeto-1a-lucaskmk"
+        },
+        {
+          title: "Django-Based Notes Platform",
+          description: "This project transforms the original note-taking application into a fully dynamic, web-based platform built with Django. It replaces the previous SQLite storage with a robust PostgreSQL database running in a Docker container. The application features complete CRUD functionality for notes, including creation, editing, deletion, and listing, while implementing advanced database relationships—many-to-many for tagging and many-to-one for organizing notes. Styled with custom CSS and rendered through Django templates, the platform is designed for efficient data management and public deployment.",
+          url: "https://github.com/insper-tecnologias-web/projeto-1b-lucaskmk"
+        },
+        {
+          title: "Frontend React App for Scheduling Gym Workouts",
+          description: "A technological solution that allows students to practice programming and logic between classes. An interactive website built with React, with the possibility of a FastAPI backend.",
+          url: "https://github.com/desagil-2024-2/frontend-1"
+        },
+        {
+          title: "CalmU",
+          description: "A model project for an app to manage anxiety crises, featuring exercises and a forum.",
+          url: "https://github.com/lucaskmk/Equipe6TurmaB_CalmU"
+        },
+        {
+          title: "Informar Project",
+          description: "A technological solution that allows students to practice programming and logic between classes. An interactive website built with React, with the possibility of a FastAPI backend.",
+          url: "https://github.com/lucaskmk/Grupo2-InsperCode"
+        }
+      ],
+      java: [
+        {
+          title: "Backend",
+          description: "Backend for a project built with React.",
+          url: "https://github.com/desagil-2024-2/backend-1"
+        }
+      ],
+      csharp: [
+        {
+          title: "To-Do List Manager",
+          description: "Allows users to add, view, and delete tasks. You can later extend it with features like saving tasks to a file or implementing a basic GUI using Windows Forms.",
+          url: "https://github.com/lucaskmk/To-Do-List-Manager"
+        },
+        {
+          title: "Simple File Organizer",
+          description: "Sorts files in a directory into subfolders based on their file type. This can introduce you to file I/O operations and working with the System.IO namespace.",
+          url: "https://github.com/lucaskmk/Simple-File-Organizer"
+        }
+      ],
+      default: {
+        title: "No Project Selected",
+        description: "Click a language to view a sample project.",
+        url: null
       }
-    ],
-    web: [
-      {
-        title: "Enhanced Get-it Note Manager",
-        description: "This project upgrades the Get-it system by integrating a refined CSS style, transitioning data storage from a text file to a SQLite database, and adding new functionalities for editing and deleting notes. Building on previous handouts and challenges, it delivers a more robust and visually appealing note-taking application",
-        url: "https://github.com/insper-tecnologias-web/projeto-1a-lucaskmk"
-      },
-      {
-        title: "Django-Based Notes Platform",
-        description: "This project transforms the original note-taking application into a fully dynamic, web-based platform built with Django. It replaces the previous SQLite storage with a robust PostgreSQL database running in a Docker container. The application features complete CRUD functionality for notes, including creation, editing, deletion, and listing, while implementing advanced database relationships—many-to-many for tagging and many-to-one for organizing notes. Styled with custom CSS and rendered through Django templates, the platform is designed for efficient data management and public deployment.",
-        url: "https://github.com/insper-tecnologias-web/projeto-1b-lucaskmk"
-      },
-      {
-        title: "Frontend-react-app de programar treinos na academia",
-        description: "solução tecnológica que permita aos alunos praticar programação e lógica entre as aulas. site interativo em React , com a possibilidade de um backend em FastAPI",
-        url: "https://github.com/desagil-2024-2/frontend-1"
-      },
-      {
-        title: "CalmU",
-        description: "Projeto modelo de aplicativo para crises de ansiedade com ex e forum",
-        url: "https://github.com/lucaskmk/Equipe6TurmaB_CalmU"
-      },
-      {
-        title: "Projeto Informar",
-        description: "solução tecnológica que permita aos alunos praticar programação e lógica entre as aulas. site interativo em React , com a possibilidade de um backend em FastAPI",
-        url: "https://github.com/lucaskmk/Grupo2-InsperCode"
-      },
-    ],
-    java: [
-      {
-        title: "backend",
-        description: "backend para um projeto em react",
-        url: "https://github.com/desagil-2024-2/backend-1"
-      },
-    ],
-    csharp: [
-      {
-        title: "To-Do-List-Manager",
-        description: "allows users to add, view, and delete tasks. You can later extend it with features like saving tasks to a file or implementing a basic GUI using Windows Forms.",
-        url: "https://github.com/lucaskmk/To-Do-List-Manager"
-      },
-      {
-        title: "Simple File Organizer",
-        description: "sorts files in a directory into subfolders based on their file type. This can introduce you to file I/O operations and working with the System.IO namespace.",
-        url: "https://github.com/lucaskmk/Simple-File-Organizer"
-      },
-    ],
-    default: {
-      title: "No Project Selected",
-      description: "Click a language to view a sample project.",
-      url: null
-    }
-  };
+    };
 
   // Calculate angles and initialize rotation
   const totalItems = items.length;
@@ -172,15 +172,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (widgetActive) updateProjectWidget(getFrontLanguage());
   });
 
-  // Start dragging
+  // Mouse drag support
   rouletteContainer.addEventListener('mousedown', (e) => {
     isDragging = true;
     previousX = e.clientX;
     rotationVelocity = 0;
     e.preventDefault();
+    rouletteContainer.style.cursor = 'grabbing'; // Visual feedback for dragging
   });
 
-  // Dragging movement
   document.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
     const currentX = e.clientX;
@@ -192,15 +192,43 @@ document.addEventListener('DOMContentLoaded', () => {
     updateRoulette();
   });
 
-  // Stop dragging
   document.addEventListener('mouseup', () => {
     if (isDragging) {
       isDragging = false;
+      rouletteContainer.style.cursor = 'grab';
       applyMomentum();
     }
   });
 
   document.addEventListener('mouseleave', () => {
+    if (isDragging) {
+      isDragging = false;
+      rouletteContainer.style.cursor = 'grab';
+      applyMomentum();
+    }
+  });
+
+  // Touch swipe support
+  rouletteContainer.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    previousX = e.touches[0].clientX;
+    rotationVelocity = 0;
+    e.preventDefault(); // Prevent default touch behavior
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const currentX = e.touches[0].clientX;
+    const deltaX = currentX - previousX;
+    const sensitivity = 0.4; // Same sensitivity as mouse
+    currentRotation += deltaX * sensitivity;
+    rotationVelocity = deltaX * sensitivity;
+    previousX = currentX;
+    updateRoulette();
+    e.preventDefault(); // Prevent page scrolling while swiping
+  }, { passive: false });
+
+  document.addEventListener('touchend', () => {
     if (isDragging) {
       isDragging = false;
       applyMomentum();
