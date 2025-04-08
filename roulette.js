@@ -107,11 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to update project widget with all projects as tiles
   function updateProjectWidget(language) {
-    // Clear the widget content
     projectWidget.innerHTML = '';
-
     if (language === 'default') {
-      // Default state
       const title = document.createElement('h2');
       title.textContent = projects.default.title;
       const desc = document.createElement('p');
@@ -119,22 +116,17 @@ document.addEventListener('DOMContentLoaded', () => {
       projectWidget.appendChild(title);
       projectWidget.appendChild(desc);
     } else {
-      // Display all projects for the selected language as tiles
       const projectList = projects[language];
       projectList.forEach(project => {
         const projectTile = document.createElement('div');
         projectTile.className = 'project-tile';
-
         const link = document.createElement('a');
         link.href = project.url;
         link.target = '_blank';
-
         const title = document.createElement('h3');
         title.textContent = project.title;
-
         const desc = document.createElement('p');
         desc.textContent = project.description;
-
         link.appendChild(title);
         link.appendChild(desc);
         projectTile.appendChild(link);
@@ -146,9 +138,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to get front-facing language
   function getFrontLanguage() {
     let normalizedRotation = (currentRotation % 360 + 360) % 360;
-    if (normalizedRotation < 0) normalizedRotation += 360;
-    const nearestSlot = Math.round(normalizedRotation / angleIncrement) % totalItems;
-    return items[nearestSlot].dataset.language;
+    // Invert the rotation to find the front-facing item
+    const effectiveRotation = (360 - normalizedRotation) % 360;
+    // Map the rotation to a slot (0 to 3)
+    const slot = Math.round(effectiveRotation / angleIncrement) % totalItems;
+    const frontLanguage = items[slot].dataset.language;
+    console.log(`Current Rotation: ${currentRotation}, Normalized: ${normalizedRotation}, Effective: ${effectiveRotation}, Slot: ${slot}, Language: ${frontLanguage}`);
+    return frontLanguage;
+  }
+
+  // Function to update description based on front-facing item
+  function updateDescription() {
+    const frontLanguage = getFrontLanguage();
+    const frontItem = Array.from(items).find(item => item.dataset.language === frontLanguage);
+    const img = frontItem.querySelector('img');
+    description.textContent = img.dataset.description;
   }
 
   // Arrow button functionality
@@ -156,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentRotation += angleIncrement;
     rotationVelocity = 0;
     updateRoulette();
+    updateDescription();
     if (widgetActive) updateProjectWidget(getFrontLanguage());
   });
 
@@ -163,6 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentRotation -= angleIncrement;
     rotationVelocity = 0;
     updateRoulette();
+    updateDescription();
     if (widgetActive) updateProjectWidget(getFrontLanguage());
   });
 
@@ -238,27 +244,28 @@ document.addEventListener('DOMContentLoaded', () => {
       updateRoulette();
       if (progress < 1) {
         requestAnimationFrame(animateSnap);
-      } else if (widgetActive) {
-        updateProjectWidget(getFrontLanguage());
+      } else {
+        updateDescription();
+        if (widgetActive) {
+          updateProjectWidget(getFrontLanguage());
+        }
       }
     }
     requestAnimationFrame(animateSnap);
   }
 
   // Click behavior for language items
-items.forEach(item => {
-  item.addEventListener('click', () => {
-    const language = item.dataset.language;
-    if (!widgetActive || getFrontLanguage() !== language) {
-      // Show projects for clicked language
-      widgetActive = true;
-      updateProjectWidget(language);
-    } else {
-      // Hide projects if clicking the same language again
-      widgetActive = false;
-      updateProjectWidget('default');
-    }
-  });
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const language = item.dataset.language;
+      if (!widgetActive || getFrontLanguage() !== language) {
+        widgetActive = true;
+        updateProjectWidget(language);
+      } else {
+        widgetActive = false;
+        updateProjectWidget('default');
+      }
+    });
 
     // Hover for description only
     item.addEventListener('mouseenter', () => {
@@ -273,4 +280,5 @@ items.forEach(item => {
 
   // Initial state
   updateProjectWidget('default');
+  updateDescription();
 });

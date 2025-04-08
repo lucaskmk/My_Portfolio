@@ -249,7 +249,9 @@ body.projects-page {
   width: 100%;
   cursor: pointer;
 }
-
+.roulette-item img:hover {
+  transform: translateY(-15px);
+}
 /* Roulette controls container */
 .roulette-controls {
   display: flex;
