@@ -166,8 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Arrow button functionality
+  // Click handler for desktop
   prevBtn.addEventListener('click', (e) => {
-    console.log('Previous button clicked'); // Debug log
+    console.log('Previous button clicked');
     currentRotation += angleIncrement;
     rotationVelocity = 0;
     updateRoulette();
@@ -176,12 +177,47 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   nextBtn.addEventListener('click', (e) => {
-    console.log('Next button clicked'); // Debug log
+    console.log('Next button clicked');
     currentRotation -= angleIncrement;
     rotationVelocity = 0;
     updateRoulette();
     updateDescription();
     if (widgetActive) updateProjectWidget(getFrontLanguage());
+  });
+
+  // Touch handler for arrow buttons on touch devices
+  prevBtn.addEventListener('touchstart', (e) => {
+    console.log('Touchstart on prevBtn');
+    e.stopPropagation(); // Prevent bubbling to rouletteContainer
+    e.preventDefault(); // Prevent default behavior
+  });
+
+  prevBtn.addEventListener('touchend', (e) => {
+    console.log('Touchend on prevBtn');
+    currentRotation += angleIncrement;
+    rotationVelocity = 0;
+    updateRoulette();
+    updateDescription();
+    if (widgetActive) updateProjectWidget(getFrontLanguage());
+    e.stopPropagation();
+    e.preventDefault();
+  });
+
+  nextBtn.addEventListener('touchstart', (e) => {
+    console.log('Touchstart on nextBtn');
+    e.stopPropagation();
+    e.preventDefault();
+  });
+
+  nextBtn.addEventListener('touchend', (e) => {
+    console.log('Touchend on nextBtn');
+    currentRotation -= angleIncrement;
+    rotationVelocity = 0;
+    updateRoulette();
+    updateDescription();
+    if (widgetActive) updateProjectWidget(getFrontLanguage());
+    e.stopPropagation();
+    e.preventDefault();
   });
 
   // Mouse drag support
@@ -222,15 +258,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Touch swipe support
   rouletteContainer.addEventListener('touchstart', (e) => {
-    // Only prevent default if the touch target is not an arrow button
-    if (!e.target.closest('#prevBtn') && !e.target.closest('#nextBtn')) {
-      isDragging = true;
-      previousX = e.touches[0].clientX;
-      touchStartX = e.touches[0].clientX;
-      touchMoved = false;
-      rotationVelocity = 0;
-      e.preventDefault();
-    }
+    isDragging = true;
+    previousX = e.touches[0].clientX;
+    touchStartX = e.touches[0].clientX;
+    touchMoved = false;
+    rotationVelocity = 0;
+    e.preventDefault();
   });
 
   document.addEventListener('touchmove', (e) => {
@@ -255,10 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
       isDragging = false;
       applyMomentum();
     }
-    // Only prevent default if the touch target is not an arrow button
-    if (!e.target.closest('#prevBtn') && !e.target.closest('#nextBtn')) {
-      e.preventDefault();
-    }
+    e.preventDefault();
   });
 
   // Apply momentum and snap to nearest logo
