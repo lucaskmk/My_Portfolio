@@ -99,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let widgetActive = false;
   let touchStartX = 0;
   let touchMoved = false;
-  let isSwipingRoulette = false; // Track if the touch started on the roulette
 
   // Position each item around the circle
   items.forEach((item, index) => {
@@ -185,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (widgetActive) updateProjectWidget(getFrontLanguage());
   });
 
-  // Mouse drag support
+  // Mouse drag support (for desktop only)
   rouletteContainer.addEventListener('mousedown', (e) => {
     // Only handle drag if the target is not an arrow button
     if (e.target.closest('.arrow-btn')) return;
@@ -220,46 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
       isDragging = false;
       rouletteContainer.style.cursor = 'grab';
       applyMomentum();
-    }
-  });
-
-  // Touch swipe support
-  rouletteContainer.addEventListener('touchstart', (e) => {
-    // Only handle swipe if the target is not an arrow button
-    if (e.target.closest('.arrow-btn')) return;
-    isDragging = true;
-    isSwipingRoulette = true; // Mark that this touch started on the roulette
-    previousX = e.touches[0].clientX;
-    touchStartX = e.touches[0].clientX;
-    touchMoved = false;
-    rotationVelocity = 0;
-    e.preventDefault();
-  });
-
-  // Move touchmove and touchend to rouletteContainer to scope them
-  rouletteContainer.addEventListener('touchmove', (e) => {
-    if (!isDragging || !isSwipingRoulette) return;
-    const currentX = e.touches[0].clientX;
-    const deltaX = currentX - previousX;
-    const sensitivity = 0.4;
-    currentRotation += deltaX * sensitivity;
-    rotationVelocity = deltaX * sensitivity;
-    previousX = currentX;
-
-    if (Math.abs(currentX - touchStartX) > 10) {
-      touchMoved = true;
-    }
-
-    updateRoulette();
-    e.preventDefault();
-  }, { passive: false });
-
-  rouletteContainer.addEventListener('touchend', (e) => {
-    if (isDragging && isSwipingRoulette) {
-      isDragging = false;
-      isSwipingRoulette = false;
-      applyMomentum();
-      e.preventDefault();
     }
   });
 
@@ -312,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Click and tap behavior for language items
   items.forEach(item => {
-    // Handle click for desktop
+    // Handle click for both desktop and touch devices
     item.addEventListener('click', (e) => {
       console.log('Click event fired on item:', item.dataset.language);
       const language = item.dataset.language;
@@ -323,38 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
         widgetActive = false;
         updateProjectWidget('default');
       }
-    });
-
-    // Handle tap for touch devices
-    item.addEventListener('touchstart', (e) => {
-      console.log('Touchstart on item:', item.dataset.language);
-      touchStartX = e.touches[0].clientX;
-      touchMoved = false;
-      e.stopPropagation();
-      e.preventDefault();
-    });
-
-    item.addEventListener('touchmove', (e) => {
-      const currentX = e.touches[0].clientX;
-      if (Math.abs(currentX - touchStartX) > 10) {
-        touchMoved = true;
-      }
-    });
-
-    item.addEventListener('touchend', (e) => {
-      console.log('Touchend on item:', item.dataset.language, 'touchMoved:', touchMoved);
-      if (!touchMoved) {
-        const language = item.dataset.language;
-        if (!widgetActive || getFrontLanguage() !== language) {
-          widgetActive = true;
-          updateProjectWidget(language);
-        } else {
-          widgetActive = false;
-          updateProjectWidget('default');
-        }
-      }
-      e.stopPropagation();
-      e.preventDefault();
     });
 
     // Hover for description (desktop only)
