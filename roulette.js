@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let widgetActive = false;
   let touchStartX = 0;
   let touchMoved = false;
+  let isSwipingRoulette = false; // Track if the touch started on the roulette
 
   // Position each item around the circle
   items.forEach((item, index) => {
@@ -227,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Only handle swipe if the target is not an arrow button
     if (e.target.closest('.arrow-btn')) return;
     isDragging = true;
+    isSwipingRoulette = true; // Mark that this touch started on the roulette
     previousX = e.touches[0].clientX;
     touchStartX = e.touches[0].clientX;
     touchMoved = false;
@@ -234,8 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
   });
 
-  document.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
+  // Move touchmove and touchend to rouletteContainer to scope them
+  rouletteContainer.addEventListener('touchmove', (e) => {
+    if (!isDragging || !isSwipingRoulette) return;
     const currentX = e.touches[0].clientX;
     const deltaX = currentX - previousX;
     const sensitivity = 0.4;
@@ -251,13 +254,11 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
   }, { passive: false });
 
-  document.addEventListener('touchend', (e) => {
-    if (isDragging) {
+  rouletteContainer.addEventListener('touchend', (e) => {
+    if (isDragging && isSwipingRoulette) {
       isDragging = false;
+      isSwipingRoulette = false;
       applyMomentum();
-    }
-    // Only prevent default if the target is not an arrow button
-    if (!e.target.closest('.arrow-btn')) {
       e.preventDefault();
     }
   });
