@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const nextBtn = document.getElementById('nextBtn');
   const projectWidget = document.getElementById('projectWidget');
 
+  // Log to confirm elements are selected
+  console.log('prevBtn:', prevBtn);
+  console.log('nextBtn:', nextBtn);
+
   // Sample project data with multiple projects per language and URLs
   const projects = {
     python: [
@@ -109,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to update project widget with all projects as tiles
   function updateProjectWidget(language) {
-    console.log('Updating project widget for language:', language); // Debug log
+    console.log('Updating project widget for language:', language);
     projectWidget.innerHTML = '';
     if (language === 'default') {
       const title = document.createElement('h2');
@@ -140,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         projectWidget.appendChild(projectTile);
       });
     }
-    console.log('Project widget updated:', projectWidget.innerHTML); // Debug log
+    console.log('Project widget updated:', projectWidget.innerHTML);
   }
 
   // Function to get front-facing language
@@ -162,7 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Arrow button functionality
-  prevBtn.addEventListener('click', () => {
+  prevBtn.addEventListener('click', (e) => {
+    console.log('Previous button clicked'); // Debug log
     currentRotation += angleIncrement;
     rotationVelocity = 0;
     updateRoulette();
@@ -170,7 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (widgetActive) updateProjectWidget(getFrontLanguage());
   });
 
-  nextBtn.addEventListener('click', () => {
+  nextBtn.addEventListener('click', (e) => {
+    console.log('Next button clicked'); // Debug log
     currentRotation -= angleIncrement;
     rotationVelocity = 0;
     updateRoulette();
@@ -216,12 +222,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Touch swipe support
   rouletteContainer.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    previousX = e.touches[0].clientX;
-    touchStartX = e.touches[0].clientX;
-    touchMoved = false;
-    rotationVelocity = 0;
-    e.preventDefault();
+    // Only prevent default if the touch target is not an arrow button
+    if (!e.target.closest('#prevBtn') && !e.target.closest('#nextBtn')) {
+      isDragging = true;
+      previousX = e.touches[0].clientX;
+      touchStartX = e.touches[0].clientX;
+      touchMoved = false;
+      rotationVelocity = 0;
+      e.preventDefault();
+    }
   });
 
   document.addEventListener('touchmove', (e) => {
@@ -246,7 +255,10 @@ document.addEventListener('DOMContentLoaded', () => {
       isDragging = false;
       applyMomentum();
     }
-    e.preventDefault(); // Prevent default behavior on touchend
+    // Only prevent default if the touch target is not an arrow button
+    if (!e.target.closest('#prevBtn') && !e.target.closest('#nextBtn')) {
+      e.preventDefault();
+    }
   });
 
   // Apply momentum and snap to nearest logo
@@ -300,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
   items.forEach(item => {
     // Handle click for desktop
     item.addEventListener('click', (e) => {
-      console.log('Click event fired on item:', item.dataset.language); // Debug log
+      console.log('Click event fired on item:', item.dataset.language);
       const language = item.dataset.language;
       if (!widgetActive || getFrontLanguage() !== language) {
         widgetActive = true;
@@ -313,11 +325,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle tap for touch devices
     item.addEventListener('touchstart', (e) => {
-      console.log('Touchstart on item:', item.dataset.language); // Debug log
+      console.log('Touchstart on item:', item.dataset.language);
       touchStartX = e.touches[0].clientX;
       touchMoved = false;
       e.stopPropagation();
-      e.preventDefault(); // Prevent default behavior
+      e.preventDefault();
     });
 
     item.addEventListener('touchmove', (e) => {
@@ -328,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     item.addEventListener('touchend', (e) => {
-      console.log('Touchend on item:', item.dataset.language, 'touchMoved:', touchMoved); // Debug log
+      console.log('Touchend on item:', item.dataset.language, 'touchMoved:', touchMoved);
       if (!touchMoved) {
         const language = item.dataset.language;
         if (!widgetActive || getFrontLanguage() !== language) {
@@ -340,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       e.stopPropagation();
-      e.preventDefault(); // Prevent default behavior to stop scrolling
+      e.preventDefault();
     });
 
     // Hover for description (desktop only)
