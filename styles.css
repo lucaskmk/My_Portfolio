@@ -23,6 +23,8 @@ nav a {
   color: inherit;
   font-size: 1.4em;
   transition: color 0.3s ease;
+  
+  font-weight: bold;    /* Bold text when active */
 }
 
 /* Underline pseudo-element for all nav links */
@@ -52,7 +54,6 @@ nav a:hover::after {
 /* Active/current page nav link */
 nav a.active {
   color: #5f99cf;       /* Fixed color when active */
-  font-weight: bold;    /* Bold text when active */
 }
 
 nav a.active::after {
