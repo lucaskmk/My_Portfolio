@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let previousX = 0;
   let rotationVelocity = 0;
   let widgetActive = false;
-  let touchStartX = 0; // To track the starting X position of a touch
-  let touchMoved = false; // To track if the touch moved significantly
+  let touchStartX = 0;
+  let touchMoved = false;
 
   // Position each item around the circle
   items.forEach((item, index) => {
@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to update project widget with all projects as tiles
   function updateProjectWidget(language) {
+    console.log('Updating project widget for language:', language); // Debug log
     projectWidget.innerHTML = '';
     if (language === 'default') {
       const title = document.createElement('h2');
@@ -119,6 +120,10 @@ document.addEventListener('DOMContentLoaded', () => {
       projectWidget.appendChild(desc);
     } else {
       const projectList = projects[language];
+      if (!projectList) {
+        console.error(`No projects found for language: ${language}`);
+        return;
+      }
       projectList.forEach(project => {
         const projectTile = document.createElement('div');
         projectTile.className = 'project-tile';
@@ -135,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
         projectWidget.appendChild(projectTile);
       });
     }
+    console.log('Project widget updated:', projectWidget.innerHTML); // Debug log
   }
 
   // Function to get front-facing language
@@ -212,8 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
   rouletteContainer.addEventListener('touchstart', (e) => {
     isDragging = true;
     previousX = e.touches[0].clientX;
-    touchStartX = e.touches[0].clientX; // Store the starting X position
-    touchMoved = false; // Reset touch movement flag
+    touchStartX = e.touches[0].clientX;
+    touchMoved = false;
     rotationVelocity = 0;
     e.preventDefault();
   });
@@ -227,7 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
     rotationVelocity = deltaX * sensitivity;
     previousX = currentX;
 
-    // Check if the touch has moved significantly (more than 10 pixels)
     if (Math.abs(currentX - touchStartX) > 10) {
       touchMoved = true;
     }
@@ -236,11 +241,12 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
   }, { passive: false });
 
-  document.addEventListener('touchend', () => {
+  document.addEventListener('touchend', (e) => {
     if (isDragging) {
       isDragging = false;
       applyMomentum();
     }
+    e.preventDefault(); // Prevent default behavior on touchend
   });
 
   // Apply momentum and snap to nearest logo
@@ -294,6 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
   items.forEach(item => {
     // Handle click for desktop
     item.addEventListener('click', (e) => {
+      console.log('Click event fired on item:', item.dataset.language); // Debug log
       const language = item.dataset.language;
       if (!widgetActive || getFrontLanguage() !== language) {
         widgetActive = true;
@@ -306,9 +313,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle tap for touch devices
     item.addEventListener('touchstart', (e) => {
+      console.log('Touchstart on item:', item.dataset.language); // Debug log
       touchStartX = e.touches[0].clientX;
       touchMoved = false;
-      e.stopPropagation(); // Prevent the touchstart from bubbling up to rouletteContainer
+      e.stopPropagation();
+      e.preventDefault(); // Prevent default behavior
     });
 
     item.addEventListener('touchmove', (e) => {
@@ -319,8 +328,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     item.addEventListener('touchend', (e) => {
+      console.log('Touchend on item:', item.dataset.language, 'touchMoved:', touchMoved); // Debug log
       if (!touchMoved) {
-        // If the touch didn't move significantly, treat it as a tap
         const language = item.dataset.language;
         if (!widgetActive || getFrontLanguage() !== language) {
           widgetActive = true;
@@ -330,7 +339,8 @@ document.addEventListener('DOMContentLoaded', () => {
           updateProjectWidget('default');
         }
       }
-      e.stopPropagation(); // Prevent the touchend from bubbling up to rouletteContainer
+      e.stopPropagation();
+      e.preventDefault(); // Prevent default behavior to stop scrolling
     });
 
     // Hover for description (desktop only)
