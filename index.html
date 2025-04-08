@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Meu Portfólio</title>
+  <title>My Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Link para o arquivo CSS -->
   <link rel="stylesheet" href="styles.css">
@@ -17,26 +17,26 @@
   </header>
   
   <div class="main-content">
-    <h1>Bem-vindo ao Meu Portfólio</h1>
-    <p>Aqui eu mostro minhas habilidades, projetos e trajetória profissional.</p>
-
-
-<div class="identity">
-  <h3>Lucas Kenji Malheiros Kamikawa</h3>
-  <p>20 anos • São Paulo (SP)</p>
-  <p>E-mail: <a href="mailto:lucaskamikawa@gmail.com">lucaskamikawa@gmail.com</a></p>
-  <a href="https://www.linkedin.com/in/lucas-kenji-kamikawa-28417629a/">LinkedIn</a>
-</div>
+    <h1>Welcome to My Portfolio</h1>
+    <p>Here I showcase my skills, projects, and professional journey.</p>
+  
+    <div class="identity">
+      <h3>Lucas Kenji Malheiros Kamikawa</h3>
+      <p>20 years old • São Paulo (SP)</p>
+      <p>Email: <a href="mailto:lucaskamikawa@gmail.com">lucaskamikawa@gmail.com</a></p>
+      <a href="https://www.linkedin.com/in/lucas-kenji-kamikawa-28417629a/">LinkedIn</a>
+    </div>
 
     <!-- Seção do Currículo com conteúdo em dois idiomas -->
-              <!-- Botões de mudança de idioma -->
-              <button id="btnPt" class="language-button">Português</button>
-              <button id="btnEn" class="language-button">English</button>
+    <!-- Botões de mudança de idioma -->
+    
+    <button id="btnEn" class="language-button">English</button>
+    <button id="btnPt" class="language-button">Portuguese</button>
     <section id="curriculo">
       <!-- Conteúdo em Português -->
-      <div id="pt" class="language">
+      <div id="pt" class="language" style="display: none;">
         <h2>Currículo</h2>
-         <div id="perfil"> 
+        <div id="perfil"> 
           <h3>Perfil Profissional</h3>
           <p>
             Sou uma pessoa dedicada e determinada, com vontade de concluir projetos com excelência e sempre pronto para iniciar novos desafios. Acredito na constante busca por melhorias e na superação dos obstáculos, transformando cada dificuldade em oportunidade de crescimento. Minha formação multicultural e experiência internacional me proporcionam adaptabilidade, visão global e comunicação eficaz.
@@ -91,7 +91,7 @@
       </div>
 
       <!-- Conteúdo em Inglês -->
-      <div id="en" class="language" style="display: none;">
+      <div id="en" class="language">
         <h2>Resume</h2>
         
         <div id="profile">
@@ -172,10 +172,18 @@
   
   <!-- Script para alternar entre os idiomas -->
   <script>
+    // Set English as default on page load
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("pt").style.display = "none";
+      document.getElementById("en").style.display = "block";
+    });
+
+    // Language toggle buttons
     document.getElementById("btnPt").addEventListener("click", function() {
       document.getElementById("pt").style.display = "block";
       document.getElementById("en").style.display = "none";
     });
+
     document.getElementById("btnEn").addEventListener("click", function() {
       document.getElementById("pt").style.display = "none";
       document.getElementById("en").style.display = "block";
