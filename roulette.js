@@ -70,6 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
         url: "https://github.com/desagil-2024-2/backend-1"
       }
     ],
+    c: [
+      {
+      title: "No Project yet",
+      description: "...",
+      url: null
+    }
+    ],
     csharp: [
       {
         title: "To-Do List Manager",
