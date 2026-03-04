@@ -198,7 +198,7 @@ export const ACADEMIC_PROJECTS: AcademicProject[] = [
 ];
 
 export const RESUME_EN: ResumeContent = {
-  profile: "I am a dedicated and determined person with a passion for completing projects with excellence and a readiness to take on new challenges. My multicultural background and international experience provide me with adaptability, a global vision, and effective communication skills.",
+  profile: "I am a dedicated and determined person with a passion for completing projects with excellence and a readiness to take on new challenges. I believe in the constant quest for improvement and overcoming obstacles by turning each difficulty into an opportunity for growth. My multicultural background and international experience provide me with adaptability, a global vision, and effective communication skills.",
   education: [
     { school: "Insper", detail: "Computer Engineering (Expected Graduation: 2028)" },
     { school: "Colégio Visconde de Porto Seguro", detail: "English and German courses" }
@@ -216,7 +216,7 @@ export const RESUME_EN: ResumeContent = {
 };
 
 export const RESUME_PT: ResumeContent = {
-  profile: "Sou uma pessoa dedicada e determinada, com vontade de concluir projetos com excelência e sempre pronto para novos desafios. Minha formação multicultural e experiência internacional me proporcionam adaptabilidade e visão global.",
+  profile: "Sou uma pessoa dedicada e determinada, com vontade de concluir projetos com excelência e sempre pronto para iniciar novos desafios. Acredito na constante busca por melhorias e na superação dos obstáculos, transformando cada dificuldade em oportunidade de crescimento. Minha formação multicultural e experiência internacional me proporcionam adaptabilidade, visão global e comunicação eficaz.",
   education: [
     { school: "Insper", detail: "Engenharia da Computação (Previsão: 2028)" },
     { school: "Colégio Visconde de Porto Seguro", detail: "Aulas de Inglês e Alemão" }
