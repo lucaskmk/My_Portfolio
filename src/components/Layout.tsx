@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Mail, Linkedin, Github, Menu, X, User, Code, Award } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import CareerAssistant from './CareerAssistant';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -102,8 +101,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           })}
         </div>
       </nav>
-
-      <CareerAssistant />
 
       <footer className="bg-neutral-900 text-white py-12 pb-32 md:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
