@@ -5,11 +5,11 @@ import { ExternalLink, ChevronLeft, ChevronRight, BookOpen, Calendar, Tag } from
 import { SafeImage } from '../components/SafeImage';
 
 const LANGUAGES = [
-  { id: 'python', name: 'Python', icon: '/images/python-icon.png' },
-  { id: 'web', name: 'Web Dev', icon: '/images/HTML-CSS-JS-icon.png' },
-  { id: 'csharp', name: 'C#', icon: '/images/csharp-icon.png' },
-  { id: 'c', name: 'C', icon: '/images/c-icon.png' },
-  { id: 'java', name: 'Java', icon: '/images/java-icon.png' },
+  { id: 'python', name: 'Python', icon: 'images/python-icon.png' },
+  { id: 'web', name: 'Web Dev', icon: 'images/HTML-CSS-JS-icon.png' },
+  { id: 'csharp', name: 'C#', icon: 'images/csharp-icon.png' },
+  { id: 'c', name: 'C', icon: 'images/c-icon.png' },
+  { id: 'java', name: 'Java', icon: 'images/java-icon.png' },
   { id: 'vhdl', name: 'VHDL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ieee/ieee-original.svg' },
   { id: 'assembly', name: 'Assembly', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wasm/wasm-original.svg' },
 ];

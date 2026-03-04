@@ -31,7 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex justify-between items-center h-16 md:h-20">
             <Link to="/" className="flex items-center gap-2 group">
               <div className="w-8 h-8 md:w-10 md:h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden group-hover:rotate-12 transition-transform">
-                <img src="/images/Kamikawa.png" alt="K" className="w-full h-full object-cover" />
+                <img src="images/Kamikawa.png" alt="K" className="w-full h-full object-cover" />
               </div>
               <span className="font-display font-bold text-lg md:text-xl tracking-tight">
                 Kamikawa

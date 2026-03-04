@@ -92,7 +92,7 @@ export const CERTIFICATES: Certificate[] = [
     id: 1,
     title: "Google Cybersecurity Professional",
     description: "Professional Certificate from Google via Coursera including 8 comprehensive courses covering the entire cybersecurity landscape.",
-    image: "https://picsum.photos/seed/google-cyber/600/400",
+    image: "images/certificates/Google_Cybersecurity_Professional.png",
     direction: 'left',
     category: 'Cybersecurity'
   },
@@ -100,7 +100,7 @@ export const CERTIFICATES: Certificate[] = [
     id: 2,
     title: "Foundational C# with Microsoft",
     description: "Developer Certification from freeCodeCamp and Microsoft, covering core C# programming concepts and application development.",
-    image: "https://picsum.photos/seed/csharp-cert/600/400",
+    image: "images/certificates/Csharp.png",
     direction: 'right',
     category: 'Programming'
   },
@@ -108,7 +108,7 @@ export const CERTIFICATES: Certificate[] = [
     id: 3,
     title: "C Intermediate",
     description: "Intermediate level certification in C programming from Sololearn, focusing on advanced data structures and algorithms.",
-    image: "https://picsum.photos/seed/c-intermediate/600/400",
+    image: "images/certificates/C.jpg",
     direction: 'left',
     category: 'Programming'
   },
@@ -116,7 +116,7 @@ export const CERTIFICATES: Certificate[] = [
     id: 4,
     title: "Análise de Dados",
     description: "Data Analysis certification from Unova Cursos, covering statistical methods and data processing techniques.",
-    image: "https://picsum.photos/seed/data-analysis/600/400",
+    image: "images/certificates/EscolaWeb_AnaliseDados.png",
     direction: 'right',
     category: 'Data'
   },
@@ -124,7 +124,7 @@ export const CERTIFICATES: Certificate[] = [
     id: 5,
     title: "AWS Discovery Day",
     description: "Cloud Computing training by Kasolution and AWS, introducing fundamental cloud concepts and services.",
-    image: "https://picsum.photos/seed/aws-discovery/600/400",
+    image: "images/certificates/AWS_DiscoveryDay.png",
     direction: 'left',
     category: 'Cloud'
   },
@@ -132,7 +132,7 @@ export const CERTIFICATES: Certificate[] = [
     id: 6,
     title: "Foundations of Cybersecurity",
     description: "Google certification covering the core principles of cybersecurity and the professional landscape.",
-    image: "https://picsum.photos/seed/cyber-foundations/600/400",
+    image: "images/certificates/Google_Foundations_Cybersecurity.png",
     direction: 'right',
     category: 'Cybersecurity'
   },
@@ -140,7 +140,7 @@ export const CERTIFICATES: Certificate[] = [
     id: 7,
     title: "Play It Safe: Manage Security Risks",
     description: "Google certification focused on identifying, assessing, and managing organizational security risks.",
-    image: "https://picsum.photos/seed/security-risks/600/400",
+    image: "images/certificates/Google_PlayItSafe_SecurityRisks.png",
     direction: 'left',
     category: 'Cybersecurity'
   },
@@ -148,7 +148,7 @@ export const CERTIFICATES: Certificate[] = [
     id: 8,
     title: "Connect and Protect: Networks and Network Security",
     description: "Google certification covering network protocols, architecture, and defensive security measures.",
-    image: "https://picsum.photos/seed/network-security/600/400",
+    image: "images/certificates/Google_Connect_Protect_Networks.png",
     direction: 'right',
     category: 'Cybersecurity'
   },
@@ -156,7 +156,7 @@ export const CERTIFICATES: Certificate[] = [
     id: 9,
     title: "Tools of the Trade: Linux and SQL",
     description: "Google certification focusing on essential technical tools for cybersecurity professionals: Linux and SQL.",
-    image: "https://picsum.photos/seed/linux-sql/600/400",
+    image: "images/certificates/Google_Tools_Linux_SQL.png",
     direction: 'left',
     category: 'Cybersecurity'
   },
@@ -164,7 +164,7 @@ export const CERTIFICATES: Certificate[] = [
     id: 10,
     title: "Assets, Threats, and Vulnerabilities",
     description: "Google certification covering asset management and the identification of threats and system vulnerabilities.",
-    image: "https://picsum.photos/seed/assets-threats/600/400",
+    image: "images/certificates/Google_Assets_Threats_Vulnerabilities.png",
     direction: 'right',
     category: 'Cybersecurity'
   }

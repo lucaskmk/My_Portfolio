@@ -4,8 +4,6 @@ import { MessageSquare, X, Send, Sparkles, Loader2 } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 import { RESUME_EN, PROJECTS, ACADEMIC_PROJECTS } from '../constants';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
 export default function CareerAssistant() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [messages, setMessages] = React.useState<{ role: 'user' | 'ai', text: string }[]>([
@@ -17,12 +15,19 @@ export default function CareerAssistant() {
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      setMessages(prev => [...prev, { role: 'ai', text: "Sorry, the AI assistant is not configured yet (API Key missing)." }]);
+      return;
+    }
+
     const userMsg = input;
     setInput('');
     setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
     setIsLoading(true);
 
     try {
+      const ai = new GoogleGenAI({ apiKey });
       const model = "gemini-3-flash-preview";
       const systemInstruction = `
         You are an AI career assistant for Lucas Kamikawa. 
