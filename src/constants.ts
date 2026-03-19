@@ -3,18 +3,13 @@ import { LanguageProjects, Certificate, ResumeContent, AcademicProject } from '.
 export const PROJECTS: LanguageProjects = {
   python: [
     {
-      title: "Lessons",
-      description: "Lessons and notes with various exercises.",
-      url: "https://github.com/lucaskmk/Python"
+      title: "ML Pipeline (Adult Census)",
+      description: "Advanced EDA and predictive modeling for income classification.",
+      url: null
     },
     {
-      title: "Filtro_cores",
-      description: "Interactive color filter for HSV, BGR, or RGB scales.",
-      url: "https://github.com/lucaskmk/Filtro_cores"
-    },
-    {
-      title: "Battleship",
-      description: "Strategic ocean battles against the computer.",
+      title: "Battleship Strategy",
+      description: "Strategic ocean battles with AI decision making.",
       url: "https://github.com/lucaskmk/EP2"
     },
     {
@@ -25,9 +20,9 @@ export const PROJECTS: LanguageProjects = {
   ],
   web: [
     {
-      title: "Enhanced Get-it",
-      description: "Note manager with SQLite integration and refined CSS.",
-      url: "https://github.com/insper-tecnologias-web/projeto-1a-lucaskmk"
+      title: "Full Stack Web Player",
+      description: "Streaming platform with Django REST and React (Vite).",
+      url: null
     },
     {
       title: "Django Notes Platform",
@@ -35,14 +30,9 @@ export const PROJECTS: LanguageProjects = {
       url: "https://github.com/insper-tecnologias-web/projeto-1b-lucaskmk"
     },
     {
-      title: "Gym Scheduler",
-      description: "React frontend for workout scheduling.",
-      url: "https://github.com/desagil-2024-2/frontend-1"
-    },
-    {
-      title: "CalmU",
-      description: "Anxiety management app with exercises and forums.",
-      url: "https://github.com/lucaskmk/Equipe6TurmaB_CalmU"
+      title: "Enhanced Get-it",
+      description: "Note manager with SQLite integration and refined CSS.",
+      url: "https://github.com/insper-tecnologias-web/projeto-1a-lucaskmk"
     }
   ],
   java: [
@@ -54,6 +44,11 @@ export const PROJECTS: LanguageProjects = {
   ],
   c: [
     {
+      title: "MPU6050 Firmware Driver",
+      description: "C library for accelerometer/gyroscope via I2C with RTOS.",
+      url: null
+    },
+    {
       title: "Systems Optimization",
       description: "Low-level memory management and systems programming.",
       url: null
@@ -64,17 +59,12 @@ export const PROJECTS: LanguageProjects = {
       title: "To-Do Manager",
       description: "Task management with file persistence.",
       url: "https://github.com/lucaskmk/To-Do-List-Manager"
-    },
-    {
-      title: "File Organizer",
-      description: "Automated directory sorting tool.",
-      url: "https://github.com/lucaskmk/Simple-File-Organizer"
     }
   ],
   vhdl: [
     {
-      title: "Digital Systems",
-      description: "FPGA implementation and hardware logic design.",
+      title: "ALU & FSM Logic",
+      description: "Implementation of control systems and digital security.",
       url: null
     }
   ],
@@ -82,6 +72,18 @@ export const PROJECTS: LanguageProjects = {
     {
       title: "Processor Logic",
       description: "Low-level instruction sets and memory optimization.",
+      url: null
+    }
+  ],
+  devops: [
+    {
+      title: "Terraform IaC",
+      description: "Declarative scripts for infrastructure provisioning.",
+      url: null
+    },
+    {
+      title: "OpenStack Cloud",
+      description: "Multi-tenant private cloud configuration.",
       url: null
     }
   ]
@@ -173,62 +175,90 @@ export const CERTIFICATES: Certificate[] = [
 export const ACADEMIC_PROJECTS: AcademicProject[] = [
   {
     id: 1,
-    title: "Informar Project",
-    description: "A technological solution that allows students to practice programming and logic between classes. An interactive website built with React, with the possibility of a FastAPI backend.",
-    image: "https://picsum.photos/seed/informar/800/600",
-    tags: ["React", "FastAPI", "Education"],
+    title: "Private Cloud OpenStack",
+    description: "Configuration of multi-tenant environments, SDN virtual networks, and Keystone identity management with a focus on isolation and security.",
+    image: "https://picsum.photos/seed/openstack/800/600",
+    tags: ["OpenStack", "SDN", "Cloud"],
     date: "2024"
   },
   {
     id: 2,
-    title: "CalmU",
-    description: "A model project for an app to manage anxiety crises, featuring exercises and a forum for community support.",
-    image: "https://picsum.photos/seed/calmu/800/600",
-    tags: ["UI/UX", "Social Impact", "Health"],
+    title: "Bare-Metal Provisioning",
+    description: "Implementation of automated infrastructure for hardware management and orchestration of large-scale distributed applications using MAAS and Juju.",
+    image: "https://picsum.photos/seed/maas/800/600",
+    tags: ["MAAS", "Juju", "Infrastructure"],
     date: "2024"
   },
   {
     id: 3,
-    title: "Battleship Strategy",
-    description: "Strategic ocean battles implemented in Python, focusing on game logic and computer AI decision making.",
-    image: "https://picsum.photos/seed/battleship/800/600",
-    tags: ["Python", "Game Dev", "Algorithms"],
-    date: "2023"
+    title: "Terraform Automation (IaC)",
+    description: "Development of declarative scripts for infrastructure provisioning with full idempotency and environment standardization.",
+    image: "https://picsum.photos/seed/terraform/800/600",
+    tags: ["Terraform", "IaC", "Automation"],
+    date: "2024"
+  },
+  {
+    id: 4,
+    title: "Light Following Robot",
+    description: "Autonomous vehicle project with PWM control via oscillator circuits and operational amplifiers — speed control by LDR without microcontrollers.",
+    image: "https://picsum.photos/seed/robot/800/600",
+    tags: ["Analog", "PWM", "Robotics"],
+    date: "2024"
+  },
+  {
+    id: 5,
+    title: "MPU6050 Firmware Driver",
+    description: "C library development for accelerometer and gyroscope reading via I2C, integrated with RTOS (tasks and semaphores) on Raspberry Pi Pico.",
+    image: "https://picsum.photos/seed/pico/800/600",
+    tags: ["C", "RTOS", "Embedded"],
+    date: "2024"
+  },
+  {
+    id: 6,
+    title: "Full Stack Web Player",
+    description: "Audio streaming and download platform integrated with the YouTube API. Django REST backend and React (Vite) frontend.",
+    image: "https://picsum.photos/seed/webplayer/800/600",
+    tags: ["Django", "React", "API"],
+    date: "2024"
   }
 ];
 
 export const RESUME_EN: ResumeContent = {
-  profile: "I am a dedicated and determined person with a passion for completing projects with excellence and a readiness to take on new challenges. I believe in the constant quest for improvement and overcoming obstacles by turning each difficulty into an opportunity for growth. My multicultural background and international experience provide me with adaptability, a global vision, and effective communication skills.",
+  profile: "Computer Engineering student at Insper with a solid technical foundation in Infrastructure as Code (IaC), Private Cloud, and Embedded Systems. Practical experience in the engineering cycle, from hardware and firmware design (VHDL/C) to orchestrating scalable cloud services (OpenStack/Kubernetes). Fluent in English with 4 years of international experience in the USA, ready to work in global teams and international projects. Characterized by a disciplined and determined posture, focused on overcoming technical obstacles and learning from new challenges that require innovative solutions.",
   education: [
-    { school: "Insper", detail: "Computer Engineering (Expected Graduation: 2028)" },
+    { school: "Insper", detail: "Computer Engineering (2023 – 2028)" },
     { school: "Colégio Visconde de Porto Seguro", detail: "English and German courses" }
   ],
   international: [
-    { location: "United States", detail: "Lived for 4 years, enhancing language skills and multicultural perspective." },
-    { location: "Canada", detail: "Exchange program, boosting adaptability and cultural understanding." }
+    { location: "United States", detail: "Lived for 4 years (2006–2011), achieving full cultural and linguistic immersion." },
+    { location: "Canada", detail: "Exchange program, developing intercultural adaptability and advanced technical conversation skills." }
   ],
   skills: [
-    { category: "Languages", items: ["Python", "Java", "JavaScript", "C", "C#", "VHDL", "Assembly", "HTML", "CSS"] },
-    { category: "Frameworks", items: ["React", "Django", "FastAPI"] },
-    { category: "Data Science", items: ["Pandas", "Matplotlib", "Numpy"] }
+    { category: "Languages", items: ["Python", "Java", "C", "C#", "JavaScript", "SQL", "VHDL", "Assembly (MIPS)"] },
+    { category: "Cloud & DevOps", items: ["Terraform (IaC)", "OpenStack", "Docker", "Kubernetes", "MAAS", "Juju", "Grafana", "Prometheus"] },
+    { category: "Data Science & AI", items: ["Pandas", "NumPy", "Scikit-learn", "Seaborn", "Matplotlib", "PCA", "t-SNE", "UMAP"] },
+    { category: "Web & Backend", items: ["Django REST", "React (Vite)", "Node.js", "Next.js", "HTML5", "CSS3"] },
+    { category: "Embedded Systems", items: ["Firmware (C)", "RTOS", "I2C/SPI", "PWM", "ESP32", "ROS2"] }
   ],
-  final: "My career is defined by a continuous pursuit of knowledge and evolution, always aiming for excellence."
+  final: "My trajectory is marked by a continuous search for knowledge and evolution, always aiming for technical excellence and innovation."
 };
 
 export const RESUME_PT: ResumeContent = {
-  profile: "Sou uma pessoa dedicada e determinada, com vontade de concluir projetos com excelência e sempre pronto para iniciar novos desafios. Acredito na constante busca por melhorias e na superação dos obstáculos, transformando cada dificuldade em oportunidade de crescimento. Minha formação multicultural e experiência internacional me proporcionam adaptabilidade, visão global e comunicação eficaz.",
+  profile: "Estudante de Engenharia da Computação no Insper com sólida base técnica em Infraestrutura como Código (IaC), Nuvem Privada e Sistemas Embarcados. Experiência prática no ciclo de engenharia, do design de hardware e firmware (VHDL/C) à orquestração de serviços escaláveis em nuvem (OpenStack/Kubernetes). Fluente em inglês com vivência internacional de 4 anos nos EUA, apto para atuar em times globais e projetos internacionais. Caracterizo-me por uma postura disciplinada e determinada, com foco na superação de obstáculos técnicos e no aprendizado diante de novos desafios que exijam soluções inovadoras.",
   education: [
-    { school: "Insper", detail: "Engenharia da Computação (Previsão: 2028)" },
-    { school: "Colégio Visconde de Porto Seguro", detail: "Aulas de Inglês e Alemão" }
+    { school: "Insper", detail: "Engenharia da Computação (2023 – 2028)" },
+    { school: "Colégio Visconde de Porto Seguro", detail: "Cursos de Inglês e Alemão" }
   ],
   international: [
-    { location: "Estados Unidos", detail: "Residente por 4 anos, desenvolvendo forte base multicultural." },
-    { location: "Canadá", detail: "Intercâmbio, reforçando capacidade de adaptação." }
+    { location: "Estados Unidos", detail: "Residência por 4 anos (2006–2011), alfabetização e vivência cultural completa em inglês." },
+    { location: "Canadá", detail: "Intercâmbio, desenvolvimento de adaptabilidade intercultural e fluência avançada em conversação técnica." }
   ],
   skills: [
-    { category: "Linguagens", items: ["Python", "Java", "JavaScript", "C", "C#", "VHDL", "Assembly", "HTML", "CSS"] },
-    { category: "Frameworks", items: ["React", "Django", "FastAPI"] },
-    { category: "Ciência de Dados", items: ["Pandas", "Matplotlib", "Numpy"] }
+    { category: "Linguagens", items: ["Python", "Java", "C", "C#", "JavaScript", "SQL", "VHDL", "Assembly (MIPS)"] },
+    { category: "Nuvem & DevOps", items: ["Terraform (IaC)", "OpenStack", "Docker", "Kubernetes", "MAAS", "Juju", "Grafana", "Prometheus"] },
+    { category: "Ciência de Dados & IA", items: ["Pandas", "NumPy", "Scikit-learn", "Seaborn", "Matplotlib", "PCA", "t-SNE", "UMAP"] },
+    { category: "Web & Backend", items: ["Django REST", "React (Vite)", "Node.js", "Next.js", "HTML5", "CSS3"] },
+    { category: "Sistemas Embarcados", items: ["Firmware (C)", "RTOS", "I2C/SPI", "PWM", "ESP32", "ROS2"] }
   ],
-  final: "Minha trajetória é marcada pela busca contínua por conhecimento e evolução."
+  final: "Minha trajetória é marcada pela busca contínua por conhecimento e evolução, sempre visando a excelência técnica e inovação."
 };

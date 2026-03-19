@@ -12,6 +12,7 @@ const LANGUAGES = [
   { id: 'java', name: 'Java', icon: 'images/java-icon.png' },
   { id: 'vhdl', name: 'VHDL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ieee/ieee-original.svg' },
   { id: 'assembly', name: 'Assembly', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wasm/wasm-original.svg' },
+  { id: 'devops', name: 'Cloud/DevOps', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg' },
 ];
 
 export default function Projects() {
