@@ -235,7 +235,7 @@ export const RESUME_EN: ResumeContent = {
   ],
   skills: [
     { category: "Languages", items: ["Python", "Java", "C", "C#", "JavaScript", "SQL", "VHDL", "Assembly (MIPS)"] },
-    { category: "Cloud & DevOps", items: ["Terraform (IaC)", "OpenStack", "Docker", "Kubernetes", "MAAS", "Juju", "Grafana", "Prometheus"] },
+    { category: "Cloud & DevOps", items: ["Terraform (IaC)", "OpenStack", "Docker", "FastAPI", "Kubernetes", "MAAS", "Juju", "Grafana", "Prometheus"] },
     { category: "Data Science & AI", items: ["Pandas", "NumPy", "Scikit-learn", "Seaborn", "Matplotlib", "PCA", "t-SNE", "UMAP"] },
     { category: "Web & Backend", items: ["Django REST", "React (Vite)", "Node.js", "Next.js", "HTML5", "CSS3"] },
     { category: "Embedded Systems", items: ["Firmware (C)", "RTOS", "I2C/SPI", "PWM", "ESP32", "ROS2"] }
