@@ -54,15 +54,23 @@ export default function Projects() {
   // Drag handling
   const onPan = (_: any, info: { delta: { x: number } }) => {
     isDragging.current = true;
-    const sensitivity = 0.5;
+    // Stop any ongoing animation to prevent fighting the user
+    rotation.stop();
+    const sensitivity = 0.4; // Slightly lower for smoother control
     rotation.set(rotation.get() + info.delta.x * sensitivity);
   };
 
   const onPanEnd = () => {
-    isDragging.current = false;
+    // Add a small delay before clearing isDragging to prevent accidental clicks
+    setTimeout(() => {
+      isDragging.current = false;
+    }, 50);
+    
     const unitAngle = 360 / LANGUAGES.length;
+    const currentRotation = rotation.get();
+    
     // Calculate nearest step based on current rotation
-    const nearestStep = Math.round(-rotation.get() / unitAngle);
+    const nearestStep = Math.round(-currentRotation / unitAngle);
     rotateTo(nearestStep);
   };
 
@@ -106,24 +114,25 @@ export default function Projects() {
 
               {/* 3D Carousel Section */}
               <div 
-                className="relative h-[180px] md:h-[300px] mb-6 md:mb-12 flex items-center justify-center cursor-grab active:cursor-grabbing touch-none select-none"
+                className="relative h-[180px] md:h-[300px] mb-6 md:mb-12 flex items-center justify-center cursor-grab active:cursor-grabbing touch-none select-none overflow-visible"
                 onPointerDown={(e) => {
-                  // Prevent text selection while dragging
-                  (e.target as HTMLElement).setAttribute('data-dragging', 'true');
+                  (e.currentTarget as HTMLElement).setAttribute('data-dragging', 'true');
                 }}
               >
+                {/* Pan Handler Container - Now wraps the carousel but doesn't block icons */}
                 <motion.div
                   onPan={onPan}
                   onPanEnd={onPanEnd}
-                  className="absolute inset-0 z-20"
+                  className="absolute inset-0 z-0 bg-transparent" // Lower Z so icons are clickable
                 />
+                
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="w-[100px] h-[100px] md:w-[200px] md:h-[200px] rounded-full border border-dashed border-white/10" />
                 </div>
 
                 <motion.div 
                   style={{ rotateY: rotation, transformStyle: 'preserve-3d' }}
-                  className="relative w-12 h-12 md:w-24 md:h-24"
+                  className="relative w-12 h-12 md:w-24 md:h-24 z-10"
                 >
                   {LANGUAGES.map((lang, index) => {
                     const angle = (index * (360 / LANGUAGES.length));
@@ -137,25 +146,21 @@ export default function Projects() {
                           backfaceVisibility: 'hidden'
                         }}
                       >
-                        <div 
+                        <motion.div 
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
                           onClick={() => {
                             if (!isDragging.current) {
-                              // Calculate how many steps to move to bring this index to the front
-                              // Current active index is at currentStep (conceptually)
-                              // We want index to be the new front.
-                              // Difference in indices needs to be applied to currentStep.
-                              // Since index is absolute and currentStep is cumulative, 
-                              // we need to find the shortest path.
                               const diff = ((index - activeIndex + LANGUAGES.length / 2) % LANGUAGES.length + LANGUAGES.length) % LANGUAGES.length - LANGUAGES.length / 2;
                               rotateTo(currentStep.current + diff);
                             }
                           }}
-                          className={`w-12 h-12 md:w-20 md:h-20 p-2 md:p-4 rounded-xl md:rounded-2xl bg-white/5 border flex items-center justify-center transition-all duration-500 cursor-pointer ${
-                            activeIndex === index ? 'scale-110 md:scale-125 border-white shadow-xl shadow-white/10' : 'opacity-20 grayscale border-white/5'
+                          className={`w-12 h-12 md:w-20 md:h-20 p-2 md:p-4 rounded-xl md:rounded-2xl bg-white/5 border flex items-center justify-center transition-all duration-500 cursor-pointer pointer-events-auto ${
+                            activeIndex === index ? 'scale-110 md:scale-125 border-white shadow-xl shadow-white/10' : 'opacity-20 grayscale border-white/5 hover:opacity-100 hover:grayscale-0'
                           }`}
                         >
-                          <SafeImage src={lang.icon} alt={lang.name} className="w-8 h-8 md:w-full md:h-full !bg-transparent" />
-                        </div>
+                          <SafeImage src={lang.icon} alt={lang.name} className="w-8 h-8 md:w-full md:h-full !bg-transparent pointer-events-none" />
+                        </motion.div>
                       </motion.div>
                     );
                   })}
