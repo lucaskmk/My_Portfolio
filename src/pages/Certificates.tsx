@@ -28,7 +28,7 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
   
   // Alternating slide direction based on index
   const isEven = index % 2 === 0;
-  const slideDistance = isEven ? -100 : 100;
+  const slideDistance = isEven ? -40 : 40;
   const xValue = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [slideDistance, 0, 0, slideDistance]);
   const x = useSpring(xValue, springConfigScroll);
 
@@ -60,7 +60,7 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
     <motion.div
       ref={cardRef}
       style={{ opacity, scale, x }}
-      className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 md:gap-12`}
+      className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-6 md:gap-12`}
     >
       {/* Image Container */}
       <div 
@@ -86,23 +86,28 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
       </div>
 
       {/* Content Container */}
-      <div className="w-full md:w-1/2 space-y-4 md:space-y-6">
-        <div className="flex flex-col gap-2">
+      <div className="w-full md:w-1/2 space-y-3 md:space-y-6 px-2 md:px-0">
+        <div className="flex flex-col gap-1 md:gap-2">
           <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">
             {cert.category}
           </span>
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-white leading-tight">
+          <h2 className="text-xl md:text-3xl font-display font-light text-white leading-tight">
             {cert.title}
           </h2>
         </div>
-        <p className="text-base md:text-lg text-neutral-400 leading-relaxed">
+        <p className="text-sm md:text-lg text-neutral-400 leading-relaxed">
           {cert.description}
         </p>
         <div className="pt-2 md:pt-4">
-          <button className="px-5 py-2.5 md:px-6 md:py-3 bg-white/5 border border-white/10 rounded-xl font-bold text-white text-sm md:text-base flex items-center gap-2 hover:bg-white/10 hover:border-white/20 transition-all shadow-sm">
+          <a 
+            href={cert.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex px-5 py-2.5 md:px-6 md:py-3 bg-white/5 border border-white/10 rounded-xl font-bold text-white text-xs md:text-base items-center gap-2 hover:bg-white/10 hover:border-white/20 transition-all shadow-sm"
+          >
             View Certificate
-            <ExternalLink size={18} className="text-neutral-500" />
-          </button>
+            <ExternalLink size={14} className="text-neutral-500 md:w-5 md:h-5" />
+          </a>
         </div>
       </div>
     </motion.div>
@@ -119,7 +124,7 @@ export default function Certificates() {
     : CERTIFICATES.filter(cert => cert.category === activeCategory);
 
   return (
-    <div className="bg-[#0a0a0a] py-12 md:py-20 px-4 overflow-x-hidden">
+    <div className="bg-black py-12 md:py-20 px-4 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-20">
           <motion.div
@@ -130,7 +135,7 @@ export default function Certificates() {
             <Award size={16} />
             Verified Achievements
           </motion.div>
-          <h1 className="text-3xl md:text-6xl font-display font-bold mb-4 text-white">
+          <h1 className="text-3xl md:text-6xl font-display font-light mb-4 text-white uppercase tracking-tight">
             My <span className="text-gradient">Certifications</span>
           </h1>
           <p className="text-sm md:text-base text-neutral-500 max-w-2xl mx-auto px-4">
@@ -171,7 +176,7 @@ export default function Certificates() {
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-[100px] rounded-full" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-neutral-500/10 blur-[100px] rounded-full" />
           
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 relative z-10">
+          <h2 className="text-3xl md:text-4xl font-display font-light mb-6 relative z-10 text-white">
             Interested in my qualifications?
           </h2>
           <p className="text-neutral-400 mb-10 max-w-xl mx-auto relative z-10">

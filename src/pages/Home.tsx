@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { RESUME_EN, RESUME_PT } from '../constants';
-import { GraduationCap, Globe, Code, User, ChevronRight } from 'lucide-react';
+import { GraduationCap, Globe, Code, User, ChevronRight, Play, Award, ExternalLink, Terminal } from 'lucide-react';
 
 export default function Home() {
   const [lang, setLang] = React.useState<'en' | 'pt'>('en');
@@ -19,6 +20,14 @@ export default function Home() {
     hidden: { y: 20, opacity: 0 },
     visible: { y: 0, opacity: 1 }
   };
+
+  const birthDate = new Date('2005-02-19');
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -44,7 +53,7 @@ export default function Home() {
           transition={{ delay: 0.1 }}
           className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto mb-8 md:mb-10 px-4"
         >
-          20 years old • São Paulo (SP) • Computer Engineering Student @ Insper
+          {lang === 'en' ? `${age} years old` : `${age} anos`} • São Paulo (SP) • Computer Engineering Student @ Insper
         </motion.p>
 
         <div className="flex justify-center p-1 bg-white/5 border border-white/10 rounded-full w-fit mx-auto">
@@ -74,31 +83,100 @@ export default function Home() {
         animate="visible"
         className="grid grid-cols-1 md:grid-cols-12 gap-6"
       >
-        {/* Profile Section */}
-        <motion.div variants={itemVariants} className="md:col-span-8 glass p-8 rounded-3xl">
-          <div className="flex items-center gap-3 mb-6 text-white">
-            <User size={24} />
-            <h2 className="text-2xl font-display font-bold text-white">
+        {/* Profile Section & Mini Resume */}
+        <motion.div variants={itemVariants} className="md:col-span-8 glass p-6 md:p-8 rounded-3xl">
+          <div className="flex items-center gap-3 mb-4 md:mb-6 text-white">
+            <User size={20} className="md:w-6 md:h-6 text-neutral-300" />
+            <h2 className="text-xl md:text-2xl font-display font-light">
               {lang === 'en' ? 'Professional Profile' : 'Perfil Profissional'}
             </h2>
           </div>
-          <p className="text-lg text-neutral-400 leading-relaxed">
-            {content.profile}
-          </p>
+          
+          <div className="space-y-6 md:space-y-8">
+            <p className="text-base md:text-lg text-neutral-400 leading-relaxed">
+              {content.profile}
+            </p>
+
+            <div className="border-t border-white/10 pt-6 md:pt-8">
+              <h3 className="text-xs md:text-sm font-display font-bold text-white mb-4 md:mb-6 uppercase tracking-wider text-blue-400">
+                {lang === 'en' ? 'Featured Projects' : 'Projetos em Destaque'}
+              </h3>
+              
+              <div className="space-y-4 md:space-y-6">
+                <div>
+                  <div className="flex items-center justify-between mb-1 md:mb-2 text-sm md:text-base">
+                    <h4 className="font-bold text-white leading-tight">
+                      {lang === 'en' ? 'Churn Prediction' : 'Predição de Churn'} 
+                      <span className="text-neutral-500 font-normal block sm:inline sm:ml-2 text-[10px] sm:text-sm uppercase tracking-tighter sm:normal-case sm:tracking-normal">| Hackathon Databricks</span>
+                    </h4>
+                    <a href="https://www.youtube.com/watch?v=JsDl4ME_sWU" target="_blank" className="text-white hover:text-neutral-300 flex items-center gap-1 text-[10px] sm:text-xs transition-colors shrink-0">
+                      <Play size={10} strokeWidth={3} className="sm:w-3 sm:h-3" /> {lang === 'en' ? 'Demo' : 'Video'}
+                    </a>
+                  </div>
+                  <ul className="list-disc list-inside text-xs md:text-sm text-neutral-400 space-y-1 ml-1 md:ml-2">
+                    <li>{lang === 'en' ? 'End-to-end churn prediction solution.' : 'Solução end-to-end de predição de Churn.'}</li>
+                    <li>{lang === 'en' ? 'Accessible frontend for managers.' : 'Frontend acessível voltado a gestores.'}</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-white mb-1 md:mb-2 text-sm md:text-base">Machine Learning – Adult Census</h4>
+                  <ul className="list-disc list-inside text-xs md:text-sm text-neutral-400 space-y-1 ml-1 md:ml-2">
+                    <li>{lang === 'en' ? 'Advanced EDA and feature engineering.' : 'EDA avançada e feature engineering.'}</li>
+                    <li>{lang === 'en' ? 'Predictive modeling with Scikit-learn.' : 'Modelagem preditiva com Scikit-learn.'}</li>
+                  </ul>
+                </div>
+
+                <div className="pb-2 md:pb-4">
+                  <h4 className="font-bold text-white mb-2 text-sm md:text-base">{lang === 'en' ? 'Algorithm Analysis & Optimization' : 'Análise de Algoritmos e Otimização'}</h4>
+                  <ul className="list-disc list-inside text-xs md:text-sm text-neutral-400 space-y-1 ml-2">
+                    <li>{lang === 'en' ? 'In-depth study of computational complexity (O, Ω, Θ) applied to data pipelines.' : 'Estudo aprofundado de complexidade computacional (notações O, Omega, Theta).'}</li>
+                    <li>{lang === 'en' ? 'Pattern matching with Rabin-Karp; efficient data structures for large volumes.' : 'Busca de padrões com Rabin-Karp; estruturas de dados eficientes para grandes volumes.'}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="border-t border-white/10 pt-6 md:pt-8">
+              <h3 className="text-[10px] md:text-sm font-light uppercase tracking-widest text-neutral-400 mb-4 md:mb-6">
+                {lang === 'en' ? 'Key Certifications' : 'Principais Certificações'}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                <div className="flex items-center gap-3 md:gap-4 bg-white/[0.02] p-3 md:p-4 rounded-2xl border border-white/5">
+                  <div className="w-8 h-8 md:w-10 md:h-10 bg-white/5 rounded-xl flex items-center justify-center text-white shrink-0">
+                    <Award size={18} className="md:w-5 md:h-5" />
+                  </div>
+                  <div>
+                    <p className="text-white text-xs md:text-sm font-medium leading-tight">Google Cybersecurity</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-tighter">Professional Certificate</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 md:gap-4 bg-white/[0.02] p-3 md:p-4 rounded-2xl border border-white/5">
+                  <div className="w-8 h-8 md:w-10 md:h-10 bg-white/5 rounded-xl flex items-center justify-center text-white shrink-0">
+                    <Globe size={18} className="md:w-5 md:h-5" />
+                  </div>
+                  <div>
+                    <p className="text-white text-xs md:text-sm font-medium leading-tight">AWS Discovery Day</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-tighter">Cloud Fundamentals</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* Skills Section */}
-        <motion.div variants={itemVariants} className="md:col-span-4 bg-white/5 border border-white/10 p-8 rounded-3xl text-white">
+        <motion.div variants={itemVariants} className="md:col-span-4 glass p-8 rounded-3xl text-white">
           <div className="flex items-center gap-3 mb-6 text-neutral-400">
-            <Code size={24} />
-            <h2 className="text-2xl font-display font-bold">
+            <Code size={24} className="text-neutral-300" />
+            <h2 className="text-2xl font-display font-light">
               {lang === 'en' ? 'Skills' : 'Habilidades'}
             </h2>
           </div>
           <div className="space-y-6">
             {content.skills.map((skillGroup) => (
               <div key={skillGroup.category}>
-                <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-500 mb-3">
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 mb-3">
                   {skillGroup.category}
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -115,9 +193,9 @@ export default function Home() {
 
         {/* Education Section */}
         <motion.div variants={itemVariants} className="md:col-span-6 glass p-8 rounded-3xl">
-          <div className="flex items-center gap-3 mb-6 text-white">
+          <div className="flex items-center gap-3 mb-6 text-neutral-300">
             <GraduationCap size={24} />
-            <h2 className="text-2xl font-display font-bold text-white">
+            <h2 className="text-2xl font-display font-light text-white">
               {lang === 'en' ? 'Education' : 'Formação'}
             </h2>
           </div>
@@ -136,9 +214,9 @@ export default function Home() {
 
         {/* International Section */}
         <motion.div variants={itemVariants} className="md:col-span-6 glass p-8 rounded-3xl">
-          <div className="flex items-center gap-3 mb-6 text-white">
+          <div className="flex items-center gap-3 mb-6 text-neutral-300">
             <Globe size={24} />
-            <h2 className="text-2xl font-display font-bold text-white">
+            <h2 className="text-2xl font-display font-light text-white">
               {lang === 'en' ? 'International Experience' : 'Experiência Internacional'}
             </h2>
           </div>
@@ -155,20 +233,7 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Final Section */}
-        <motion.div variants={itemVariants} className="md:col-span-12 bg-white p-8 rounded-3xl text-black flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-xl font-medium text-center md:text-left">
-            {content.final}
-          </p>
-          <a 
-            href="https://linkedin.com/in/lucas-kenji-kamikawa-28417629a/" 
-            target="_blank"
-            className="px-8 py-4 bg-black text-white rounded-2xl font-bold flex items-center gap-2 hover:bg-neutral-800 transition-colors shadow-xl"
-          >
-            {lang === 'en' ? 'Connect on LinkedIn' : 'Conectar no LinkedIn'}
-            <ChevronRight size={20} />
-          </a>
-        </motion.div>
+
       </motion.div>
     </div>
   );

@@ -2,6 +2,8 @@ export interface Project {
   title: string;
   description: string;
   url: string | null;
+  fileUrl?: string;
+  videoUrl?: string;
 }
 
 export interface LanguageProjects {
@@ -13,6 +15,7 @@ export interface Certificate {
   title: string;
   description: string;
   image: string;
+  url: string;
   direction: 'left' | 'right';
   category: 'Cybersecurity' | 'Programming' | 'Cloud' | 'Data';
 }
@@ -24,6 +27,8 @@ export interface AcademicProject {
   image: string;
   tags: string[];
   date: string;
+  fileUrl?: string;
+  videoUrl?: string;
 }
 
 export interface ResumeContent {
