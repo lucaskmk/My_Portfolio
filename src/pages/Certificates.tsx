@@ -183,7 +183,7 @@ export default function Certificates() {
             I'm constantly learning and expanding my skill set. Check back often for new certifications.
           </p>
           <a 
-            href="https://linkedin.com/in/lucas-kenji-kamikawa-28417629a/"
+            href="https://www.linkedin.com/in/lucas-kenji-malheiros-kamikawa-28417629a?utm_source=share_via&utm_content=profile&utm_medium=member_android"
             target="_blank"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-2xl font-bold hover:bg-neutral-200 transition-colors relative z-10"
           >

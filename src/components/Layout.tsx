@@ -109,7 +109,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <a href="mailto:lucaskamikawa@gmail.com" className="text-neutral-500 hover:text-white transition-colors">
               <Mail size={24} strokeWidth={1.5} />
             </a>
-            <a href="https://linkedin.com/in/lucas-kenji-kamikawa-28417629a/" target="_blank" className="text-neutral-500 hover:text-white transition-colors">
+            <a href="https://www.linkedin.com/in/lucas-kenji-malheiros-kamikawa-28417629a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" className="text-neutral-500 hover:text-white transition-colors">
               <Linkedin size={24} strokeWidth={1.5} />
             </a>
             <a href="https://github.com/lucaskmk" target="_blank" className="text-neutral-500 hover:text-white transition-colors">
