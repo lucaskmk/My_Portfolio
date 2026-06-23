@@ -79,40 +79,14 @@ export const PROJECTS: LanguageProjects = {
 
 export const CERTIFICATES: Certificate[] = [
   {
-    id: 1,
-    title: "Google Cybersecurity Professional",
-    description: "Professional Certificate from Google via Coursera including 8 comprehensive courses covering the entire cybersecurity landscape.",
-    image: "images/certificates/Google_Cybersecurity_Professional.png",
-    url: "#",
+    id: 11,
+    title: "AWS Academy Graduate — Cloud Foundations",
+    description: "AWS Academy certification covering core cloud concepts, AWS global infrastructure, compute, storage, databases, and security fundamentals.",
+    image: "images/certificates/aws-academy-graduate-cloud-foundations-training-bad.png",
+    url: "images/certificates/AWS_Academy_Graduate___Cloud_Foundations___Training_Badge_Badge20260607-31-y5eait.pdf",
     direction: 'left',
-    category: 'Cybersecurity'
-  },
-  {
-    id: 2,
-    title: "Foundational C# with Microsoft",
-    description: "Developer Certification from freeCodeCamp and Microsoft, covering core C# programming concepts and application development.",
-    image: "images/certificates/Csharp.png",
-    url: "#",
-    direction: 'right',
-    category: 'Programming'
-  },
-  {
-    id: 3,
-    title: "C Intermediate",
-    description: "Intermediate level certification in C programming from Sololearn, focusing on advanced data structures and algorithms.",
-    image: "images/certificates/C.jpg",
-    url: "#",
-    direction: 'left',
-    category: 'Programming'
-  },
-  {
-    id: 4,
-    title: "Análise de Dados",
-    description: "Data Analysis certification from Unova Cursos, covering statistical methods and data processing techniques.",
-    image: "images/certificates/EscolaWeb_AnaliseDados.png",
-    url: "#",
-    direction: 'right',
-    category: 'Data'
+    category: 'Cloud',
+    badge: true
   },
   {
     id: 5,
@@ -120,8 +94,17 @@ export const CERTIFICATES: Certificate[] = [
     description: "Cloud Computing training by Kasolution and AWS, introducing fundamental cloud concepts and services.",
     image: "images/certificates/AWS_DiscoveryDay.png",
     url: "#",
-    direction: 'left',
+    direction: 'right',
     category: 'Cloud'
+  },
+  {
+    id: 1,
+    title: "Google Cybersecurity Professional",
+    description: "Professional Certificate from Google via Coursera including 8 comprehensive courses covering the entire cybersecurity landscape.",
+    image: "images/certificates/Google_Cybersecurity_Professional.png",
+    url: "#",
+    direction: 'left',
+    category: 'Cybersecurity'
   },
   {
     id: 6,
@@ -169,14 +152,31 @@ export const CERTIFICATES: Certificate[] = [
     category: 'Cybersecurity'
   },
   {
-    id: 11,
-    title: "AWS Academy Graduate — Cloud Foundations",
-    description: "AWS Academy certification covering core cloud concepts, AWS global infrastructure, compute, storage, databases, and security fundamentals.",
-    image: "images/certificates/aws-academy-graduate-cloud-foundations-training-bad.png",
-    url: "images/certificates/AWS_Academy_Graduate___Cloud_Foundations___Training_Badge_Badge20260607-31-y5eait.pdf",
+    id: 4,
+    title: "Análise de Dados",
+    description: "Data Analysis certification from Unova Cursos, covering statistical methods and data processing techniques.",
+    image: "images/certificates/EscolaWeb_AnaliseDados.png",
+    url: "#",
     direction: 'left',
-    category: 'Cloud',
-    badge: true
+    category: 'Data'
+  },
+  {
+    id: 2,
+    title: "Foundational C# with Microsoft",
+    description: "Developer Certification from freeCodeCamp and Microsoft, covering core C# programming concepts and application development.",
+    image: "images/certificates/Csharp.png",
+    url: "#",
+    direction: 'right',
+    category: 'Programming'
+  },
+  {
+    id: 3,
+    title: "C Intermediate",
+    description: "Intermediate level certification in C programming from Sololearn, focusing on advanced data structures and algorithms.",
+    image: "images/certificates/C.jpg",
+    url: "#",
+    direction: 'left',
+    category: 'Programming'
   }
 ];
 
