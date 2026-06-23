@@ -68,20 +68,22 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
-        <motion.div 
-          style={{ 
-            rotateX: springRotateX, 
+        <motion.div
+          style={{
+            rotateX: springRotateX,
             rotateY: springRotateY,
             transformStyle: "preserve-3d"
           }}
-          className="relative overflow-hidden rounded-2xl shadow-2xl border border-white/10"
+          className={`relative overflow-hidden rounded-2xl shadow-2xl ${cert.badge ? '' : 'border border-white/10'}`}
         >
-          <SafeImage 
-            src={cert.image} 
-            alt={cert.title} 
-            className="w-full aspect-[16/10] transform transition-opacity duration-700 opacity-80 group-hover:opacity-100"
+          <SafeImage
+            src={cert.image}
+            alt={cert.title}
+            className={`w-full ${cert.badge ? 'aspect-square' : 'aspect-[16/10]'} transform transition-opacity duration-700 opacity-80 group-hover:opacity-100`}
+            containerClassName={cert.badge ? 'bg-black' : undefined}
+            style={cert.badge ? { objectFit: 'contain' } as React.CSSProperties : undefined}
           />
-          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 transition-colors" />
+          {!cert.badge && <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 transition-colors" />}
         </motion.div>
       </div>
 
@@ -99,9 +101,9 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
           {cert.description}
         </p>
         <div className="pt-2 md:pt-4">
-          <a 
-            href={cert.url} 
-            target="_blank" 
+          <a
+            href={cert.url === '#' ? cert.image : cert.url}
+            target="_blank"
             rel="noopener noreferrer"
             className="inline-flex px-5 py-2.5 md:px-6 md:py-3 bg-white/5 border border-white/10 rounded-xl font-bold text-white text-xs md:text-base items-center gap-2 hover:bg-white/10 hover:border-white/20 transition-all shadow-sm"
           >

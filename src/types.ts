@@ -18,6 +18,7 @@ export interface Certificate {
   url: string;
   direction: 'left' | 'right';
   category: 'Cybersecurity' | 'Programming' | 'Cloud' | 'Data';
+  badge?: boolean;
 }
 
 export interface AcademicProject {
@@ -27,6 +28,8 @@ export interface AcademicProject {
   image: string;
   tags: string[];
   date: string;
+  url?: string;
+  githubUrl?: string;
   fileUrl?: string;
   videoUrl?: string;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'motion/react';
 import { PROJECTS, ACADEMIC_PROJECTS } from '../constants';
-import { ExternalLink, ChevronLeft, ChevronRight, BookOpen, Calendar, Tag, Play, FileText } from 'lucide-react';
+import { ExternalLink, ChevronLeft, ChevronRight, BookOpen, Calendar, Tag, Play, FileText, Github } from 'lucide-react';
 import { SafeImage } from '../components/SafeImage';
 
 const LANGUAGES = [
@@ -196,57 +196,64 @@ export default function Projects() {
 
                 <div className="grid grid-cols-1 gap-3 md:gap-4">
                   <AnimatePresence mode="wait">
-                    {activeProjects.map((project, idx) => (
-                      <motion.div
-                        key={`${activeLanguage.id}-${project.title}`}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 10 }}
-                        transition={{ delay: idx * 0.05 }}
-                        className="group bg-white/5 p-4 md:p-5 rounded-xl md:rounded-2xl border border-white/5 hover:border-white/20 hover:bg-white/10 transition-all"
-                      >
-                        <div className="flex justify-between items-start mb-1 md:mb-2">
-                          <h4 className="font-bold text-white text-sm md:text-base group-hover:text-neutral-300 transition-colors">
-                            {project.title}
-                          </h4>
-                          <div className="flex gap-3 text-neutral-500">
-                            {project.videoUrl && (
-                              <a 
-                                href={project.videoUrl} 
-                                target="_blank" 
-                                className="hover:text-white transition-colors"
-                                title="Watch Demo"
-                              >
-                                <Play size={14} className="md:w-4 md:h-4" />
-                              </a>
-                            )}
-                            {project.fileUrl && (
-                              <a 
-                                href={project.fileUrl} 
-                                target="_blank" 
-                                className="hover:text-white transition-colors"
-                                title="View Document"
-                              >
-                                <FileText size={14} className="md:w-4 md:h-4" />
-                              </a>
-                            )}
-                            {project.url && (
-                              <a 
-                                href={project.url} 
-                                target="_blank" 
-                                className="hover:text-white transition-colors"
-                                title="View Source"
-                              >
-                                <ExternalLink size={14} className="md:w-4 md:h-4" />
-                              </a>
-                            )}
+                    {activeProjects.map((project, idx) => {
+                      const primaryUrl = project.url || project.videoUrl || project.fileUrl;
+                      return (
+                        <motion.div
+                          key={`${activeLanguage.id}-${project.title}`}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 10 }}
+                          transition={{ delay: idx * 0.05 }}
+                          onClick={() => primaryUrl && window.open(primaryUrl, '_blank')}
+                          className={`group bg-white/5 p-4 md:p-5 rounded-xl md:rounded-2xl border border-white/5 hover:border-white/20 hover:bg-white/10 transition-all ${primaryUrl ? 'cursor-pointer' : ''}`}
+                        >
+                          <div className="flex justify-between items-start mb-1 md:mb-2">
+                            <h4 className="font-bold text-white text-sm md:text-base group-hover:text-neutral-300 transition-colors">
+                              {project.title}
+                            </h4>
+                            <div className="flex gap-3 text-neutral-500">
+                              {project.videoUrl && (
+                                <a
+                                  href={project.videoUrl}
+                                  target="_blank"
+                                  onClick={e => e.stopPropagation()}
+                                  className="hover:text-white transition-colors"
+                                  title="Watch Demo"
+                                >
+                                  <Play size={14} className="md:w-4 md:h-4" />
+                                </a>
+                              )}
+                              {project.fileUrl && (
+                                <a
+                                  href={project.fileUrl}
+                                  target="_blank"
+                                  onClick={e => e.stopPropagation()}
+                                  className="hover:text-white transition-colors"
+                                  title="View Document"
+                                >
+                                  <FileText size={14} className="md:w-4 md:h-4" />
+                                </a>
+                              )}
+                              {project.url && (
+                                <a
+                                  href={project.url}
+                                  target="_blank"
+                                  onClick={e => e.stopPropagation()}
+                                  className="hover:text-white transition-colors"
+                                  title="View Source"
+                                >
+                                  <ExternalLink size={14} className="md:w-4 md:h-4" />
+                                </a>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                        <p className="text-xs md:text-sm text-neutral-400 leading-relaxed line-clamp-2 md:line-clamp-none">
-                          {project.description}
-                        </p>
-                      </motion.div>
-                    ))}
+                          <p className="text-xs md:text-sm text-neutral-400 leading-relaxed line-clamp-2 md:line-clamp-none">
+                            {project.description}
+                          </p>
+                        </motion.div>
+                      );
+                    })}
                   </AnimatePresence>
                 </div>
               </div>
@@ -275,51 +282,75 @@ export default function Projects() {
                 </h2>
                 
                 <div className="space-y-4 md:space-y-6">
-                  {ACADEMIC_PROJECTS.map((project, index) => (
-                    <motion.div
-                      key={project.id}
-                      initial={{ opacity: 0, y: 15 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="group flex flex-col md:flex-row bg-white/5 rounded-2xl md:rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-500"
-                    >
-                      <div className="w-full md:w-32 lg:w-40 h-32 md:h-auto shrink-0 overflow-hidden">
-                        <SafeImage 
-                          src={project.image} 
-                          alt={project.title} 
-                          className="w-full h-full transform group-hover:scale-110 transition-transform duration-700 opacity-80 group-hover:opacity-100"
-                        />
-                      </div>
-                      <div className="p-4 md:p-6 flex flex-col justify-center">
-                        <div className="flex items-center justify-between mb-1 md:mb-2 text-sm md:text-base">
-                          <h3 className="font-display font-medium text-white group-hover:text-neutral-300 transition-colors leading-tight">
-                            {project.title}
-                          </h3>
-                          <div className="flex items-center gap-2 md:gap-3 text-neutral-500">
-                            {project.videoUrl && (
-                              <a href={project.videoUrl} target="_blank" className="hover:text-white transition-colors">
-                                <Play size={14} className="md:w-4 md:h-4" />
-                              </a>
-                            )}
-                            <span className="text-[9px] md:text-[10px] font-bold text-neutral-600 bg-white/5 px-2 py-0.5 md:py-1 rounded-md">
-                              {project.date}
-                            </span>
+                  {ACADEMIC_PROJECTS.map((project, index) => {
+                    const primaryUrl = project.url || project.videoUrl || project.fileUrl;
+                    return (
+                      <motion.div
+                        key={project.id}
+                        initial={{ opacity: 0, y: 15 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                        onClick={() => primaryUrl && window.open(primaryUrl, '_blank')}
+                        className={`group flex flex-col md:flex-row bg-white/5 rounded-2xl md:rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-500 ${primaryUrl ? 'cursor-pointer' : ''}`}
+                      >
+                        <div className="p-4 md:p-6 flex flex-col justify-center">
+                          <div className="flex items-center justify-between mb-1 md:mb-2 text-sm md:text-base">
+                            <h3 className="font-display font-medium text-white group-hover:text-neutral-300 transition-colors leading-tight">
+                              {project.title}
+                            </h3>
+                            <div className="flex items-center gap-2 md:gap-3 text-neutral-500">
+                              {project.videoUrl && (
+                                <a
+                                  href={project.videoUrl}
+                                  target="_blank"
+                                  onClick={e => e.stopPropagation()}
+                                  className="hover:text-white transition-colors"
+                                >
+                                  <Play size={14} className="md:w-4 md:h-4" />
+                                </a>
+                              )}
+                              {project.githubUrl && (
+                                <a
+                                  href={project.githubUrl}
+                                  target="_blank"
+                                  onClick={e => e.stopPropagation()}
+                                  className="hover:text-white transition-colors"
+                                  title="View on GitHub"
+                                >
+                                  <Github size={14} className="md:w-4 md:h-4" />
+                                </a>
+                              )}
+                              {project.fileUrl && (
+                                <a
+                                  href={project.fileUrl}
+                                  target="_blank"
+                                  onClick={e => e.stopPropagation()}
+                                  className="hover:text-white transition-colors"
+                                  title="Technical Report"
+                                >
+                                  <FileText size={14} className="md:w-4 md:h-4" />
+                                </a>
+                              )}
+                              <span className="text-[9px] md:text-[10px] font-bold text-neutral-600 bg-white/5 px-2 py-0.5 md:py-1 rounded-md">
+                                {project.date}
+                              </span>
+                            </div>
+                          </div>
+                          <p className="text-[11px] md:text-sm text-neutral-400 line-clamp-2 mb-2 md:mb-4">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-1.5 md:gap-2">
+                            {project.tags.slice(0, 3).map(tag => (
+                              <span key={tag} className="text-[9px] md:text-[10px] font-medium text-neutral-500 bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
+                                {tag}
+                              </span>
+                            ))}
                           </div>
                         </div>
-                        <p className="text-[11px] md:text-sm text-neutral-400 line-clamp-2 mb-2 md:mb-4">
-                          {project.description}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5 md:gap-2">
-                          {project.tags.slice(0, 3).map(tag => (
-                            <span key={tag} className="text-[9px] md:text-[10px] font-medium text-neutral-500 bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    );
+                  })}
                 </div>
 
                 {/* Academic Info Card */}

@@ -156,8 +156,8 @@ export default function Home() {
                     <Globe size={18} className="md:w-5 md:h-5" />
                   </div>
                   <div>
-                    <p className="text-white text-xs md:text-sm font-medium leading-tight">AWS Discovery Day</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-tighter">Cloud Fundamentals</p>
+                    <p className="text-white text-xs md:text-sm font-medium leading-tight">AWS Academy Graduate</p>
+                    <p className="text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-tighter">Cloud Foundations</p>
                   </div>
                 </div>
               </div>

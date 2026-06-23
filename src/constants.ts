@@ -167,10 +167,40 @@ export const CERTIFICATES: Certificate[] = [
     url: "#",
     direction: 'right',
     category: 'Cybersecurity'
+  },
+  {
+    id: 11,
+    title: "AWS Academy Graduate — Cloud Foundations",
+    description: "AWS Academy certification covering core cloud concepts, AWS global infrastructure, compute, storage, databases, and security fundamentals.",
+    image: "images/certificates/aws-academy-graduate-cloud-foundations-training-bad.png",
+    url: "images/certificates/AWS_Academy_Graduate___Cloud_Foundations___Training_Badge_Badge20260607-31-y5eait.pdf",
+    direction: 'left',
+    category: 'Cloud',
+    badge: true
   }
 ];
 
 export const ACADEMIC_PROJECTS: AcademicProject[] = [
+  {
+    id: 9,
+    title: "CloudPay — Cloud Computing Project",
+    description: "Distributed payment processing system designed for cloud infrastructure. Covers architecture design, deployment, and scalability on AWS services.",
+    image: "",
+    tags: ["AWS", "Cloud", "Architecture"],
+    date: "2025",
+    url: "https://github.com/lucaskmk/ComputacaoNuvem_Projeto",
+    fileUrl: "images/projects/relatorio-tecnico-cloudpay.pdf"
+  },
+  {
+    id: 10,
+    title: "Triage System — Organizational Network Diagnosis",
+    description: "Graph-based triage system for diagnosing organizational network structures. Identifies bottlenecks, key nodes, and communication failure points.",
+    image: "",
+    tags: ["Networks", "Python", "Graph Theory"],
+    date: "2025",
+    url: "https://lucaskmk.github.io/Sistema-de-Triagem-para-Diagn-stico-de-Redes-Organizacionais/",
+    githubUrl: "https://github.com/lucaskmk/Sistema-de-Triagem-para-Diagn-stico-de-Redes-Organizacionais"
+  },
   {
     id: 7,
     title: "Churn Prediction Interface",

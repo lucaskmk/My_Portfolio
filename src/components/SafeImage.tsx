@@ -3,20 +3,22 @@ import { Loader2, ImageOff } from 'lucide-react';
 
 interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackIcon?: React.ReactNode;
+  containerClassName?: string;
 }
 
-export const SafeImage: React.FC<SafeImageProps> = ({ 
-  src, 
-  alt, 
-  className, 
+export const SafeImage: React.FC<SafeImageProps> = ({
+  src,
+  alt,
+  className,
+  containerClassName,
   fallbackIcon,
-  ...props 
+  ...props
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   return (
-    <div className={`relative flex items-center justify-center overflow-hidden bg-neutral-900/20 ${className}`}>
+    <div className={`relative flex items-center justify-center overflow-hidden ${containerClassName ?? 'bg-neutral-900/20'} ${className}`}>
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="w-5 h-5 border-2 border-neutral-800 border-t-neutral-500 rounded-full animate-spin" />
