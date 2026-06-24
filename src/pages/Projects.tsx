@@ -78,7 +78,7 @@ export default function Projects() {
   const activeProjects = PROJECTS[activeLanguage.id] || [];
 
   return (
-    <div className="min-h-screen bg-black py-8 md:py-12 px-4 md:px-8 lg:px-12">
+    <div className="min-h-screen py-8 md:py-12 px-4 md:px-8 lg:px-12">
       <div className="max-w-full mx-auto">
         <div className="text-center mb-6 md:mb-12">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold mb-3 md:mb-4 text-white">Project <span className="text-gradient">Portfolio</span></h1>
@@ -155,7 +155,7 @@ export default function Projects() {
                               rotateTo(currentStep.current + diff);
                             }
                           }}
-                          className={`w-12 h-12 md:w-20 md:h-20 p-2 md:p-4 rounded-xl md:rounded-2xl bg-white/5 border flex items-center justify-center transition-all duration-500 cursor-pointer pointer-events-auto ${
+                          className={`w-12 h-12 md:w-20 md:h-20 p-2 md:p-4 rounded-xl md:rounded-2xl card-block border flex items-center justify-center transition-all duration-500 cursor-pointer pointer-events-auto ${
                             activeIndex === index ? 'scale-110 md:scale-125 border-white shadow-xl shadow-white/10' : 'opacity-20 grayscale border-white/5 hover:opacity-100 hover:grayscale-0'
                           }`}
                         >
@@ -170,13 +170,13 @@ export default function Projects() {
                 <div className="absolute bottom-0 flex gap-2 md:gap-3">
                   <button 
                     onClick={() => rotate(-1)}
-                    className="p-2 md:p-3 bg-white/5 rounded-full shadow-md hover:bg-white/10 transition-colors border border-white/10 text-white"
+                    className="p-2 md:p-3 card-block rounded-full shadow-md hover:bg-white/10 transition-colors border border-white/10 text-white"
                   >
                     <ChevronLeft size={16} className="md:w-5 md:h-5" />
                   </button>
                   <button 
                     onClick={() => rotate(1)}
-                    className="p-2 md:p-3 bg-white/5 rounded-full shadow-md hover:bg-white/10 transition-colors border border-white/10 text-white"
+                    className="p-2 md:p-3 card-block rounded-full shadow-md hover:bg-white/10 transition-colors border border-white/10 text-white"
                   >
                     <ChevronRight size={16} className="md:w-5 md:h-5" />
                   </button>
@@ -206,7 +206,7 @@ export default function Projects() {
                           exit={{ opacity: 0, x: 10 }}
                           transition={{ delay: idx * 0.05 }}
                           onClick={() => primaryUrl && window.open(primaryUrl, '_blank')}
-                          className={`group bg-white/5 p-4 md:p-5 rounded-xl md:rounded-2xl border border-white/5 hover:border-white/20 hover:bg-white/10 transition-all ${primaryUrl ? 'cursor-pointer' : ''}`}
+                          className={`group card-block p-4 md:p-5 rounded-xl md:rounded-2xl border border-white/5 hover:border-white/20 hover:bg-white/10 transition-all ${primaryUrl ? 'cursor-pointer' : ''}`}
                         >
                           <div className="flex justify-between items-start mb-1 md:mb-2">
                             <h4 className="font-bold text-white text-sm md:text-base group-hover:text-neutral-300 transition-colors">
@@ -282,17 +282,13 @@ export default function Projects() {
                 </h2>
                 
                 <div className="space-y-4 md:space-y-6">
-                  {ACADEMIC_PROJECTS.map((project, index) => {
+                  {ACADEMIC_PROJECTS.map((project) => {
                     const primaryUrl = project.url || project.videoUrl || project.fileUrl;
                     return (
-                      <motion.div
+                      <div
                         key={project.id}
-                        initial={{ opacity: 0, y: 15 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.1 }}
                         onClick={() => primaryUrl && window.open(primaryUrl, '_blank')}
-                        className={`group flex flex-col md:flex-row bg-white/5 rounded-2xl md:rounded-3xl overflow-hidden border border-white/5 hover:border-white/20 transition-all duration-500 ${primaryUrl ? 'cursor-pointer' : ''}`}
+                        className={`group flex flex-col md:flex-row card-block rounded-2xl md:rounded-3xl overflow-hidden border border-white/[0.07] hover:border-white/20 hover:bg-white/[0.07] transition-all duration-300 ${primaryUrl ? 'cursor-pointer' : ''}`}
                       >
                         <div className="p-4 md:p-6 flex flex-col justify-center">
                           <div className="flex items-center justify-between mb-1 md:mb-2 text-sm md:text-base">
@@ -332,7 +328,7 @@ export default function Projects() {
                                   <FileText size={14} className="md:w-4 md:h-4" />
                                 </a>
                               )}
-                              <span className="text-[9px] md:text-[10px] font-bold text-neutral-600 bg-white/5 px-2 py-0.5 md:py-1 rounded-md">
+                              <span className="text-[9px] md:text-[10px] font-bold text-neutral-600 card-block px-2 py-0.5 md:py-1 rounded-md">
                                 {project.date}
                               </span>
                             </div>
@@ -342,20 +338,20 @@ export default function Projects() {
                           </p>
                           <div className="flex flex-wrap gap-1.5 md:gap-2">
                             {project.tags.slice(0, 3).map(tag => (
-                              <span key={tag} className="text-[9px] md:text-[10px] font-medium text-neutral-500 bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
+                              <span key={tag} className="text-[9px] md:text-[10px] font-medium text-neutral-500 card-block px-2 py-0.5 rounded-full border border-white/10">
                                 {tag}
                               </span>
                             ))}
                           </div>
                         </div>
-                      </motion.div>
+                      </div>
                     );
                   })}
                 </div>
 
                 {/* Academic Info Card */}
                 <div className="p-4 md:p-6 glass rounded-2xl md:rounded-3xl flex items-center gap-3 md:gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-xl md:rounded-2xl flex items-center justify-center text-white shrink-0">
+                  <div className="w-10 h-10 md:w-12 md:h-12 card-block rounded-xl md:rounded-2xl flex items-center justify-center text-white shrink-0">
                     <BookOpen size={20} className="md:w-6 md:h-6" />
                   </div>
                   <div>

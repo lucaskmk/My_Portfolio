@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Mail, Linkedin, Github, Menu, X, User, Code, Award, GraduationCap } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import WaveBackground from './WaveBackground';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -25,7 +26,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <>
+    <WaveBackground />
+    <div className="min-h-screen flex flex-col" style={{ position: 'relative', zIndex: 1 }}>
       <header className="sticky top-0 z-50 glass">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
@@ -98,7 +101,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </nav>
 
-      <footer className="bg-black text-white py-24 pb-32 md:pb-24 border-t border-white/5">
+      <footer className="text-white py-24 pb-32 md:pb-24 border-t border-white/5" style={{ background: 'rgba(14,18,32,0.70)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-12">
             <h3 className="font-display font-light text-4xl mb-2 tracking-tight">Lucas Kamikawa</h3>
@@ -123,5 +126,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </footer>
     </div>
+    </>
   );
 }

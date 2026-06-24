@@ -40,7 +40,7 @@ export default function About() {
             : "Sou estudante de Engenharia da Computação no Insper, apaixonado por resolver problemas complexos através de dados e sistemas eficientes."}
         </motion.p>
 
-        <div className="flex justify-center p-1 bg-white/5 border border-white/10 rounded-full w-fit mx-auto">
+        <div className="flex justify-center p-1 card-block border border-white/10 rounded-full w-fit mx-auto">
           <button
             onClick={() => setLang('en')}
             className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
@@ -76,7 +76,7 @@ export default function About() {
           </div>
           <div className="flex flex-wrap gap-2 md:gap-3">
             {KNOWLEDGE_BASE.languages.map((lang) => (
-              <span key={lang} className="px-3 py-1.5 md:px-4 md:py-2 bg-white/5 text-neutral-300 border border-white/10 rounded-xl font-bold text-xs md:text-sm">
+              <span key={lang} className="px-3 py-1.5 md:px-4 md:py-2 card-block text-neutral-300 border border-white/10 rounded-xl font-bold text-xs md:text-sm">
                 {lang}
               </span>
             ))}
@@ -98,7 +98,7 @@ export default function About() {
                 <h3 className="text-base md:text-lg font-bold text-white mb-2 md:mb-3">{course.name}</h3>
                 <div className="flex flex-wrap gap-2">
                   {course.topics.map((topic) => (
-                    <span key={topic} className="px-2 py-0.5 md:px-3 md:py-1 bg-white/5 rounded-full text-[10px] md:text-xs text-neutral-400 border border-white/10 whitespace-nowrap">
+                    <span key={topic} className="px-2 py-0.5 md:px-3 md:py-1 card-block rounded-full text-[10px] md:text-xs text-neutral-400 border border-white/10 whitespace-nowrap">
                       {topic}
                     </span>
                   ))}
@@ -119,7 +119,7 @@ export default function About() {
             </div>
             <div className="flex flex-wrap gap-2 md:gap-3">
               {KNOWLEDGE_BASE.tools.map((tool) => (
-                <div key={tool} className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-white/5 rounded-2xl border border-white/10 text-neutral-300">
+                <div key={tool} className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 card-block rounded-2xl border border-white/10 text-neutral-300">
                   <CheckCircle2 size={14} className="md:w-4 md:h-4 text-neutral-400" />
                   <span className="font-medium text-xs md:text-sm">{tool}</span>
                 </div>

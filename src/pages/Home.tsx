@@ -36,7 +36,7 @@ export default function Home() {
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="inline-block px-4 py-1.5 mb-6 rounded-full bg-white/5 text-white font-medium text-xs md:text-sm border border-white/10"
+          className="inline-block px-4 py-1.5 mb-6 rounded-full card-block text-white font-medium text-xs md:text-sm border border-white/10"
         >
           {lang === 'en' ? 'Available for new opportunities' : 'Disponível para novas oportunidades'}
         </motion.div>
@@ -56,7 +56,7 @@ export default function Home() {
           {lang === 'en' ? `${age} years old` : `${age} anos`} • São Paulo (SP) • Computer Engineering Student @ Insper
         </motion.p>
 
-        <div className="flex justify-center p-1 bg-white/5 border border-white/10 rounded-full w-fit mx-auto">
+        <div className="flex justify-center p-1 card-block border border-white/10 rounded-full w-fit mx-auto">
           <button
             onClick={() => setLang('en')}
             className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
@@ -143,7 +143,7 @@ export default function Home() {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                 <div className="flex items-center gap-3 md:gap-4 bg-white/[0.02] p-3 md:p-4 rounded-2xl border border-white/5">
-                  <div className="w-8 h-8 md:w-10 md:h-10 bg-white/5 rounded-xl flex items-center justify-center text-white shrink-0">
+                  <div className="w-8 h-8 md:w-10 md:h-10 card-block rounded-xl flex items-center justify-center text-white shrink-0">
                     <Award size={18} className="md:w-5 md:h-5" />
                   </div>
                   <div>
@@ -152,7 +152,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 md:gap-4 bg-white/[0.02] p-3 md:p-4 rounded-2xl border border-white/5">
-                  <div className="w-8 h-8 md:w-10 md:h-10 bg-white/5 rounded-xl flex items-center justify-center text-white shrink-0">
+                  <div className="w-8 h-8 md:w-10 md:h-10 card-block rounded-xl flex items-center justify-center text-white shrink-0">
                     <Globe size={18} className="md:w-5 md:h-5" />
                   </div>
                   <div>
@@ -181,7 +181,7 @@ export default function Home() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {skillGroup.items.map((item) => (
-                    <span key={item} className="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/10 text-neutral-300">
+                    <span key={item} className="px-3 py-1 card-block rounded-lg text-sm border border-white/10 text-neutral-300">
                       {item}
                     </span>
                   ))}

@@ -74,13 +74,13 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
             rotateY: springRotateY,
             transformStyle: "preserve-3d"
           }}
-          className={`relative overflow-hidden rounded-2xl shadow-2xl ${cert.badge ? '' : 'border border-white/10'}`}
+          className={cert.badge ? '' : 'relative overflow-hidden rounded-2xl shadow-2xl border border-white/10'}
         >
           <SafeImage
             src={cert.image}
             alt={cert.title}
             className={`w-full ${cert.badge ? 'aspect-square' : 'aspect-[16/10]'} transform transition-opacity duration-700 opacity-80 group-hover:opacity-100`}
-            containerClassName={cert.badge ? 'bg-black' : undefined}
+            containerClassName={cert.badge ? 'bg-transparent' : undefined}
             style={cert.badge ? { objectFit: 'contain' } as React.CSSProperties : undefined}
           />
           {!cert.badge && <div className="absolute inset-0 bg-black/40 group-hover:bg-black/0 transition-colors" />}
@@ -105,7 +105,7 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
             href={cert.url === '#' ? cert.image : cert.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex px-5 py-2.5 md:px-6 md:py-3 bg-white/5 border border-white/10 rounded-xl font-bold text-white text-xs md:text-base items-center gap-2 hover:bg-white/10 hover:border-white/20 transition-all shadow-sm"
+            className="inline-flex px-5 py-2.5 md:px-6 md:py-3 card-block border border-white/10 rounded-xl font-bold text-white text-xs md:text-base items-center gap-2 hover:bg-white/10 hover:border-white/20 transition-all shadow-sm"
           >
             View Certificate
             <ExternalLink size={14} className="text-neutral-500 md:w-5 md:h-5" />
@@ -126,13 +126,13 @@ export default function Certificates() {
     : CERTIFICATES.filter(cert => cert.category === activeCategory);
 
   return (
-    <div className="bg-black py-12 md:py-20 px-4 overflow-x-hidden">
+    <div className="py-12 md:py-20 px-4 overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-20">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full bg-white/5 text-white font-medium text-xs md:text-sm border border-white/10"
+            className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full card-block text-white font-medium text-xs md:text-sm border border-white/10"
           >
             <Award size={16} />
             Verified Achievements
@@ -154,7 +154,7 @@ export default function Certificates() {
               className={`px-4 py-2 md:px-6 md:py-2.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all ${
                 activeCategory === cat 
                   ? 'bg-white text-black shadow-xl scale-105' 
-                  : 'bg-white/5 text-neutral-500 border border-white/10 hover:border-white/20 hover:text-white'
+                  : 'card-block text-neutral-500 border border-white/10 hover:border-white/20 hover:text-white'
               }`}
             >
               {cat}
@@ -173,9 +173,9 @@ export default function Certificates() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-24 md:mt-40 p-8 md:p-12 bg-white/5 rounded-[2rem] md:rounded-[3rem] text-center text-white relative overflow-hidden border border-white/10"
+          className="mt-24 md:mt-40 p-8 md:p-12 card-block rounded-[2rem] md:rounded-[3rem] text-center text-white relative overflow-hidden border border-white/10"
         >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-[100px] rounded-full" />
+          <div className="absolute top-0 right-0 w-64 h-64 card-block blur-[100px] rounded-full" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-neutral-500/10 blur-[100px] rounded-full" />
           
           <h2 className="text-3xl md:text-4xl font-display font-light mb-6 relative z-10 text-white">
