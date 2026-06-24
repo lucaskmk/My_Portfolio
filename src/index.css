@@ -18,9 +18,8 @@
 }
 
 .glass {
+  @apply backdrop-blur-[32px];
   background: transparent;
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
   border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
