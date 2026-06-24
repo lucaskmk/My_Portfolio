@@ -83,7 +83,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-6 left-6 right-6 z-50 flex justify-center">
-        <div className="px-6 py-3 rounded-full flex gap-8 items-center border border-white/10 shadow-2xl" style={{ background: 'rgba(8,11,20,0.35)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)' }}>
+        <div className="px-6 py-3 rounded-full flex gap-8 items-center border border-white/10 shadow-2xl" style={{ background: 'rgba(8,11,20,0.80)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)' }}>
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = location.pathname === link.path;

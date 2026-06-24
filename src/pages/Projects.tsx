@@ -206,7 +206,7 @@ export default function Projects() {
                           exit={{ opacity: 0, x: 10 }}
                           transition={{ delay: idx * 0.05 }}
                           onClick={() => primaryUrl && window.open(primaryUrl, '_blank')}
-                          className={`group card-block p-4 md:p-5 rounded-xl md:rounded-2xl border border-white/5 hover:border-white/20 hover:bg-white/10 transition-all ${primaryUrl ? 'cursor-pointer' : ''}`}
+                          className={`group p-4 md:p-5 rounded-xl md:rounded-2xl border-0 bg-white/[0.06] hover:bg-white/[0.09] transition-all ${primaryUrl ? 'cursor-pointer' : ''}`}
                         >
                           <div className="flex justify-between items-start mb-1 md:mb-2">
                             <h4 className="font-bold text-white text-sm md:text-base group-hover:text-neutral-300 transition-colors">
@@ -288,7 +288,7 @@ export default function Projects() {
                       <div
                         key={project.id}
                         onClick={() => primaryUrl && window.open(primaryUrl, '_blank')}
-                        className={`group flex flex-col md:flex-row card-block rounded-2xl md:rounded-3xl overflow-hidden border border-white/[0.07] hover:border-white/20 hover:bg-white/[0.07] transition-all duration-300 ${primaryUrl ? 'cursor-pointer' : ''}`}
+                        className={`group flex flex-col md:flex-row rounded-2xl md:rounded-3xl overflow-hidden border-0 bg-white/[0.06] hover:bg-white/[0.09] transition-all duration-300 ${primaryUrl ? 'cursor-pointer' : ''}`}
                       >
                         <div className="p-4 md:p-6 flex flex-col justify-center">
                           <div className="flex items-center justify-between mb-1 md:mb-2 text-sm md:text-base">
