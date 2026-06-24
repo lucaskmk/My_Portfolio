@@ -18,13 +18,13 @@ export const PROJECTS: LanguageProjects = {
     {
       title: "FastAPI NoSQL REST",
       description: "Recent development of high-performance APIs using FastAPI, implementing NoSQL logic and RESTful architectural patterns.",
-      url: null
+      url: null,
+      videoUrl: "https://youtu.be/WZ7uJ-U6sPU?si=1CaozLn-pBMCkZbo"
     },
     {
       title: "Full Stack Web Player",
       description: "Streaming platform with Django REST and React. Handled complex API integration and backend logic.",
-      url: "https://github.com/lucaskmk/Web-Player",
-      videoUrl: "https://youtu.be/o0PQdfjXw7I"
+      url: "https://github.com/lucaskmk/Web-Player"
     },
     {
       title: "Django Notes Platform",
@@ -36,7 +36,8 @@ export const PROJECTS: LanguageProjects = {
     {
       title: "Parallel Downloader (C)",
       description: "Demonstrates complex problem solving: multi-process management with fork(), signal handling, and robust resource cleanup.",
-      url: "https://github.com/lucaskmk/Multi-process-Downloader"
+      url: "https://github.com/lucaskmk/Multi-process-Downloader",
+      videoUrl: "https://youtu.be/o0PQdfjXw7I"
     },
     {
       title: "Algorithm Analysis & Optimization",
@@ -216,7 +217,8 @@ export const ACADEMIC_PROJECTS: AcademicProject[] = [
     description: "C-based parallel downloader using fork() and waitpid(). Features robust signal handling and real-time process status monitoring.",
     image: "https://picsum.photos/seed/downloader/800/600",
     tags: ["C", "Linux", "Systems"],
-    date: "2024"
+    date: "2024",
+    videoUrl: "https://youtu.be/o0PQdfjXw7I"
   },
   {
     id: 1,
@@ -265,7 +267,6 @@ export const ACADEMIC_PROJECTS: AcademicProject[] = [
     image: "https://picsum.photos/seed/webplayer/800/600",
     tags: ["Django", "React", "API"],
     date: "2024",
-    videoUrl: "https://youtu.be/o0PQdfjXw7I"
   }
 ];
 
