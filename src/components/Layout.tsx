@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
     <WaveBackground />
     <div className="min-h-screen flex flex-col" style={{ position: 'relative', zIndex: 1 }}>
-      <header className="sticky top-0 z-50 glass">
+      <header className="sticky top-0 z-50" style={{ background: 'rgba(8,11,20,0.35)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             <Link to="/" className="flex items-center gap-2 group">
@@ -83,7 +83,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-6 left-6 right-6 z-50 flex justify-center">
-        <div className="glass px-6 py-3 rounded-full flex gap-8 items-center border border-white/10 shadow-2xl">
+        <div className="px-6 py-3 rounded-full flex gap-8 items-center border border-white/10 shadow-2xl" style={{ background: 'rgba(8,11,20,0.35)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)' }}>
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = location.pathname === link.path;
