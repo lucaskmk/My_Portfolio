@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
     <WaveBackground />
     <div className="min-h-screen flex flex-col" style={{ position: 'relative', zIndex: 1 }}>
-      <header className="sticky top-0 z-50" style={{ background: 'rgba(8,11,20,0.35)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+      <header className="sticky top-0 z-50" style={{ background: 'rgba(10,13,21,0.75)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)', boxShadow: '0 1px 0 rgba(255,255,255,0.05)', transform: 'translateZ(0)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             <Link to="/" className="flex items-center gap-2 group">
