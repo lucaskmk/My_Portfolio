@@ -12,7 +12,7 @@
 
 @layer base {
   html, body {
-    background: transparent !important;
+    background: #070a11 !important;
     @apply text-white antialiased font-sans selection:bg-white selection:text-black;
   }
 }
