@@ -276,7 +276,7 @@ export default function Projects() {
                 }}
                 className="xl:col-span-5 space-y-8"
               >
-                <h2 className="text-xl md:text-2xl font-display font-light mb-8 flex items-center gap-2 px-4 text-white">
+                <h2 className="text-xl md:text-2xl font-display font-light mb-8 flex items-center gap-2 px-4 pt-4 md:pt-10 text-white">
                   <span className="w-6 h-6 md:w-8 md:h-8 bg-white rounded-lg flex items-center justify-center text-neutral-900 text-[10px] md:text-xs font-bold">10</span>
                   Academic Journey
                 </h2>

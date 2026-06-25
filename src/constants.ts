@@ -53,6 +53,11 @@ export const PROJECTS: LanguageProjects = {
   ],
   python: [
     {
+      title: "Portfolio Optimization with HERC",
+      description: "Backtesting framework validating whether the Hierarchical Equal Risk Contribution (HERC) method reduces max drawdown vs. buy-and-hold during market stress periods.",
+      url: "https://github.com/lucaskmk/Otimiza-o-de-Portf-lio-com-HERC"
+    },
+    {
       title: "Battleship Strategy",
       description: "Strategic ocean battles with AI decision making logic.",
       url: "https://github.com/lucaskmk/EP2"
@@ -188,6 +193,15 @@ export const CERTIFICATES: Certificate[] = [
 ];
 
 export const ACADEMIC_PROJECTS: AcademicProject[] = [
+  {
+    id: 12,
+    title: "Portfolio Optimization with HERC",
+    description: "Backtesting study validating whether the Hierarchical Equal Risk Contribution (HERC) method achieves lower maximum drawdown than buy-and-hold during market stress periods through hierarchical risk diversification.",
+    image: "",
+    tags: ["Python", "Quant Finance", "Backtesting", "Risk"],
+    date: "2025",
+    url: "https://github.com/lucaskmk/Otimiza-o-de-Portf-lio-com-HERC"
+  },
   {
     id: 11,
     title: "Financial RAG",
