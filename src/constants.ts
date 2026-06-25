@@ -3,6 +3,12 @@ import { LanguageProjects, Certificate, ResumeContent, AcademicProject } from '.
 export const PROJECTS: LanguageProjects = {
   data: [
     {
+      title: "Financial RAG",
+      description: "Retrieval-Augmented Generation pipeline for financial documents. Combines vector search with LLMs to answer queries over structured financial data.",
+      url: "https://github.com/lucaskmk/Financial-RAG",
+      videoUrl: "https://youtu.be/nk8veFssCHg"
+    },
+    {
       title: "Churn Prediction Interface",
       description: "End-to-end ML solution from Databricks Hackathon. Integrates a predictive model with a clean web interface for decision markers.",
       url: "https://github.com/lucaskmk/Databricks-Hackathon",
@@ -182,6 +188,16 @@ export const CERTIFICATES: Certificate[] = [
 ];
 
 export const ACADEMIC_PROJECTS: AcademicProject[] = [
+  {
+    id: 11,
+    title: "Financial RAG",
+    description: "Retrieval-Augmented Generation pipeline for financial documents. Combines vector search with LLMs to answer queries over structured financial data.",
+    image: "",
+    tags: ["Python", "RAG", "LLM", "Vector Search"],
+    date: "2026",
+    url: "https://github.com/lucaskmk/Financial-RAG",
+    videoUrl: "https://youtu.be/nk8veFssCHg"
+  },
   {
     id: 9,
     title: "CloudPay — Cloud Computing Project",
