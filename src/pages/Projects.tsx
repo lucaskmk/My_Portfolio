@@ -20,6 +20,10 @@ export default function Projects() {
   const currentStep = React.useRef(0);
   const isDragging = React.useRef(false);
 
+  // Track activeIndex in a ref so the motion listener doesn't need it as a dependency
+  const activeIndexRef = React.useRef(activeIndex);
+  React.useEffect(() => { activeIndexRef.current = activeIndex; }, [activeIndex]);
+
   // Sync activeIndex with rotation for real-time feedback while dragging
   React.useEffect(() => {
     return rotation.on('change', (v) => {
@@ -27,12 +31,13 @@ export default function Projects() {
         const unitAngle = 360 / LANGUAGES.length;
         const normalizedRotation = (-v % 360 + 360) % 360;
         const index = Math.round(normalizedRotation / unitAngle) % LANGUAGES.length;
-        if (index !== activeIndex) {
+        if (index !== activeIndexRef.current) {
+          activeIndexRef.current = index;
           setActiveIndex(index);
         }
       }
     });
-  }, [rotation, activeIndex]);
+  }, [rotation]); // stable dep — no re-subscription on every index change
 
   const rotateTo = (step: number) => {
     currentStep.current = step;
