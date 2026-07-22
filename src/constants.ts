@@ -3,6 +3,12 @@ import { LanguageProjects, Certificate, ResumeContent, AcademicProject } from '.
 export const PROJECTS: LanguageProjects = {
   data: [
     {
+      title: "Ollama AI Agent Demo",
+      description: "Local AI agent that uses an LLM (via Ollama/LLaMA 3.2) to reason over tools: web search, math, file ops, and memory — demonstrating a full tool-use loop with planning and self-correction.",
+      url: "https://github.com/lucaskmk/Ollama_AI-AgentDemo",
+      videoUrl: "https://youtu.be/GWQIyWlHVg4"
+    },
+    {
       title: "Financial RAG",
       description: "Retrieval-Augmented Generation pipeline for financial documents. Combines vector search with LLMs to answer queries over structured financial data.",
       url: "https://github.com/lucaskmk/Financial-RAG",
@@ -193,6 +199,16 @@ export const CERTIFICATES: Certificate[] = [
 ];
 
 export const ACADEMIC_PROJECTS: AcademicProject[] = [
+  {
+    id: 13,
+    title: "Ollama AI Agent Demo",
+    description: "Local AI agent built in Python using Ollama (LLaMA 3.2). Implements a full tool-use loop with planning, self-correction, confirmation for risky ops, and persistent memory across sessions.",
+    image: "",
+    tags: ["Python", "LLM", "Ollama", "AI Agents"],
+    date: "2025",
+    url: "https://github.com/lucaskmk/Ollama_AI-AgentDemo",
+    videoUrl: "https://youtu.be/GWQIyWlHVg4"
+  },
   {
     id: 12,
     title: "Portfolio Optimization with HERC",
