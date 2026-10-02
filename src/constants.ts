@@ -401,8 +401,8 @@ export const RESUME_EN: ResumeContent = {
   skills: [
     { category: "Languages", visible: 4, items: ["Python", "C", "Java", "SQL (MySQL · SQLite)", "C++", "JavaScript", "TypeScript", "C#", "VHDL", "Assembly (MIPS)"] },
     { category: "Tools & Environment", items: ["Git", "Docker", "Linux Shell", "AWS Console", "Valgrind", "GDB"] },
-    { category: "Data Science & AI", allOnDesktop: true, items: ["Pandas", "NumPy", "Scikit-learn", "RAG", "LLMs", "Databricks", "ML Pipelines", "EDA", "Feature Engineering", "Matplotlib", "Seaborn", "SciPy", "PCA", "t-SNE", "UMAP", "ChromaDB", "Algorithm Analysis (O, Ω, Θ)"] },
-    { category: "Web & Backend", allOnDesktop: true, items: ["FastAPI", "Django REST", "Node.js", "React (Vite)", "REST/JSON", "SQLAlchemy", "NoSQL", "Next.js", "Process Management"] },
+    { category: "Data Science & AI", hiddenOnDesktop: 4, items: ["Pandas", "NumPy", "Scikit-learn", "RAG", "LLMs", "Databricks", "ML Pipelines", "EDA", "Feature Engineering", "Matplotlib", "Seaborn", "UMAP", "Algorithm Analysis (O, Ω, Θ)", "SciPy", "PCA", "t-SNE", "ChromaDB"] },
+    { category: "Web & Backend", hiddenOnDesktop: 0, items: ["FastAPI", "Django REST", "Node.js", "React (Vite)", "REST/JSON", "SQLAlchemy", "NoSQL", "Next.js", "Process Management"] },
     { category: "Cloud & DevOps", items: ["AWS (Lambda · SQS · DynamoDB · S3)", "MAAS", "Kubernetes", "OpenStack", "Prometheus", "Grafana", "Terraform (IaC)", "Juju", "Bare-metal Provisioning"] },
     { category: "Cybersecurity", items: ["Linux (Kali)", "Network Security", "Threats & Vulnerabilities", "Risk Management", "Python Automation"] },
     { category: "Embedded Systems", items: ["Firmware (C)", "RTOS", "I2C / SPI", "Digital Logic (ALU · FSM)"] }
@@ -427,8 +427,8 @@ export const RESUME_PT: ResumeContent = {
   skills: [
     { category: "Linguagens", visible: 4, items: ["Python", "C", "Java", "SQL (MySQL · SQLite)", "C++", "JavaScript", "TypeScript", "C#", "VHDL", "Assembly (MIPS)"] },
     { category: "Ferramentas e Ambiente", items: ["Git", "Docker", "Linux Shell", "Console da AWS", "Valgrind", "GDB"] },
-    { category: "Ciência de Dados & IA", allOnDesktop: true, items: ["Pandas", "NumPy", "Scikit-learn", "RAG", "LLMs", "Databricks", "Pipelines de ML", "EDA", "Feature Engineering", "Matplotlib", "Seaborn", "SciPy", "PCA", "t-SNE", "UMAP", "ChromaDB", "Análise de Algoritmos (O, Ω, Θ)"] },
-    { category: "Web & Backend", allOnDesktop: true, items: ["FastAPI", "Django REST", "Node.js", "React (Vite)", "REST/JSON", "SQLAlchemy", "NoSQL", "Next.js", "Gerenciamento de Processos"] },
+    { category: "Ciência de Dados & IA", hiddenOnDesktop: 4, items: ["Pandas", "NumPy", "Scikit-learn", "RAG", "LLMs", "Databricks", "Pipelines de ML", "EDA", "Feature Engineering", "Matplotlib", "Seaborn", "UMAP", "Análise de Algoritmos (O, Ω, Θ)", "SciPy", "PCA", "t-SNE", "ChromaDB"] },
+    { category: "Web & Backend", hiddenOnDesktop: 0, items: ["FastAPI", "Django REST", "Node.js", "React (Vite)", "REST/JSON", "SQLAlchemy", "NoSQL", "Next.js", "Gerenciamento de Processos"] },
     { category: "Nuvem & DevOps", items: ["AWS (Lambda · SQS · DynamoDB · S3)", "MAAS", "Kubernetes", "OpenStack", "Prometheus", "Grafana", "Terraform (IaC)", "Juju", "Provisionamento Bare-metal"] },
     { category: "Cibersegurança", items: ["Linux (Kali)", "Segurança de Redes", "Ameaças e Vulnerabilidades", "Gestão de Riscos", "Automação com Python"] },
     { category: "Sistemas Embarcados", items: ["Firmware (C)", "RTOS", "I2C / SPI", "Lógica Digital (ULA · FSM)"] }

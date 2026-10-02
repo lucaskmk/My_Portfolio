@@ -69,14 +69,16 @@ interface SkillGroupProps {
   category: string;
   items: string[];
   visible?: number;
-  allOnDesktop?: boolean;
+  hiddenOnDesktop?: number;
   lang: Lang;
 }
 
-const SkillGroup: React.FC<SkillGroupProps> = ({ category, items, visible: visibleCount = SKILLS_VISIBLE, allOnDesktop, lang }) => {
+const SkillGroup: React.FC<SkillGroupProps> = ({ category, items, visible: visibleCount = SKILLS_VISIBLE, hiddenOnDesktop, lang }) => {
   const [expanded, setExpanded] = useState(false);
   const isDesktop = useIsDesktop();
-  const hiddenCount = isDesktop && allOnDesktop ? 0 : items.length - visibleCount - (isDesktop ? SKILLS_EXTRA_DESKTOP : 0);
+  const hiddenCount = isDesktop
+    ? hiddenOnDesktop ?? items.length - visibleCount - SKILLS_EXTRA_DESKTOP
+    : items.length - visibleCount;
   const visible = expanded || hiddenCount <= 0 ? items : items.slice(0, items.length - hiddenCount);
 
   return (
@@ -244,7 +246,7 @@ export default function Home() {
           <div className="space-y-6">
             {/* Index keys keep each group open or closed when the language changes */}
             {content.skills.map((group, index) => (
-              <SkillGroup key={index} category={group.category} items={group.items} visible={group.visible} allOnDesktop={group.allOnDesktop} lang={lang} />
+              <SkillGroup key={index} category={group.category} items={group.items} visible={group.visible} hiddenOnDesktop={group.hiddenOnDesktop} lang={lang} />
             ))}
           </div>
         </motion.section>

@@ -45,6 +45,7 @@ export interface ResumeContent {
   international: { location: string; detail: string }[];
   languages: { name: string; level: string }[];
   // `visible` is how many items show before the "show more" arrow (default 6);
-  // `allOnDesktop` shows the whole group on desktop, where the card has room beside the profile
-  skills: { category: string; items: string[]; visible?: number; allOnDesktop?: boolean }[];
+  // `hiddenOnDesktop` is how many of the last items stay behind the arrow on desktop, where the card
+  // sits beside the profile (0 shows the whole group); without it, desktop shows 3 more than `visible`
+  skills: { category: string; items: string[]; visible?: number; hiddenOnDesktop?: number }[];
 }
