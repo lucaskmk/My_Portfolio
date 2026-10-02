@@ -176,7 +176,7 @@ const FeaturedProjects: React.FC<{ lang: Lang }> = ({ lang }) => {
               ? `Project ${index + 1} of ${FEATURED_PROJECTS.length}`
               : `Projeto ${index + 1} de ${FEATURED_PROJECTS.length}`}
             aria-current={index === active}
-            className="p-1.5"
+            className="relative p-1.5 after:absolute after:inset-x-0 after:-inset-y-3"
           >
             <span className={`block h-1.5 rounded-full transition-all ${index === active ? 'w-4 bg-white/70' : 'w-1.5 bg-white/25'}`} />
           </button>
@@ -213,6 +213,7 @@ export default function Home() {
   const viewer = useCertificateViewer();
   const content = lang === 'en' ? RESUME_EN : RESUME_PT;
   const age = getAge();
+  const [profileOpen, setProfileOpen] = useState(false);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
@@ -263,7 +264,23 @@ export default function Home() {
           </div>
 
           <div className="space-y-6 md:space-y-8">
-            <p className="text-base md:text-lg text-neutral-400 leading-relaxed">{content.profile}</p>
+            {/* On phones the long profile starts with its first lines and "Read more" shows the rest */}
+            <div>
+              <p className={`text-base md:text-lg text-neutral-400 leading-relaxed md:line-clamp-none ${profileOpen ? '' : 'line-clamp-5'}`}>
+                {content.profile}
+              </p>
+              <button
+                type="button"
+                onClick={() => setProfileOpen(!profileOpen)}
+                aria-expanded={profileOpen}
+                className="md:hidden mt-1 -ml-2 inline-flex items-center gap-1 px-2 py-2.5 text-sm font-bold text-neutral-300 hover:text-white transition-colors"
+              >
+                {profileOpen
+                  ? (lang === 'en' ? 'Show less' : 'Mostrar menos')
+                  : (lang === 'en' ? 'Read more' : 'Ler mais')}
+                <ChevronDown size={14} className={`transition-transform ${profileOpen ? 'rotate-180' : ''}`} />
+              </button>
+            </div>
 
             <div className={SECTION_DIVIDER}>
               <h3 className={`${LABEL} mb-4 md:mb-6`}>{lang === 'en' ? 'Key Certifications' : 'Principais Certificações'}</h3>

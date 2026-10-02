@@ -71,10 +71,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             <div className="flex items-center gap-3 md:gap-4">
               <LangToggle />
-              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-neutral-400 hover:text-white transition-colors">
+              {/* Padding with a matching negative margin gives a 44px tap area without moving the icons */}
+              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-3 -m-3 text-neutral-400 hover:text-white transition-colors">
                 <Github size={20} />
               </a>
-              <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-neutral-400 hover:text-white transition-colors">
+              <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-3 -m-3 text-neutral-400 hover:text-white transition-colors">
                 <Linkedin size={20} />
               </a>
             </div>
@@ -82,7 +83,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main className="flex-grow pb-24 md:pb-0">
+      {/* No bottom padding here: the footer's own padding already clears the mobile bottom nav */}
+      <main className="flex-grow">
         {children}
       </main>
 
@@ -110,23 +112,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </nav>
 
-      <footer className="text-white py-24 pb-32 md:pb-24 border-t border-white/5" style={{ background: 'rgba(14,18,32,0.70)' }}>
+      {/* On phones the bottom padding keeps the copyright above the fixed bottom nav */}
+      <footer className="text-white pt-12 pb-28 md:py-24 border-t border-white/5" style={{ background: 'rgba(14,18,32,0.70)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-12">
+          <div className="mb-8 md:mb-12">
             <h3 className="font-display font-light text-4xl mb-2 tracking-tight">Lucas Kamikawa</h3>
             <p className="text-neutral-400 uppercase tracking-widest text-xs">
               {lang === 'en' ? 'Computer Engineering @ Insper' : 'Engenharia da Computação @ Insper'}
             </p>
           </div>
-          
-          <div className="flex justify-center gap-8 mb-12">
-            <a href="mailto:lucaskamikawa@gmail.com" aria-label="Email" className="text-neutral-500 hover:text-white transition-colors">
+
+          {/* Each icon has a 44px tap area; the smaller gap and negative margin keep the old spacing */}
+          <div className="flex justify-center gap-3 -mt-2.5 mb-5.5 md:mb-9.5">
+            <a href="mailto:lucaskamikawa@gmail.com" aria-label="Email" className="p-2.5 text-neutral-500 hover:text-white transition-colors">
               <Mail size={24} strokeWidth={1.5} />
             </a>
-            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-neutral-500 hover:text-white transition-colors">
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2.5 text-neutral-500 hover:text-white transition-colors">
               <Linkedin size={24} strokeWidth={1.5} />
             </a>
-            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-neutral-500 hover:text-white transition-colors">
+            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2.5 text-neutral-500 hover:text-white transition-colors">
               <Github size={24} strokeWidth={1.5} />
             </a>
           </div>

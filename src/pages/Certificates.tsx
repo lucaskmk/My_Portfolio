@@ -67,11 +67,13 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, lang, on
     mouseY.set(0);
   };
 
+  // Phones: a grid with the image as a thumbnail beside the title, and the description and button below.
+  // From md up: image and text side by side, alternating sides
   return (
     <motion.div
       ref={cardRef}
       style={reduceMotion ? { opacity } : { opacity, scale, x }}
-      className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-6 md:gap-12`}
+      className={`grid grid-cols-[7rem_1fr] gap-x-4 gap-y-3 md:flex ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center md:gap-12`}
     >
       {/* Image Container */}
       <div
@@ -99,8 +101,8 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, lang, on
         </motion.div>
       </div>
 
-      {/* Content Container */}
-      <div className="w-full md:w-1/2 space-y-3 md:space-y-6 px-2 md:px-0">
+      {/* Content Container: on phones its children join the card grid (title beside the image) */}
+      <div className="contents md:block md:w-1/2 md:space-y-6">
         <div className="flex flex-col gap-1 md:gap-2">
           <span className={LABEL}>
             {CATEGORY_LABELS[cert.category][lang]}
@@ -109,10 +111,10 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, lang, on
             {cert.title}
           </h2>
         </div>
-        <p className="text-sm md:text-lg text-neutral-400 leading-relaxed">
+        <p className="col-span-2 text-sm md:text-lg text-neutral-400 leading-relaxed">
           {cert.description[lang]}
         </p>
-        <div className="pt-2 md:pt-4">
+        <div className="col-span-2 pt-1 md:pt-4">
           {'href' in view ? (
             <a
               href={view.href}
@@ -195,7 +197,7 @@ export default function Certificates() {
           ))}
         </div>
 
-        <div className="space-y-16 md:space-y-32">
+        <div className="space-y-12 md:space-y-32">
           {filteredCertificates.map((cert, index) => (
             <CertificateCard key={cert.id} cert={cert} index={index} lang={lang} onOpen={viewer.open} />
           ))}
