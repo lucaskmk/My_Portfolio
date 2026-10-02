@@ -141,7 +141,7 @@ export default function Home() {
           ? `${age} years old • São Paulo (SP) • Computer Engineering Student @ Insper`
           : `${age} anos • São Paulo (SP) • Estudante de Engenharia da Computação @ Insper`}
       >
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-4">
           <p className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-xs md:text-sm text-neutral-300">
             <span className="relative flex w-2 h-2 shrink-0">
               <span className="absolute inset-0 rounded-full bg-emerald-400 opacity-75 animate-ping motion-reduce:animate-none" />
