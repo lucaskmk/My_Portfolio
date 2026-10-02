@@ -97,6 +97,16 @@ export const PROJECTS: LanguageProjects = {
 
 export const CERTIFICATES: Certificate[] = [
   {
+    id: 12,
+    title: "Introduction to Cybersecurity",
+    description: "Cisco Networking Academy course covering cyber threats, attack techniques, data protection, and the fundamentals of securing devices and networks.",
+    image: "images/certificates/introduction-to-cybersecurity.png",
+    url: "https://www.credly.com/badges/7bd791d4-d7c5-4b9e-8d03-be0271499db8/public_url",
+    direction: 'left',
+    category: 'Cybersecurity',
+    badge: true
+  },
+  {
     id: 11,
     title: "AWS Academy Graduate — Cloud Foundations",
     description: "AWS Academy certification covering core cloud concepts, AWS global infrastructure, compute, storage, databases, and security fundamentals.",
@@ -119,10 +129,11 @@ export const CERTIFICATES: Certificate[] = [
     id: 1,
     title: "Google Cybersecurity Professional",
     description: "Professional Certificate from Google via Coursera including 8 comprehensive courses covering the entire cybersecurity landscape.",
-    image: "images/certificates/Google_Cybersecurity_Professional.png",
-    url: "#",
+    image: "images/certificates/google-cybersecurity-professional-certificate-v2.png",
+    url: "images/certificates/Google_Cybersecurity_Professional.png",
     direction: 'left',
-    category: 'Cybersecurity'
+    category: 'Cybersecurity',
+    badge: true
   },
   {
     id: 6,
