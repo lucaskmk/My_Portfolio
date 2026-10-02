@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { CERTIFICATES, PROJECTS, RESUME_EN, RESUME_PT } from '../constants';
@@ -49,6 +49,20 @@ const SECTION_DIVIDER = 'border-t border-white/10 pt-6 md:pt-8';
 
 // Skills are listed by importance: each group shows its first items and the arrow opens the rest
 const SKILLS_VISIBLE = 6;
+// On desktop the skills card sits beside the taller profile card, so each group shows a few more items to fill it
+const SKILLS_EXTRA_DESKTOP = 3;
+const DESKTOP_QUERY = '(min-width: 1024px)';
+
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(() => window.matchMedia(DESKTOP_QUERY).matches);
+  useEffect(() => {
+    const query = window.matchMedia(DESKTOP_QUERY);
+    const onChange = () => setIsDesktop(query.matches);
+    query.addEventListener('change', onChange);
+    return () => query.removeEventListener('change', onChange);
+  }, []);
+  return isDesktop;
+}
 const SKILL_CHIP = 'px-3 py-1 card-block rounded-lg text-sm border border-white/10 text-neutral-300';
 
 interface SkillGroupProps {
@@ -60,8 +74,9 @@ interface SkillGroupProps {
 
 const SkillGroup: React.FC<SkillGroupProps> = ({ category, items, visible: visibleCount = SKILLS_VISIBLE, lang }) => {
   const [expanded, setExpanded] = useState(false);
-  const hiddenCount = items.length - visibleCount;
-  const visible = expanded || hiddenCount <= 0 ? items : items.slice(0, visibleCount);
+  const isDesktop = useIsDesktop();
+  const hiddenCount = items.length - visibleCount - (isDesktop ? SKILLS_EXTRA_DESKTOP : 0);
+  const visible = expanded || hiddenCount <= 0 ? items : items.slice(0, items.length - hiddenCount);
 
   return (
     <div>
