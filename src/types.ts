@@ -44,6 +44,7 @@ export interface ResumeContent {
   education: { school: string; detail: string }[];
   international: { location: string; detail: string }[];
   languages: { name: string; level: string }[];
-  // `visible` is how many items show before the "show more" arrow (default 6)
-  skills: { category: string; items: string[]; visible?: number }[];
+  // `visible` is how many items show before the "show more" arrow (default 6);
+  // `allOnDesktop` shows the whole group on desktop, where the card has room beside the profile
+  skills: { category: string; items: string[]; visible?: number; allOnDesktop?: boolean }[];
 }
