@@ -116,7 +116,8 @@ const itemVariants = {
 };
 
 function getAge() {
-  const birthDate = new Date('2005-02-19');
+  // Local date (month is 0-based): a '2005-02-19' string is read as UTC and turns into Feb 18 in Brazil
+  const birthDate = new Date(2005, 1, 19);
   const today = new Date();
   let age = today.getFullYear() - birthDate.getFullYear();
   const m = today.getMonth() - birthDate.getMonth();
