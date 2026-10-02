@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { CERTIFICATES, PROJECTS, RESUME_EN, RESUME_PT } from '../constants';
@@ -107,6 +107,85 @@ const SkillGroup: React.FC<SkillGroupProps> = ({ category, items, visible: visib
   );
 };
 
+// On phones the featured projects become a swipe carousel (one card at a time, the next one peeking in)
+// so they take one card of height instead of four; from the sm breakpoint up they are a 2-column grid
+const FeaturedProjects: React.FC<{ lang: Lang }> = ({ lang }) => {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  const cardStep = (track: HTMLDivElement) => {
+    const card = track.firstElementChild as HTMLElement | null;
+    return card ? card.offsetWidth + parseFloat(getComputedStyle(track).columnGap || '0') : 0;
+  };
+
+  const onScroll = () => {
+    const track = trackRef.current;
+    const step = track && cardStep(track);
+    if (!track || !step) return;
+    // The last card can't snap to the left edge, so reaching the end counts as the last one
+    const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    setActive(atEnd ? FEATURED_PROJECTS.length - 1 : Math.round(track.scrollLeft / step));
+  };
+
+  const goTo = (index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    track.scrollTo({ left: index * cardStep(track), behavior: reduceMotion ? 'auto' : 'smooth' });
+  };
+
+  return (
+    <>
+      <div
+        ref={trackRef}
+        onScroll={onScroll}
+        className="flex gap-3 overflow-x-auto snap-x snap-mandatory overscroll-x-contain -mx-6 px-6 scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-visible sm:mx-0 sm:px-0 md:gap-4"
+      >
+        {FEATURED_PROJECTS.map((project) => (
+          <article key={project.title.en} className="w-[85%] shrink-0 snap-start sm:w-auto flex flex-col p-4 md:p-5 rounded-2xl bg-white/[0.04] border border-white/[0.06]">
+            <p className={`${LABEL} mb-1.5`}>{AREA_INFO[project.areas[0]].name[lang]}</p>
+            <h4 className="font-display font-medium text-white text-sm md:text-base leading-snug">{project.title[lang]}</h4>
+            <ul className="mt-2 pl-4 list-disc text-xs md:text-sm text-neutral-400 space-y-1">
+              {project.highlights?.[lang].map((highlight) => <li key={highlight}>{highlight}</li>)}
+            </ul>
+            <div className="mt-auto pt-3 flex flex-wrap gap-1 -ml-2.5">
+              {projectLinks(project, lang).map(({ href, label, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                  <Icon size={14} />
+                  {label}
+                </a>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-3 flex justify-center sm:hidden">
+        {FEATURED_PROJECTS.map((project, index) => (
+          <button
+            key={project.title.en}
+            type="button"
+            onClick={() => goTo(index)}
+            aria-label={lang === 'en'
+              ? `Project ${index + 1} of ${FEATURED_PROJECTS.length}`
+              : `Projeto ${index + 1} de ${FEATURED_PROJECTS.length}`}
+            aria-current={index === active}
+            className="p-1.5"
+          >
+            <span className={`block h-1.5 rounded-full transition-all ${index === active ? 'w-4 bg-white/70' : 'w-1.5 bg-white/25'}`} />
+          </button>
+        ))}
+      </div>
+    </>
+  );
+};
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
@@ -208,31 +287,7 @@ export default function Home() {
 
             <div className={SECTION_DIVIDER}>
               <h3 className={`${LABEL} mb-4 md:mb-6`}>{lang === 'en' ? 'Featured Projects' : 'Projetos em Destaque'}</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-                {FEATURED_PROJECTS.map((project) => (
-                  <article key={project.title.en} className="flex flex-col p-4 md:p-5 rounded-2xl bg-white/[0.04] border border-white/[0.06]">
-                    <p className={`${LABEL} mb-1.5`}>{AREA_INFO[project.areas[0]].name[lang]}</p>
-                    <h4 className="font-display font-medium text-white text-sm md:text-base leading-snug">{project.title[lang]}</h4>
-                    <ul className="mt-2 pl-4 list-disc text-xs md:text-sm text-neutral-400 space-y-1">
-                      {project.highlights?.[lang].map((highlight) => <li key={highlight}>{highlight}</li>)}
-                    </ul>
-                    <div className="mt-auto pt-3 flex flex-wrap gap-1 -ml-2.5">
-                      {projectLinks(project, lang).map(({ href, label, icon: Icon }) => (
-                        <a
-                          key={label}
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
-                        >
-                          <Icon size={14} />
-                          {label}
-                        </a>
-                      ))}
-                    </div>
-                  </article>
-                ))}
-              </div>
+              <FeaturedProjects lang={lang} />
             </div>
           </div>
         </motion.section>
