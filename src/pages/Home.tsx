@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { CERTIFICATES, PROJECTS, RESUME_EN, RESUME_PT } from '../constants';
 import {
-  User, Code, Compass, GraduationCap, Globe, Languages, FileText, ArrowUpRight, LayoutGrid, ChevronDown,
+  User, Briefcase, Code, Compass, GraduationCap, Globe, Languages, FileText, ArrowUpRight, LayoutGrid, ChevronDown,
 } from 'lucide-react';
 import { useLang, type Lang } from '../useLang';
 import { AREA_INFO, AREA_ORDER } from '../areas';
@@ -125,7 +125,19 @@ export default function Home() {
           ? `${age} years old • São Paulo (SP) • Computer Engineering Student @ Insper`
           : `${age} anos • São Paulo (SP) • Estudante de Engenharia da Computação @ Insper`}
       >
-        <div className="flex flex-wrap justify-center items-center gap-3">
+        <div className="flex flex-col items-center gap-4">
+          <p className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-xs md:text-sm text-neutral-300">
+            <span className="relative flex w-2 h-2 shrink-0">
+              <span className="absolute inset-0 rounded-full bg-emerald-400 opacity-75 animate-ping motion-reduce:animate-none" />
+              <span className="relative w-2 h-2 rounded-full bg-emerald-400" />
+            </span>
+            <Briefcase size={14} className="shrink-0 text-neutral-400" />
+            <span>
+              {lang === 'en' ? 'Process & Data Engineering Intern' : 'Estagiário em Engenharia de Processos e Dados'}
+              {' @ '}
+              <span className="font-bold text-white">Neria Energia</span>
+            </span>
+          </p>
           <a
             href={CV_URL[lang]}
             target="_blank"

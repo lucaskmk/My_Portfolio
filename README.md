@@ -1,4 +1,4 @@
-https://lucaskmk.github.io/My_Portfolio/#/
+https://lucaskmk.github.io/#/
 
 git add .
 git commit -m " "
