@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mail, Linkedin, Github, User, Code, Award, GraduationCap } from 'lucide-react';
+import { Mail, Linkedin, Github, User, Code, Award } from 'lucide-react';
 import WaveBackground from './WaveBackground';
+import LangToggle from './LangToggle';
+import { useLang } from '../useLang';
 
 const GITHUB_URL = 'https://github.com/lucaskmk';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/lucas-kenji-malheiros-kamikawa-28417629a';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
+  const [lang] = useLang();
 
   // Layout effect: reset the scroll before the new page paints, so it doesn't jump
   React.useLayoutEffect(() => {
@@ -21,10 +24,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   };
 
   const navLinks = [
-    { name: 'Resume', path: '/', icon: User },
-    { name: 'About', path: '/about', icon: GraduationCap },
-    { name: 'Projects', path: '/projects', icon: Code },
-    { name: 'Certificates', path: '/certificates', icon: Award },
+    { name: { en: 'Resume', pt: 'Currículo' }, path: '/', icon: User },
+    { name: { en: 'Projects', pt: 'Projetos' }, path: '/projects', icon: Code },
+    { name: { en: 'Certificates', pt: 'Certificados' }, path: '/certificates', icon: Award },
   ];
 
   return (
@@ -36,7 +38,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex justify-between items-center h-16 md:h-20">
             <Link to="/" className="flex items-center gap-2 group">
               <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center overflow-hidden transition-transform">
-                <img src="images/Kamikawa.png" alt="K" className="w-full h-full object-cover" />
+                <img src="images/Kamikawa-96.png" alt="" className="w-full h-full object-cover" />
               </div>
               <span className="font-display font-light text-lg md:text-xl tracking-tight text-white">
                 Kamikawa
@@ -54,12 +56,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     location.pathname === link.path ? 'text-white' : 'text-neutral-400'
                   }`}
                 >
-                  {link.name}
+                  {link.name[lang]}
                 </Link>
               ))}
             </nav>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 md:gap-4">
+              <LangToggle />
               <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-neutral-400 hover:text-white transition-colors">
                 <Github size={20} />
               </a>
@@ -76,7 +79,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <nav aria-label="Main" className="md:hidden fixed bottom-4 inset-x-4 z-50 flex justify-center">
+      <nav aria-label={lang === 'en' ? 'Main' : 'Principal'} className="md:hidden fixed bottom-4 inset-x-4 z-50 flex justify-center">
         <div className="w-full max-w-sm p-1.5 rounded-2xl flex justify-between items-center border border-white/10 shadow-2xl" style={{ background: 'rgba(8,11,20,0.85)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)' }}>
           {navLinks.map((link) => {
             const Icon = link.icon;
@@ -88,11 +91,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 onClick={() => handleNavClick(link.path)}
                 aria-current={isActive ? 'page' : undefined}
                 className={`flex-1 flex flex-col items-center gap-1 py-2 rounded-xl transition-colors ${
-                  isActive ? 'bg-white/10 text-white' : 'text-neutral-500 active:text-neutral-300'
+                  isActive ? 'bg-white/10 text-white' : 'text-neutral-400 active:text-neutral-200'
                 }`}
               >
                 <Icon size={20} strokeWidth={isActive ? 2 : 1.75} />
-                <span className="text-[10px] font-medium leading-none">{link.name}</span>
+                <span className="text-[11px] font-medium leading-none">{link.name[lang]}</span>
               </Link>
             );
           })}
@@ -103,7 +106,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-12">
             <h3 className="font-display font-light text-4xl mb-2 tracking-tight">Lucas Kamikawa</h3>
-            <p className="text-neutral-500 uppercase tracking-widest text-xs">Computer Engineering @ Insper</p>
+            <p className="text-neutral-400 uppercase tracking-widest text-xs">
+              {lang === 'en' ? 'Computer Engineering @ Insper' : 'Engenharia da Computação @ Insper'}
+            </p>
           </div>
           
           <div className="flex justify-center gap-8 mb-12">
@@ -118,8 +123,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </a>
           </div>
 
-          <div className="text-neutral-600 text-[10px] uppercase tracking-[0.2em]">
-            © {new Date().getFullYear()} Lucas Kenji Malheiros Kamikawa. All rights reserved.
+          <div className="text-neutral-400 text-[11px] uppercase tracking-[0.2em]">
+            © {new Date().getFullYear()} Lucas Kenji Malheiros Kamikawa. {lang === 'en' ? 'All rights reserved.' : 'Todos os direitos reservados.'}
           </div>
         </div>
       </footer>

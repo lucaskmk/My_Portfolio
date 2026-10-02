@@ -28,7 +28,7 @@ export const SafeImage: React.FC<SafeImageProps> = ({
       {hasError ? (
         <div className="flex flex-col items-center justify-center gap-2 text-neutral-700">
           <Loader2 className="w-5 h-5 animate-pulse" />
-          <span className="text-[8px] font-bold uppercase tracking-[0.2em] opacity-50">Not Found</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em]">Not Found</span>
         </div>
       ) : (
         <img

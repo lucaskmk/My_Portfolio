@@ -1,20 +1,23 @@
 import React, { useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'motion/react';
 import { CERTIFICATES } from '../constants';
 import { ExternalLink, Maximize2 } from 'lucide-react';
 import { SafeImage } from '../components/SafeImage';
 import { CertificateLightbox, getCertificateView, useCertificateViewer } from '../components/CertificateLightbox';
-import type { Certificate } from '../types';
+import type { Certificate, Lang } from '../types';
+import { useLang } from '../useLang';
 import PageHeader from '../components/PageHeader';
 import { LABEL } from '../ui';
 
 interface CertificateCardProps {
   cert: Certificate;
   index: number;
+  lang: Lang;
   onOpen: (cert: Certificate) => void;
 }
 
-const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, onOpen }) => {
+const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, lang, onOpen }) => {
   const view = getCertificateView(cert);
   const cardRef = useRef<HTMLDivElement>(null);
   
@@ -84,7 +87,7 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, onOpen }
           className={cert.badge ? '' : 'relative overflow-hidden rounded-2xl shadow-2xl border border-white/10'}
         >
           <SafeImage
-            src={cert.image}
+            src={cert.thumb ?? cert.image}
             alt={cert.title}
             className={`w-full ${cert.badge ? 'aspect-square' : 'aspect-[16/10]'} transform transition-opacity duration-700 opacity-80 group-hover:opacity-100`}
             containerClassName={cert.badge ? 'bg-transparent' : undefined}
@@ -98,14 +101,14 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, onOpen }
       <div className="w-full md:w-1/2 space-y-3 md:space-y-6 px-2 md:px-0">
         <div className="flex flex-col gap-1 md:gap-2">
           <span className={LABEL}>
-            {cert.category}
+            {CATEGORY_LABELS[cert.category][lang]}
           </span>
           <h2 className="text-xl md:text-3xl font-display font-light text-white leading-tight">
             {cert.title}
           </h2>
         </div>
         <p className="text-sm md:text-lg text-neutral-400 leading-relaxed">
-          {cert.description}
+          {cert.description[lang]}
         </p>
         <div className="pt-2 md:pt-4">
           {'href' in view ? (
@@ -115,12 +118,12 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, onOpen }
               rel="noopener noreferrer"
               className={VIEW_BUTTON_CLASS}
             >
-              View Certificate
+              {lang === 'en' ? 'View Certificate' : 'Ver Certificado'}
               <ExternalLink size={14} className="text-neutral-500 md:w-5 md:h-5" />
             </a>
           ) : (
             <button type="button" onClick={() => onOpen(cert)} className={VIEW_BUTTON_CLASS}>
-              View Certificate
+              {lang === 'en' ? 'View Certificate' : 'Ver Certificado'}
               <Maximize2 size={14} className="text-neutral-500 md:w-5 md:h-5" />
             </button>
           )}
@@ -134,8 +137,28 @@ const VIEW_BUTTON_CLASS = "inline-flex px-5 py-2.5 md:px-6 md:py-3 card-block bo
 
 const CATEGORIES = ['All', 'Cybersecurity', 'Programming', 'Cloud', 'Data'] as const;
 
+type Category = typeof CATEGORIES[number];
+
+const isCategory = (value: string | null): value is Category =>
+  CATEGORIES.includes(value as Category);
+
+// Category values stay in English (they are also used in links); only the labels change
+const CATEGORY_LABELS: Record<Category, Record<Lang, string>> = {
+  All: { en: 'All', pt: 'Todos' },
+  Cybersecurity: { en: 'Cybersecurity', pt: 'Cibersegurança' },
+  Programming: { en: 'Programming', pt: 'Programação' },
+  Cloud: { en: 'Cloud', pt: 'Nuvem' },
+  Data: { en: 'Data', pt: 'Dados' },
+};
+
 export default function Certificates() {
-  const [activeCategory, setActiveCategory] = React.useState<typeof CATEGORIES[number]>('All');
+  const [lang] = useLang();
+  // The Home cybersecurity card links here with ?category=Cybersecurity
+  const [searchParams] = useSearchParams();
+  const [activeCategory, setActiveCategory] = React.useState<Category>(() => {
+    const category = searchParams.get('category');
+    return isCategory(category) ? category : 'All';
+  });
   const viewer = useCertificateViewer();
 
   const filteredCertificates = activeCategory === 'All' 
@@ -146,9 +169,11 @@ export default function Certificates() {
     <div className="overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
         <PageHeader
-          title="My"
-          highlight="Certifications"
-          subtitle="A collection of my professional certifications and educational milestones in technology and cybersecurity."
+          title={lang === 'en' ? 'My' : 'Meus'}
+          highlight={lang === 'en' ? 'Certifications' : 'Certificados'}
+          subtitle={lang === 'en'
+            ? 'A collection of my professional certifications and educational milestones in technology and cybersecurity.'
+            : 'Uma coleção das minhas certificações profissionais e marcos de aprendizado em tecnologia e cibersegurança.'}
         />
 
         {/* Filter UI */}
@@ -157,24 +182,24 @@ export default function Certificates() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 md:px-6 md:py-2.5 rounded-full text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all ${
+              className={`px-4 py-2 md:px-6 md:py-2.5 rounded-full text-[11px] md:text-xs font-bold uppercase tracking-widest transition-all ${
                 activeCategory === cat 
                   ? 'bg-white text-black shadow-xl scale-105' 
-                  : 'card-block text-neutral-500 border border-white/10 hover:border-white/20 hover:text-white'
+                  : 'card-block text-neutral-400 border border-white/10 hover:border-white/20 hover:text-white'
               }`}
             >
-              {cat}
+              {CATEGORY_LABELS[cat][lang]}
             </button>
           ))}
         </div>
 
         <div className="space-y-16 md:space-y-32">
           {filteredCertificates.map((cert, index) => (
-            <CertificateCard key={cert.id} cert={cert} index={index} onOpen={viewer.open} />
+            <CertificateCard key={cert.id} cert={cert} index={index} lang={lang} onOpen={viewer.open} />
           ))}
         </div>
 
-        <CertificateLightbox image={viewer.viewing} onClose={viewer.close} />
+        <CertificateLightbox image={viewer.viewing} onClose={viewer.close} lang={lang} />
 
         {/* Bottom CTA */}
         <motion.div 
@@ -187,17 +212,20 @@ export default function Certificates() {
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-neutral-500/10 blur-[100px] rounded-full" />
           
           <h2 className="text-3xl md:text-4xl font-display font-light mb-6 relative z-10 text-white">
-            Interested in my qualifications?
+            {lang === 'en' ? 'Interested in my qualifications?' : 'Quer saber mais sobre minhas qualificações?'}
           </h2>
           <p className="text-neutral-400 mb-10 max-w-xl mx-auto relative z-10">
-            I'm constantly learning and expanding my skill set. Check back often for new certifications.
+            {lang === 'en'
+              ? "I'm constantly learning and expanding my skill set. Check back often for new certifications."
+              : 'Estou sempre aprendendo e ampliando minhas habilidades. Volte de vez em quando para ver novas certificações.'}
           </p>
           <a 
-            href="https://www.linkedin.com/in/lucas-kenji-malheiros-kamikawa-28417629a?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+            href="https://www.linkedin.com/in/lucas-kenji-malheiros-kamikawa-28417629a"
             target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-2xl font-bold hover:bg-neutral-200 transition-colors relative z-10"
           >
-            Connect on LinkedIn
+            {lang === 'en' ? 'Connect on LinkedIn' : 'Conectar no LinkedIn'}
             <ExternalLink size={20} />
           </a>
         </motion.div>

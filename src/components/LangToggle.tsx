@@ -1,21 +1,19 @@
-import type { Lang } from '../useLang';
+import { useLang } from '../useLang';
 
-interface LangToggleProps {
-  lang: Lang;
-  onChange: (lang: Lang) => void;
-}
+// Compact EN/PT switch for the header; it changes the language of the whole site
+export default function LangToggle() {
+  const [lang, setLang] = useLang();
 
-export default function LangToggle({ lang, onChange }: LangToggleProps) {
   return (
-    <div className="flex p-1 card-block border border-white/10 rounded-full w-fit">
+    <div role="group" aria-label={lang === 'en' ? 'Language' : 'Idioma'} className="flex p-0.5 card-block border border-white/10 rounded-full">
       {(['en', 'pt'] as const).map((option) => (
         <button
           key={option}
           type="button"
-          onClick={() => onChange(option)}
+          onClick={() => setLang(option)}
           aria-pressed={lang === option}
-          className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-            lang === option ? 'bg-white text-black shadow-lg' : 'text-neutral-500 hover:text-white'
+          className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition-all ${
+            lang === option ? 'bg-white text-black shadow' : 'text-neutral-400 hover:text-white'
           }`}
         >
           {option.toUpperCase()}

@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
-import { CERTIFICATES, RESUME_EN, RESUME_PT } from '../constants';
-import { GraduationCap, Globe, Code, User, ChevronRight, Play, Award, ExternalLink, Terminal, FileText } from 'lucide-react';
-import { useLang } from '../useLang';
+import { motion } from 'motion/react';
+import { CERTIFICATES, PROJECTS, RESUME_EN, RESUME_PT } from '../constants';
+import {
+  User, Code, Compass, GraduationCap, Globe, Languages, FileText, ArrowUpRight, LayoutGrid, ChevronDown,
+} from 'lucide-react';
+import { useLang, type Lang } from '../useLang';
+import { AREA_INFO, AREA_ORDER } from '../areas';
+import { projectLinks } from '../projectLinks';
+import type { AreaId } from '../types';
 import { CertificateLightbox, useCertificateViewer } from '../components/CertificateLightbox';
 import PageHeader from '../components/PageHeader';
-import LangToggle from '../components/LangToggle';
 import { CARD, CARD_HEADER, CARD_ICON, CARD_TITLE, LABEL } from '../ui';
 
 const CV_URL = {
@@ -15,31 +19,87 @@ const CV_URL = {
 };
 
 const KEY_CERTIFICATES = [
-  { id: 1, badge: 'images/certificates/thumbs/google-cybersecurity-badge.png', name: 'Google Cybersecurity', detail: 'Professional Certificate' },
-  { id: 11, badge: 'images/certificates/thumbs/aws-academy-cloud-foundations-badge.png', name: 'AWS Academy Graduate', detail: 'Cloud Foundations' },
+  {
+    id: 1,
+    badge: 'images/certificates/thumbs/google-cybersecurity-badge.png',
+    name: 'Google Cybersecurity',
+    detail: { en: 'Professional Certificate', pt: 'Certificado Profissional' },
+  },
+  {
+    id: 11,
+    badge: 'images/certificates/thumbs/aws-academy-cloud-foundations-badge.png',
+    name: 'AWS Academy Graduate',
+    detail: { en: 'Cloud Foundations', pt: 'Cloud Foundations' },
+  },
 ].flatMap(({ id, ...rest }) => {
   const cert = CERTIFICATES.find((c) => c.id === id);
   return cert ? [{ cert, ...rest }] : [];
 });
 
-export default function Home() {
-  const [lang, setLang] = useLang();
-  const viewer = useCertificateViewer();
-  const content = lang === 'en' ? RESUME_EN : RESUME_PT;
+const FEATURED_PROJECTS = PROJECTS.filter((p) => p.highlights);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
+// Each area card opens the project wheel on that area; cybersecurity has no projects yet, so it opens its certificates
+const areaHref = (id: AreaId) =>
+  id === 'cyber' ? '/certificates?category=Cybersecurity' : `/projects?area=${id}`;
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
-  };
+const TILE_BASE = 'group flex flex-col p-4 md:p-5 rounded-2xl bg-white/[0.04] border hover:bg-white/[0.07] hover:border-white/15 transition-colors';
+const TILE = `${TILE_BASE} border-white/[0.06]`;
+const TILE_ALL = `${TILE_BASE} border-dashed border-white/15`;
+const SECTION_DIVIDER = 'border-t border-white/10 pt-6 md:pt-8';
 
+// Skills are listed by importance: each group shows its first items and the arrow opens the rest
+const SKILLS_VISIBLE = 6;
+const SKILL_CHIP = 'px-3 py-1 card-block rounded-lg text-sm border border-white/10 text-neutral-300';
+
+interface SkillGroupProps {
+  category: string;
+  items: string[];
+  visible?: number;
+  lang: Lang;
+}
+
+const SkillGroup: React.FC<SkillGroupProps> = ({ category, items, visible: visibleCount = SKILLS_VISIBLE, lang }) => {
+  const [expanded, setExpanded] = useState(false);
+  const hiddenCount = items.length - visibleCount;
+  const visible = expanded || hiddenCount <= 0 ? items : items.slice(0, visibleCount);
+
+  return (
+    <div>
+      <h3 className={`${LABEL} mb-3`}>{category}</h3>
+      <div className="flex flex-wrap gap-2">
+        {visible.map((item) => (
+          <span key={item} className={SKILL_CHIP}>{item}</span>
+        ))}
+        {hiddenCount > 0 && (
+          <button
+            type="button"
+            onClick={() => setExpanded(!expanded)}
+            aria-expanded={expanded}
+            aria-label={expanded
+              ? (lang === 'en' ? 'Show less' : 'Mostrar menos')
+              : (lang === 'en' ? `Show ${hiddenCount} more` : `Mostrar mais ${hiddenCount}`)}
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-sm border border-dashed border-white/15 text-neutral-400 hover:text-white hover:border-white/30 transition-colors"
+          >
+            {!expanded && `+${hiddenCount}`}
+            <ChevronDown size={14} className={`transition-transform ${expanded ? 'rotate-180' : ''}`} />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+};
+
+function getAge() {
   const birthDate = new Date('2005-02-19');
   const today = new Date();
   let age = today.getFullYear() - birthDate.getFullYear();
@@ -47,16 +107,25 @@ export default function Home() {
   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     age--;
   }
+  return age;
+}
+
+export default function Home() {
+  const [lang] = useLang();
+  const viewer = useCertificateViewer();
+  const content = lang === 'en' ? RESUME_EN : RESUME_PT;
+  const age = getAge();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
       <PageHeader
         title="Lucas"
         highlight="Kamikawa"
-        subtitle={`${lang === 'en' ? `${age} years old` : `${age} anos`} • São Paulo (SP) • Computer Engineering Student @ Insper`}
+        subtitle={lang === 'en'
+          ? `${age} years old • São Paulo (SP) • Computer Engineering Student @ Insper`
+          : `${age} anos • São Paulo (SP) • Estudante de Engenharia da Computação @ Insper`}
       >
         <div className="flex flex-wrap justify-center items-center gap-3">
-          <LangToggle lang={lang} onChange={setLang} />
           <a
             href={CV_URL[lang]}
             target="_blank"
@@ -69,71 +138,25 @@ export default function Home() {
         </div>
       </PageHeader>
 
-      {/* Resume Grid */}
-      <motion.div 
+      {/* Phones and tablets: profile, areas, skills, education, international, languages. Desktop (lg): profile with skills on the side, then areas, then education, international and languages */}
+      <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         className="grid grid-cols-1 md:grid-cols-12 gap-6"
       >
-        {/* Profile Section & Mini Resume */}
-        <motion.div variants={itemVariants} className={`md:col-span-8 ${CARD}`}>
+        {/* Profile, key certifications and featured projects */}
+        <motion.section variants={itemVariants} className={`order-1 md:col-span-12 lg:col-span-8 ${CARD}`}>
           <div className={CARD_HEADER}>
             <User className={CARD_ICON} />
-            <h2 className={CARD_TITLE}>
-              {lang === 'en' ? 'Professional Profile' : 'Perfil Profissional'}
-            </h2>
+            <h2 className={CARD_TITLE}>{lang === 'en' ? 'Professional Profile' : 'Perfil Profissional'}</h2>
           </div>
-          
+
           <div className="space-y-6 md:space-y-8">
-            <p className="text-base md:text-lg text-neutral-400 leading-relaxed">
-              {content.profile}
-            </p>
+            <p className="text-base md:text-lg text-neutral-400 leading-relaxed">{content.profile}</p>
 
-            <div className="border-t border-white/10 pt-6 md:pt-8">
-              <h3 className={`${LABEL} mb-4 md:mb-6`}>
-                {lang === 'en' ? 'Featured Projects' : 'Projetos em Destaque'}
-              </h3>
-              
-              <div className="space-y-4 md:space-y-6">
-                <div>
-                  <div className="flex items-center justify-between mb-1 md:mb-2 text-sm md:text-base">
-                    <h4 className="font-bold text-white leading-tight">
-                      {lang === 'en' ? 'Churn Prediction' : 'Predição de Churn'} 
-                      <span className="text-neutral-500 font-normal block sm:inline sm:ml-2 text-[10px] sm:text-sm uppercase tracking-tighter sm:normal-case sm:tracking-normal">| Hackathon Databricks</span>
-                    </h4>
-                    <a href="https://www.youtube.com/watch?v=JsDl4ME_sWU" target="_blank" className="text-white hover:text-neutral-300 flex items-center gap-1 text-[10px] sm:text-xs transition-colors shrink-0">
-                      <Play size={10} strokeWidth={3} className="sm:w-3 sm:h-3" /> {lang === 'en' ? 'Demo' : 'Video'}
-                    </a>
-                  </div>
-                  <ul className="list-disc list-inside text-xs md:text-sm text-neutral-400 space-y-1 ml-1 md:ml-2">
-                    <li>{lang === 'en' ? 'End-to-end churn prediction solution.' : 'Solução end-to-end de predição de Churn.'}</li>
-                    <li>{lang === 'en' ? 'Accessible frontend for managers.' : 'Frontend acessível voltado a gestores.'}</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-white mb-1 md:mb-2 text-sm md:text-base">Machine Learning – Adult Census</h4>
-                  <ul className="list-disc list-inside text-xs md:text-sm text-neutral-400 space-y-1 ml-1 md:ml-2">
-                    <li>{lang === 'en' ? 'Advanced EDA and feature engineering.' : 'EDA avançada e feature engineering.'}</li>
-                    <li>{lang === 'en' ? 'Predictive modeling with Scikit-learn.' : 'Modelagem preditiva com Scikit-learn.'}</li>
-                  </ul>
-                </div>
-
-                <div className="pb-2 md:pb-4">
-                  <h4 className="font-bold text-white mb-2 text-sm md:text-base">{lang === 'en' ? 'Algorithm Analysis & Optimization' : 'Análise de Algoritmos e Otimização'}</h4>
-                  <ul className="list-disc list-inside text-xs md:text-sm text-neutral-400 space-y-1 ml-2">
-                    <li>{lang === 'en' ? 'In-depth study of computational complexity (O, Ω, Θ) applied to data pipelines.' : 'Estudo aprofundado de complexidade computacional (notações O, Omega, Theta).'}</li>
-                    <li>{lang === 'en' ? 'Pattern matching with Rabin-Karp; efficient data structures for large volumes.' : 'Busca de padrões com Rabin-Karp; estruturas de dados eficientes para grandes volumes.'}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t border-white/10 pt-6 md:pt-8">
-              <h3 className={`${LABEL} mb-4 md:mb-6`}>
-                {lang === 'en' ? 'Key Certifications' : 'Principais Certificações'}
-              </h3>
+            <div className={SECTION_DIVIDER}>
+              <h3 className={`${LABEL} mb-4 md:mb-6`}>{lang === 'en' ? 'Key Certifications' : 'Principais Certificações'}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                 {KEY_CERTIFICATES.map(({ cert, badge, name, detail }) => (
                   <button
@@ -142,55 +165,101 @@ export default function Home() {
                     onClick={() => viewer.open(cert)}
                     className="flex items-center gap-3 md:gap-4 bg-white/[0.02] p-3 md:p-4 rounded-2xl border border-white/5 text-left hover:bg-white/[0.05] hover:border-white/10 transition-colors"
                   >
-                    <img
-                      src={badge}
-                      alt={`${name} badge`}
-                      className="w-10 h-10 md:w-12 md:h-12 object-contain shrink-0"
-                    />
+                    <img src={badge} alt={`${name} badge`} className="w-10 h-10 md:w-12 md:h-12 object-contain shrink-0" />
                     <div>
                       <p className="text-white text-xs md:text-sm font-medium leading-tight">{name}</p>
-                      <p className="text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-tighter">{detail}</p>
+                      <p className="text-[11px] text-neutral-400 uppercase tracking-wide">{detail[lang]}</p>
                     </div>
                   </button>
                 ))}
               </div>
             </div>
-          </div>
-        </motion.div>
 
-        {/* Skills Section */}
-        <motion.div variants={itemVariants} className={`md:col-span-4 ${CARD}`}>
+            <div className={SECTION_DIVIDER}>
+              <h3 className={`${LABEL} mb-4 md:mb-6`}>{lang === 'en' ? 'Featured Projects' : 'Projetos em Destaque'}</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                {FEATURED_PROJECTS.map((project) => (
+                  <article key={project.title.en} className="flex flex-col p-4 md:p-5 rounded-2xl bg-white/[0.04] border border-white/[0.06]">
+                    <p className={`${LABEL} mb-1.5`}>{AREA_INFO[project.areas[0]].name[lang]}</p>
+                    <h4 className="font-display font-medium text-white text-sm md:text-base leading-snug">{project.title[lang]}</h4>
+                    <ul className="mt-2 pl-4 list-disc text-xs md:text-sm text-neutral-400 space-y-1">
+                      {project.highlights?.[lang].map((highlight) => <li key={highlight}>{highlight}</li>)}
+                    </ul>
+                    <div className="mt-auto pt-3 flex flex-wrap gap-1 -ml-2.5">
+                      {projectLinks(project, lang).map(({ href, label, icon: Icon }) => (
+                        <a
+                          key={label}
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                        >
+                          <Icon size={14} />
+                          {label}
+                        </a>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Skills, with everything, on the side */}
+        <motion.section variants={itemVariants} className={`order-3 lg:order-2 md:col-span-12 lg:col-span-4 ${CARD}`}>
           <div className={CARD_HEADER}>
             <Code className={CARD_ICON} />
-            <h2 className={CARD_TITLE}>
-              {lang === 'en' ? 'Skills' : 'Habilidades'}
-            </h2>
+            <h2 className={CARD_TITLE}>{lang === 'en' ? 'Skills' : 'Habilidades'}</h2>
           </div>
           <div className="space-y-6">
-            {content.skills.map((skillGroup) => (
-              <div key={skillGroup.category}>
-                <h3 className={`${LABEL} mb-3`}>
-                  {skillGroup.category}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {skillGroup.items.map((item) => (
-                    <span key={item} className="px-3 py-1 card-block rounded-lg text-sm border border-white/10 text-neutral-300">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            {/* Index keys keep each group open or closed when the language changes */}
+            {content.skills.map((group, index) => (
+              <SkillGroup key={index} category={group.category} items={group.items} visible={group.visible} lang={lang} />
             ))}
           </div>
-        </motion.div>
+        </motion.section>
 
-        {/* Education Section */}
-        <motion.div variants={itemVariants} className={`md:col-span-6 ${CARD}`}>
+        {/* Areas */}
+        <motion.section variants={itemVariants} className={`order-2 lg:order-3 md:col-span-12 ${CARD}`}>
+          <div className={CARD_HEADER}>
+            <Compass className={CARD_ICON} />
+            <h2 className={CARD_TITLE}>{lang === 'en' ? 'Areas' : 'Áreas'}</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {AREA_ORDER.map((id) => {
+              const { icon: Icon, name, description } = AREA_INFO[id];
+              return (
+                <Link key={id} to={areaHref(id)} className={TILE}>
+                  <div className="flex items-start justify-between text-neutral-400 group-hover:text-white transition-colors">
+                    <Icon className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
+                    <ArrowUpRight className="w-4 h-4 opacity-40 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <p className="mt-3 md:mt-4 font-display font-medium text-white text-sm md:text-base leading-tight">{name[lang]}</p>
+                  <p className="mt-1 text-xs md:text-sm text-neutral-400 leading-snug">{description[lang]}</p>
+                </Link>
+              );
+            })}
+            <Link to="/projects" className={TILE_ALL}>
+              <div className="flex items-start justify-between text-neutral-400 group-hover:text-white transition-colors">
+                <LayoutGrid className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
+                <ArrowUpRight className="w-4 h-4 opacity-40 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <p className="mt-3 md:mt-4 font-display font-medium text-white text-sm md:text-base leading-tight">
+                {lang === 'en' ? 'All Projects' : 'Todos os Projetos'}
+              </p>
+              <p className="mt-1 text-xs md:text-sm text-neutral-400 leading-snug">
+                {lang === 'en' ? 'Explore the wheel' : 'Explorar a roleta'}
+              </p>
+            </Link>
+          </div>
+        </motion.section>
+
+        {/* Education */}
+        <motion.section variants={itemVariants} className={`order-4 md:col-span-6 lg:col-span-4 ${CARD}`}>
           <div className={CARD_HEADER}>
             <GraduationCap className={CARD_ICON} />
-            <h2 className={CARD_TITLE}>
-              {lang === 'en' ? 'Education' : 'Formação'}
-            </h2>
+            <h2 className={CARD_TITLE}>{lang === 'en' ? 'Education' : 'Formação'}</h2>
           </div>
           <div className="space-y-6">
             {content.education.map((edu) => (
@@ -203,15 +272,13 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </motion.section>
 
-        {/* International Section */}
-        <motion.div variants={itemVariants} className={`md:col-span-6 ${CARD}`}>
+        {/* International experience */}
+        <motion.section variants={itemVariants} className={`order-5 md:col-span-6 lg:col-span-4 ${CARD}`}>
           <div className={CARD_HEADER}>
             <Globe className={CARD_ICON} />
-            <h2 className={CARD_TITLE}>
-              {lang === 'en' ? 'International Experience' : 'Experiência Internacional'}
-            </h2>
+            <h2 className={CARD_TITLE}>{lang === 'en' ? 'International Experience' : 'Experiência Internacional'}</h2>
           </div>
           <div className="space-y-6">
             {content.international.map((exp) => (
@@ -224,21 +291,23 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </motion.section>
 
-          <div className="mt-6 md:mt-8 pt-6 border-t border-white/10">
-            <h3 className={`${LABEL} mb-4`}>{lang === 'en' ? 'Spoken Languages' : 'Idiomas'}</h3>
-            <div className="grid grid-cols-3 gap-3">
-              {content.languages.map((language) => (
-                <div key={language.name}>
-                  <p className="font-bold text-white text-sm md:text-base">{language.name}</p>
-                  <p className="text-xs md:text-sm text-neutral-400">{language.level}</p>
-                </div>
-              ))}
-            </div>
+        {/* Spoken languages: a row of three on phones and tablets, a list in the three-column desktop row */}
+        <motion.section variants={itemVariants} className={`order-6 md:col-span-12 lg:col-span-4 ${CARD}`}>
+          <div className={CARD_HEADER}>
+            <Languages className={CARD_ICON} />
+            <h2 className={CARD_TITLE}>{lang === 'en' ? 'Spoken Languages' : 'Idiomas'}</h2>
           </div>
-        </motion.div>
-
-
+          <div className="grid grid-cols-3 lg:grid-cols-1 gap-3 lg:gap-5">
+            {content.languages.map((language) => (
+              <div key={language.name}>
+                <p className="font-bold text-white text-sm md:text-base">{language.name}</p>
+                <p className="text-xs md:text-sm text-neutral-400">{language.level}</p>
+              </div>
+            ))}
+          </div>
+        </motion.section>
       </motion.div>
 
       <CertificateLightbox image={viewer.viewing} onClose={viewer.close} lang={lang} />
