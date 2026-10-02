@@ -8,6 +8,12 @@ import { useLang } from '../useLang';
 const GITHUB_URL = 'https://github.com/lucaskmk';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/lucas-kenji-malheiros-kamikawa-28417629a';
 
+const NAV_LINKS = [
+  { name: { en: 'Resume', pt: 'Currículo' }, path: '/', icon: User },
+  { name: { en: 'Projects', pt: 'Projetos' }, path: '/projects', icon: Code },
+  { name: { en: 'Certificates', pt: 'Certificados' }, path: '/certificates', icon: Award },
+];
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const [lang] = useLang();
@@ -17,17 +23,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Browser tab title for each page, in the chosen language
+  React.useEffect(() => {
+    const page = NAV_LINKS.find((link) => link.path === location.pathname);
+    document.title = !page || page.path === '/'
+      ? `Lucas Kamikawa | ${lang === 'en' ? 'Portfolio' : 'Portfólio'}`
+      : `${page.name[lang]} | Lucas Kamikawa`;
+  }, [location.pathname, lang]);
+
   const handleNavClick = (path: string) => {
     if (location.pathname === path) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
-
-  const navLinks = [
-    { name: { en: 'Resume', pt: 'Currículo' }, path: '/', icon: User },
-    { name: { en: 'Projects', pt: 'Projetos' }, path: '/projects', icon: Code },
-    { name: { en: 'Certificates', pt: 'Certificados' }, path: '/certificates', icon: Award },
-  ];
 
   return (
     <>
@@ -47,7 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
+              {NAV_LINKS.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
@@ -81,7 +89,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Mobile Bottom Navigation */}
       <nav aria-label={lang === 'en' ? 'Main' : 'Principal'} className="md:hidden fixed bottom-4 inset-x-4 z-50 flex justify-center">
         <div className="w-full max-w-sm p-1.5 rounded-2xl flex justify-between items-center border border-white/10 shadow-2xl" style={{ background: 'rgba(8,11,20,0.85)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)' }}>
-          {navLinks.map((link) => {
+          {NAV_LINKS.map((link) => {
             const Icon = link.icon;
             const isActive = location.pathname === link.path;
             return (

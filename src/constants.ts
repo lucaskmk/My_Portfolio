@@ -66,7 +66,11 @@ export const PROJECTS: Project[] = [
     tags: ["Python", "Graph Theory", "Network Analysis"],
     date: "2025",
     liveUrl: "https://lucaskmk.github.io/Sistema-de-Triagem-para-Diagn-stico-de-Redes-Organizacionais/",
-    repoUrl: "https://github.com/lucaskmk/Sistema-de-Triagem-para-Diagn-stico-de-Redes-Organizacionais"
+    repoUrl: "https://github.com/lucaskmk/Sistema-de-Triagem-para-Diagn-stico-de-Redes-Organizacionais",
+    highlights: {
+      en: ["Diagnoses organizational networks using graph analysis.", "Identifies bottlenecks, key nodes and communication failure points."],
+      pt: ["Diagnóstico de redes organizacionais com análise de grafos.", "Identifica gargalos, nós centrais e pontos de falha na comunicação."]
+    }
   },
   {
     title: { en: "Churn Prediction Interface", pt: "Interface de Predição de Churn" },
@@ -135,11 +139,7 @@ export const PROJECTS: Project[] = [
     tags: ["C", "Linux", "Processes"],
     date: "2024",
     repoUrl: "https://github.com/lucaskmk/Multi-process-Downloader",
-    demoUrl: "https://youtu.be/o0PQdfjXw7I",
-    highlights: {
-      en: ["Parallel downloads with fork() and waitpid() in C.", "Robust signal handling and resource cleanup."],
-      pt: ["Downloads paralelos com fork() e waitpid() em C.", "Tratamento robusto de sinais e liberação de recursos."]
-    }
+    demoUrl: "https://youtu.be/o0PQdfjXw7I"
   },
   {
     title: { en: "Algorithm Analysis & Optimization", pt: "Análise e Otimização de Algoritmos" },

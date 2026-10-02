@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'motion/react';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion } from 'motion/react';
 import { CERTIFICATES } from '../constants';
 import { ExternalLink, Maximize2 } from 'lucide-react';
 import { SafeImage } from '../components/SafeImage';
@@ -20,6 +20,7 @@ interface CertificateCardProps {
 const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, lang, onOpen }) => {
   const view = getCertificateView(cert);
   const cardRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
   
   // Scroll Animation: Fade in/out as it enters/leaves viewport
   const { scrollYProgress } = useScroll({
@@ -53,6 +54,7 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, lang, on
   const springRotateY = useSpring(rotateY, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduceMotion) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - (rect.left + rect.width / 2);
     const y = e.clientY - (rect.top + rect.height / 2);
@@ -68,7 +70,7 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, lang, on
   return (
     <motion.div
       ref={cardRef}
-      style={{ opacity, scale, x }}
+      style={reduceMotion ? { opacity } : { opacity, scale, x }}
       className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-6 md:gap-12`}
     >
       {/* Image Container */}

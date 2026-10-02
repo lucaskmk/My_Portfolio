@@ -13,6 +13,7 @@ import { CertificateLightbox, useCertificateViewer } from '../components/Certifi
 import PageHeader from '../components/PageHeader';
 import { CARD, CARD_HEADER, CARD_ICON, CARD_TITLE, LABEL } from '../ui';
 
+// To update the CVs, replace the PDFs in public/cv keeping these exact file names
 const CV_URL = {
   en: 'cv/Lucas_Kamikawa_CV_EN.pdf',
   pt: 'cv/Lucas_Kamikawa_Curriculo_PT.pdf',

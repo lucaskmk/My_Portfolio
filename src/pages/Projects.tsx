@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { motion, useMotionValue, animate } from 'motion/react';
+import { motion, useMotionValue, animate, useReducedMotion } from 'motion/react';
 import { ChevronLeft, ChevronRight, LayoutGrid, type LucideIcon } from 'lucide-react';
 import { PROJECTS } from '../constants';
 import type { Lang, Project, ProjectArea } from '../types';
@@ -36,6 +36,7 @@ const TAG_PT: Record<string, string> = {
 
 export default function Projects() {
   const [lang] = useLang();
+  const reduceMotion = useReducedMotion();
   // The Home area cards link here with ?area=<id> to open the wheel on that area
   const [searchParams] = useSearchParams();
   const [initialIndex] = React.useState(() => Math.max(0, AREAS.findIndex((a) => a.id === searchParams.get('area'))));
@@ -65,7 +66,8 @@ export default function Projects() {
   const rotateTo = (step: number) => {
     currentStep.current = step;
     setActiveIndex((step % AREAS.length + AREAS.length) % AREAS.length);
-    animate(rotation, -step * UNIT_ANGLE, { type: 'spring', stiffness: 300, damping: 30 });
+    if (reduceMotion) rotation.set(-step * UNIT_ANGLE);
+    else animate(rotation, -step * UNIT_ANGLE, { type: 'spring', stiffness: 300, damping: 30 });
   };
 
   // Shortest way around the wheel to a given index
