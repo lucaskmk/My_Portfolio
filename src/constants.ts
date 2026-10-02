@@ -18,6 +18,17 @@ export const PROJECTS: Project[] = [
     }
   },
   {
+    title: { en: "Endpoint Investigator", pt: "Endpoint Investigator" },
+    description: {
+      en: "Security investigation tool for GNU/Linux endpoints. It collects processes, permissions, services and logs, correlates these sources and produces findings that separate what was observed from what is interpretation and what remains a hypothesis, with Markdown and JSON reports. Pair project for the Hacker Technologies course at Insper.",
+      pt: "Ferramenta de investigação de segurança para endpoints GNU/Linux. Coleta processos, permissões, serviços e logs, cruza essas fontes e gera achados que separam o que foi observado do que é interpretação e do que ainda é hipótese, com relatórios em Markdown e JSON. Projeto em dupla da disciplina Tecnologias Hackers do Insper."
+    },
+    areas: ['cyber'],
+    tags: ["Python", "Linux", "Log Analysis", "Security"],
+    date: "2026",
+    repoUrl: "https://github.com/lucaskmk/ai-grupo6-endpoint-investigator"
+  },
+  {
     title: { en: "Ollama AI Agent Demo", pt: "Agente de IA com Ollama" },
     description: {
       en: "Local AI agent using Ollama (LLaMA 3.2). Full tool-use loop with planning, self-correction, confirmation for risky operations, and persistent memory across sessions.",
@@ -96,7 +107,7 @@ export const PROJECTS: Project[] = [
     },
     areas: ['data'],
     tags: ["Python", "Scikit-learn", "Pandas"],
-    repoUrl: "https://github.com/lucaskmk/Machine-Learning-Adult-Census"
+    repoUrl: "https://github.com/lucaskmk/APS1-EDA"
   },
   {
     title: { en: "FastAPI NoSQL REST", pt: "FastAPI NoSQL REST" },
@@ -199,7 +210,9 @@ export const PROJECTS: Project[] = [
     },
     areas: ['hardware'],
     tags: ["C", "RTOS", "I2C"],
-    date: "2024"
+    date: "2024",
+    repoUrl: "https://github.com/lucaskmk/ExpertFirmware_Driver",
+    demoUrl: "https://www.youtube.com/watch?v=MI4Uhup1_dE"
   },
   {
     title: { en: "Light Following Robot", pt: "Robô Seguidor de Luz" },

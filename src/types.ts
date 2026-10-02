@@ -3,10 +3,10 @@ export type Lang = 'en' | 'pt';
 // Text written in both site languages
 export type Localized = Record<Lang, string>;
 
-export type ProjectArea = 'ai' | 'data' | 'cloud' | 'backend' | 'systems' | 'hardware';
+export type ProjectArea = 'ai' | 'data' | 'cloud' | 'backend' | 'systems' | 'cyber' | 'hardware';
 
-// Areas shown on the Home; cybersecurity has certificates but no projects yet
-export type AreaId = ProjectArea | 'cyber';
+// Areas shown on the Home and on the project wheel
+export type AreaId = ProjectArea;
 
 export interface Project {
   title: Localized;

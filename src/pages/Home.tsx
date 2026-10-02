@@ -39,9 +39,8 @@ const KEY_CERTIFICATES = [
 
 const FEATURED_PROJECTS = PROJECTS.filter((p) => p.highlights);
 
-// Each area card opens the project wheel on that area; cybersecurity has no projects yet, so it opens its certificates
-const areaHref = (id: AreaId) =>
-  id === 'cyber' ? '/certificates?category=Cybersecurity' : `/projects?area=${id}`;
+// Each area card opens the project wheel on that area
+const areaHref = (id: AreaId) => `/projects?area=${id}`;
 
 const TILE_BASE = 'group flex flex-col p-4 md:p-5 rounded-2xl bg-white/[0.04] border hover:bg-white/[0.07] hover:border-white/15 transition-colors';
 const TILE = `${TILE_BASE} border-white/[0.06]`;

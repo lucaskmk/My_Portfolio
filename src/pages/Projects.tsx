@@ -32,6 +32,8 @@ const TAG_PT: Record<string, string> = {
   'Infrastructure': 'Infraestrutura',
   'Analog Electronics': 'Eletrônica Analógica',
   'Digital Logic': 'Lógica Digital',
+  'Log Analysis': 'Análise de Logs',
+  'Security': 'Segurança',
 };
 
 export default function Projects() {

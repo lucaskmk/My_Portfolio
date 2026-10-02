@@ -49,4 +49,4 @@ export const AREA_INFO: Record<AreaId, AreaInfo> = {
 
 export const AREA_ORDER: AreaId[] = ['ai', 'data', 'cloud', 'backend', 'systems', 'cyber', 'hardware'];
 
-export const PROJECT_AREAS: ProjectArea[] = ['ai', 'data', 'cloud', 'backend', 'systems', 'hardware'];
+export const PROJECT_AREAS: ProjectArea[] = ['ai', 'data', 'cloud', 'backend', 'systems', 'cyber', 'hardware'];
