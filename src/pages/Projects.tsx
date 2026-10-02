@@ -164,7 +164,7 @@ export default function Projects() {
                             activeIndex === index ? 'scale-110 md:scale-125 border-white shadow-xl shadow-white/10' : 'opacity-20 grayscale border-white/5 hover:opacity-100 hover:grayscale-0'
                           }`}
                         >
-                          <SafeImage src={lang.icon} alt={lang.name} className="w-8 h-8 md:w-full md:h-full !bg-transparent pointer-events-none" />
+                          <SafeImage src={lang.icon} alt={lang.name} loading="eager" className="w-8 h-8 md:w-full md:h-full !bg-transparent pointer-events-none" />
                         </motion.div>
                       </motion.div>
                     );
@@ -282,7 +282,7 @@ export default function Projects() {
                 className="xl:col-span-5 space-y-8"
               >
                 <h2 className="text-xl md:text-2xl font-display font-light mb-8 flex items-center gap-2 px-4 pt-4 md:pt-10 text-white">
-                  <span className="w-6 h-6 md:w-8 md:h-8 bg-white rounded-lg flex items-center justify-center text-neutral-900 text-[10px] md:text-xs font-bold">10</span>
+                  <span className="w-6 h-6 md:w-8 md:h-8 bg-white rounded-lg flex items-center justify-center text-neutral-900 text-[10px] md:text-xs font-bold">02</span>
                   Academic Journey
                 </h2>
                 

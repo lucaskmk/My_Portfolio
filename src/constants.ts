@@ -16,7 +16,7 @@ export const PROJECTS: LanguageProjects = {
     },
     {
       title: "Churn Prediction Interface",
-      description: "End-to-end ML solution from Databricks Hackathon. Integrates a predictive model with a clean web interface for decision markers.",
+      description: "End-to-end ML solution from Databricks Hackathon. Integrates a predictive model with a clean web interface for decision makers.",
       url: "https://github.com/lucaskmk/Databricks-Hackathon",
       videoUrl: "https://www.youtube.com/watch?v=JsDl4ME_sWU"
     },
@@ -114,7 +114,8 @@ export const CERTIFICATES: Certificate[] = [
     url: "images/certificates/AWS_Academy_Graduate___Cloud_Foundations___Training_Badge_Badge20260607-31-y5eait.pdf",
     direction: 'left',
     category: 'Cloud',
-    badge: true
+    badge: true,
+    fullImage: "images/certificates/AWS_Academy_Cloud_Foundations.jpg"
   },
   {
     id: 5,
@@ -211,6 +212,16 @@ export const CERTIFICATES: Certificate[] = [
 
 export const ACADEMIC_PROJECTS: AcademicProject[] = [
   {
+    id: 11,
+    title: "Financial RAG",
+    description: "Retrieval-Augmented Generation pipeline for financial documents. Combines vector search with LLMs to answer queries over structured financial data.",
+    image: "",
+    tags: ["Python", "RAG", "LLM", "Vector Search"],
+    date: "2026",
+    url: "https://github.com/lucaskmk/Financial-RAG",
+    videoUrl: "https://youtu.be/nk8veFssCHg"
+  },
+  {
     id: 13,
     title: "Ollama AI Agent Demo",
     description: "Local AI agent built in Python using Ollama (LLaMA 3.2). Implements a full tool-use loop with planning, self-correction, confirmation for risky ops, and persistent memory across sessions.",
@@ -230,21 +241,11 @@ export const ACADEMIC_PROJECTS: AcademicProject[] = [
     url: "https://github.com/lucaskmk/Otimiza-o-de-Portf-lio-com-HERC"
   },
   {
-    id: 11,
-    title: "Financial RAG",
-    description: "Retrieval-Augmented Generation pipeline for financial documents. Combines vector search with LLMs to answer queries over structured financial data.",
-    image: "",
-    tags: ["Python", "RAG", "LLM", "Vector Search"],
-    date: "2026",
-    url: "https://github.com/lucaskmk/Financial-RAG",
-    videoUrl: "https://youtu.be/nk8veFssCHg"
-  },
-  {
     id: 9,
-    title: "CloudPay — Cloud Computing Project",
-    description: "Distributed payment processing system designed for cloud infrastructure. Covers architecture design, deployment, and scalability on AWS services.",
+    title: "CloudPay — Serverless Payments on AWS",
+    description: "100% serverless payments platform MVP on AWS: 6 Lambda functions (Node.js), API Gateway, async processing via SQS, DynamoDB persistence, and a React frontend on S3. Load-tested with JMeter (100 concurrent users).",
     image: "",
-    tags: ["AWS", "Cloud", "Architecture"],
+    tags: ["AWS", "Serverless", "Node.js"],
     date: "2025",
     url: "https://github.com/lucaskmk/ComputacaoNuvem_Projeto",
     fileUrl: "images/projects/relatorio-tecnico-cloudpay.pdf"
@@ -328,7 +329,7 @@ export const ACADEMIC_PROJECTS: AcademicProject[] = [
 ];
 
 export const RESUME_EN: ResumeContent = {
-  profile: "I am a Computer Engineering student at Insper with a solid foundation in Python, SQL, and Data Science libraries. I have practical experience in exploratory analysis, predictive modeling (classification and regression), network analysis, and ML pipelines. I was a participant in the Databricks Hackathon, where I developed an end-to-end Churn prediction solution with a web interface accessible to managers. I am disciplined and results-oriented, with fluency in English and the ability to communicate technical insights to non-technical audiences.",
+  profile: "I am a Computer Engineering student at Insper with a solid foundation in Python, SQL, and Data Science libraries. I have practical experience in exploratory analysis, predictive modeling (classification and regression), network analysis, ML pipelines, and RAG (Retrieval-Augmented Generation) architectures with LLMs. I was a participant in the Databricks Hackathon, where I developed an end-to-end Churn prediction solution with a web interface accessible to managers. I am disciplined and results-oriented, with fluency in English and the ability to communicate technical insights to non-technical audiences.",
   education: [
     { school: "Insper", detail: "Computer Engineering (2023 – 2028) - Focus on Data Engineering & Science" },
     { school: "Colégio Visconde de Porto Seguro", detail: "English and German courses" }
@@ -348,7 +349,7 @@ export const RESUME_EN: ResumeContent = {
 };
 
 export const RESUME_PT: ResumeContent = {
-  profile: "Sou estudante de Engenharia da Computação no Insper com sólida base em Python, SQL e bibliotecas de Ciência de Dados. Tenho experiência prática em análise exploratória, modelagem preditiva (classificação e regressão), análise de redes e pipelines de ML. Participei do Hackathon Databricks, onde desenvolvi uma solução end-to-end de predição de Churn com interface web acessível a gestores. Sou disciplinado e orientado a resultados, com fluência em inglês e capacidade de comunicar insights técnicos para audiências não técnicas.",
+  profile: "Sou estudante de Engenharia da Computação no Insper com sólida base em Python, SQL e bibliotecas de Ciência de Dados. Tenho experiência prática em análise exploratória, modelagem preditiva (classificação e regressão), análise de redes, pipelines de ML e arquiteturas de RAG (Retrieval-Augmented Generation) com LLMs. Participei do Hackathon Databricks, onde desenvolvi uma solução end-to-end de predição de Churn com interface web acessível a gestores. Sou disciplinado e orientado a resultados, com fluência em inglês e capacidade de comunicar insights técnicos para audiências não técnicas.",
   education: [
     { school: "Insper", detail: "Engenharia da Computação (2023 – 2028) - Foco em Engenharia & Ciência de Dados" },
     { school: "Colégio Visconde de Porto Seguro", detail: "Cursos de Inglês e Alemão" }

@@ -1,15 +1,19 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'motion/react';
 import { CERTIFICATES } from '../constants';
-import { Award, ExternalLink } from 'lucide-react';
+import { Award, ExternalLink, Maximize2 } from 'lucide-react';
 import { SafeImage } from '../components/SafeImage';
+import { CertificateLightbox, getCertificateView, useCertificateViewer } from '../components/CertificateLightbox';
+import type { Certificate } from '../types';
 
 interface CertificateCardProps {
-  cert: any;
+  cert: Certificate;
   index: number;
+  onOpen: (cert: Certificate) => void;
 }
 
-const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
+const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, onOpen }) => {
+  const view = getCertificateView(cert);
   const cardRef = useRef<HTMLDivElement>(null);
   
   // Scroll Animation: Fade in/out as it enters/leaves viewport
@@ -63,10 +67,11 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
       className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-6 md:gap-12`}
     >
       {/* Image Container */}
-      <div 
-        className="w-full md:w-1/2 group perspective-1000"
+      <div
+        className="w-full md:w-1/2 group perspective-1000 cursor-pointer"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onClick={() => onOpen(cert)}
       >
         <motion.div
           style={{
@@ -101,25 +106,35 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index }) => {
           {cert.description}
         </p>
         <div className="pt-2 md:pt-4">
-          <a
-            href={cert.url === '#' ? cert.image : cert.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex px-5 py-2.5 md:px-6 md:py-3 card-block border border-white/10 rounded-xl font-bold text-white text-xs md:text-base items-center gap-2 hover:bg-white/10 hover:border-white/20 transition-all shadow-sm"
-          >
-            View Certificate
-            <ExternalLink size={14} className="text-neutral-500 md:w-5 md:h-5" />
-          </a>
+          {'href' in view ? (
+            <a
+              href={view.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={VIEW_BUTTON_CLASS}
+            >
+              View Certificate
+              <ExternalLink size={14} className="text-neutral-500 md:w-5 md:h-5" />
+            </a>
+          ) : (
+            <button type="button" onClick={() => onOpen(cert)} className={VIEW_BUTTON_CLASS}>
+              View Certificate
+              <Maximize2 size={14} className="text-neutral-500 md:w-5 md:h-5" />
+            </button>
+          )}
         </div>
       </div>
     </motion.div>
   );
 }
 
+const VIEW_BUTTON_CLASS = "inline-flex px-5 py-2.5 md:px-6 md:py-3 card-block border border-white/10 rounded-xl font-bold text-white text-xs md:text-base items-center gap-2 hover:bg-white/10 hover:border-white/20 transition-all shadow-sm";
+
 const CATEGORIES = ['All', 'Cybersecurity', 'Programming', 'Cloud', 'Data'] as const;
 
 export default function Certificates() {
   const [activeCategory, setActiveCategory] = React.useState<typeof CATEGORIES[number]>('All');
+  const viewer = useCertificateViewer();
 
   const filteredCertificates = activeCategory === 'All' 
     ? CERTIFICATES 
@@ -164,9 +179,11 @@ export default function Certificates() {
 
         <div className="space-y-16 md:space-y-32">
           {filteredCertificates.map((cert, index) => (
-            <CertificateCard key={cert.id} cert={cert} index={index} />
+            <CertificateCard key={cert.id} cert={cert} index={index} onOpen={viewer.open} />
           ))}
         </div>
+
+        <CertificateLightbox image={viewer.viewing} onClose={viewer.close} />
 
         {/* Bottom CTA */}
         <motion.div 

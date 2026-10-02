@@ -2,9 +2,10 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { KNOWLEDGE_BASE } from '../constants';
 import { Book, Wrench, GraduationCap, Award, CheckCircle2, Code } from 'lucide-react';
+import { useLang } from '../useLang';
 
 export default function About() {
-  const [lang, setLang] = React.useState<'en' | 'pt'>('en');
+  const [lang, setLang] = useLang();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -27,7 +28,7 @@ export default function About() {
           animate={{ y: 0, opacity: 1 }}
           className="text-4xl md:text-6xl font-display font-bold mb-6 tracking-tight"
         >
-          {lang === 'en' ? 'About' : 'Sobre'} <span className="text-gradient">Me</span>
+          {lang === 'en' ? 'About' : 'Sobre'} <span className="text-gradient">{lang === 'en' ? 'Me' : 'Mim'}</span>
         </motion.h1>
         <motion.p 
           initial={{ y: 20, opacity: 0 }}
@@ -146,8 +147,8 @@ export default function About() {
               <li className="flex items-start gap-3">
                 <GraduationCap size={18} className="md:w-5 md:h-5 text-neutral-300 mt-1 shrink-0" />
                 <div>
-                  <p className="font-bold text-white text-sm md:text-base">AWS Discovery Day</p>
-                  <p className="text-xs md:text-sm text-neutral-400">Kasolution • Cloud Fundamentals</p>
+                  <p className="font-bold text-white text-sm md:text-base">AWS Academy Graduate</p>
+                  <p className="text-xs md:text-sm text-neutral-400">AWS Academy • Cloud Foundations</p>
                 </div>
               </li>
             </ul>

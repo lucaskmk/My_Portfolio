@@ -41,6 +41,8 @@ export const SafeImage: React.FC<SafeImageProps> = ({
             setIsLoading(false);
           }}
           referrerPolicy="no-referrer"
+          loading="lazy"
+          decoding="async"
           {...props}
         />
       )}

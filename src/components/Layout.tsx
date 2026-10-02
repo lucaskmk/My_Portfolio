@@ -33,7 +33,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden transition-transform">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center overflow-hidden transition-transform">
                 <img src="images/Kamikawa.png" alt="K" className="w-full h-full object-cover" />
               </div>
               <span className="font-display font-light text-lg md:text-xl tracking-tight text-white">

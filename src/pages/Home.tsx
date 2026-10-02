@@ -1,11 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { RESUME_EN, RESUME_PT } from '../constants';
-import { GraduationCap, Globe, Code, User, ChevronRight, Play, Award, ExternalLink, Terminal } from 'lucide-react';
+import { CERTIFICATES, RESUME_EN, RESUME_PT } from '../constants';
+import { GraduationCap, Globe, Code, User, ChevronRight, Play, Award, ExternalLink, Terminal, FileText } from 'lucide-react';
+import { useLang } from '../useLang';
+import { CertificateLightbox, useCertificateViewer } from '../components/CertificateLightbox';
+
+const CV_URL = {
+  en: 'cv/Lucas_Kamikawa_CV_EN.pdf',
+  pt: 'cv/Lucas_Kamikawa_Curriculo_PT.pdf',
+};
+
+const KEY_CERTIFICATES = [
+  { id: 1, badge: 'images/certificates/thumbs/google-cybersecurity-badge.png', name: 'Google Cybersecurity', detail: 'Professional Certificate' },
+  { id: 11, badge: 'images/certificates/thumbs/aws-academy-cloud-foundations-badge.png', name: 'AWS Academy Graduate', detail: 'Cloud Foundations' },
+].flatMap(({ id, ...rest }) => {
+  const cert = CERTIFICATES.find((c) => c.id === id);
+  return cert ? [{ cert, ...rest }] : [];
+});
 
 export default function Home() {
-  const [lang, setLang] = React.useState<'en' | 'pt'>('en');
+  const [lang, setLang] = useLang();
+  const viewer = useCertificateViewer();
   const content = lang === 'en' ? RESUME_EN : RESUME_PT;
 
   const containerVariants = {
@@ -33,14 +49,7 @@ export default function Home() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Hero Section */}
       <section className="mb-12 md:mb-20 text-center">
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="inline-block px-4 py-1.5 mb-6 rounded-full card-block text-white font-medium text-xs md:text-sm border border-white/10"
-        >
-          {lang === 'en' ? 'Available for new opportunities' : 'Disponível para novas oportunidades'}
-        </motion.div>
-        <motion.h1 
+        <motion.h1
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className="text-4xl sm:text-5xl md:text-7xl font-display font-bold mb-4 md:mb-6 tracking-tight leading-tight"
@@ -56,23 +65,34 @@ export default function Home() {
           {lang === 'en' ? `${age} years old` : `${age} anos`} • São Paulo (SP) • Computer Engineering Student @ Insper
         </motion.p>
 
-        <div className="flex justify-center p-1 card-block border border-white/10 rounded-full w-fit mx-auto">
-          <button
-            onClick={() => setLang('en')}
-            className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-              lang === 'en' ? 'bg-white text-black shadow-lg' : 'text-neutral-500 hover:text-white'
-            }`}
+        <div className="flex flex-wrap justify-center items-center gap-3">
+          <div className="flex p-1 card-block border border-white/10 rounded-full w-fit">
+            <button
+              onClick={() => setLang('en')}
+              className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
+                lang === 'en' ? 'bg-white text-black shadow-lg' : 'text-neutral-500 hover:text-white'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLang('pt')}
+              className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
+                lang === 'pt' ? 'bg-white text-black shadow-lg' : 'text-neutral-500 hover:text-white'
+              }`}
+            >
+              PT
+            </button>
+          </div>
+          <a
+            href={CV_URL[lang]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-3 card-block border border-white/10 rounded-full text-sm font-bold text-white hover:bg-white/10 hover:border-white/20 transition-all"
           >
-            EN
-          </button>
-          <button
-            onClick={() => setLang('pt')}
-            className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-              lang === 'pt' ? 'bg-white text-black shadow-lg' : 'text-neutral-500 hover:text-white'
-            }`}
-          >
-            PT
-          </button>
+            <FileText size={16} />
+            {lang === 'en' ? 'Download CV' : 'Baixar Currículo'}
+          </a>
         </div>
       </section>
 
@@ -142,24 +162,24 @@ export default function Home() {
                 {lang === 'en' ? 'Key Certifications' : 'Principais Certificações'}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-                <div className="flex items-center gap-3 md:gap-4 bg-white/[0.02] p-3 md:p-4 rounded-2xl border border-white/5">
-                  <div className="w-8 h-8 md:w-10 md:h-10 card-block rounded-xl flex items-center justify-center text-white shrink-0">
-                    <Award size={18} className="md:w-5 md:h-5" />
-                  </div>
-                  <div>
-                    <p className="text-white text-xs md:text-sm font-medium leading-tight">Google Cybersecurity</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-tighter">Professional Certificate</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 md:gap-4 bg-white/[0.02] p-3 md:p-4 rounded-2xl border border-white/5">
-                  <div className="w-8 h-8 md:w-10 md:h-10 card-block rounded-xl flex items-center justify-center text-white shrink-0">
-                    <Globe size={18} className="md:w-5 md:h-5" />
-                  </div>
-                  <div>
-                    <p className="text-white text-xs md:text-sm font-medium leading-tight">AWS Academy Graduate</p>
-                    <p className="text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-tighter">Cloud Foundations</p>
-                  </div>
-                </div>
+                {KEY_CERTIFICATES.map(({ cert, badge, name, detail }) => (
+                  <button
+                    key={cert.id}
+                    type="button"
+                    onClick={() => viewer.open(cert)}
+                    className="flex items-center gap-3 md:gap-4 bg-white/[0.02] p-3 md:p-4 rounded-2xl border border-white/5 text-left hover:bg-white/[0.05] hover:border-white/10 transition-colors"
+                  >
+                    <img
+                      src={badge}
+                      alt={`${name} badge`}
+                      className="w-10 h-10 md:w-12 md:h-12 object-contain shrink-0"
+                    />
+                    <div>
+                      <p className="text-white text-xs md:text-sm font-medium leading-tight">{name}</p>
+                      <p className="text-[9px] md:text-[10px] text-neutral-500 uppercase tracking-tighter">{detail}</p>
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
@@ -235,6 +255,8 @@ export default function Home() {
 
 
       </motion.div>
+
+      <CertificateLightbox image={viewer.viewing} onClose={viewer.close} lang={lang} />
     </div>
   );
 }

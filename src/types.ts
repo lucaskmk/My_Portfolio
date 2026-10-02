@@ -19,6 +19,8 @@ export interface Certificate {
   direction: 'left' | 'right';
   category: 'Cybersecurity' | 'Programming' | 'Cloud' | 'Data';
   badge?: boolean;
+  // Image of the full certificate for the lightbox, when `url` is not an image (e.g. a PDF)
+  fullImage?: string;
 }
 
 export interface AcademicProject {
