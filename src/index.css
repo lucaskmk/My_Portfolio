@@ -11,6 +11,11 @@
 }
 
 @layer base {
+  /* Keep the scrollbar space reserved so content never shifts sideways */
+  html {
+    scrollbar-gutter: stable;
+  }
+
   html, body {
     background: #070a11 !important;
     @apply text-white antialiased font-sans selection:bg-white selection:text-black;

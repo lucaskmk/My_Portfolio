@@ -1,13 +1,17 @@
+export type ProjectArea = 'ai' | 'data' | 'cloud' | 'backend' | 'systems' | 'hardware';
+
 export interface Project {
   title: string;
   description: string;
-  url: string | null;
-  fileUrl?: string;
-  videoUrl?: string;
-}
-
-export interface LanguageProjects {
-  [key: string]: Project[];
+  // First area is the main one; a project shows up in every area it lists
+  areas: ProjectArea[];
+  // Languages and technologies
+  tags: string[];
+  date?: string;
+  repoUrl?: string;
+  demoUrl?: string;
+  liveUrl?: string;
+  reportUrl?: string;
 }
 
 export interface Certificate {
@@ -23,23 +27,11 @@ export interface Certificate {
   fullImage?: string;
 }
 
-export interface AcademicProject {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-  date: string;
-  url?: string;
-  githubUrl?: string;
-  fileUrl?: string;
-  videoUrl?: string;
-}
-
 export interface ResumeContent {
   profile: string;
   education: { school: string; detail: string }[];
   international: { location: string; detail: string }[];
+  languages: { name: string; level: string }[];
   skills: { category: string; items: string[] }[];
   final: string;
 }

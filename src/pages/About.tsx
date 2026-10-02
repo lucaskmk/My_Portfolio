@@ -3,6 +3,9 @@ import { motion } from 'motion/react';
 import { KNOWLEDGE_BASE } from '../constants';
 import { Book, Wrench, GraduationCap, Award, CheckCircle2, Code } from 'lucide-react';
 import { useLang } from '../useLang';
+import PageHeader from '../components/PageHeader';
+import LangToggle from '../components/LangToggle';
+import { CARD, CARD_HEADER, CARD_ICON, CARD_TITLE } from '../ui';
 
 export default function About() {
   const [lang, setLang] = useLang();
@@ -21,57 +24,30 @@ export default function About() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <section className="mb-16 text-center">
-        <motion.h1 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="text-4xl md:text-6xl font-display font-bold mb-6 tracking-tight"
-        >
-          {lang === 'en' ? 'About' : 'Sobre'} <span className="text-gradient">{lang === 'en' ? 'Me' : 'Mim'}</span>
-        </motion.h1>
-        <motion.p 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto mb-8"
-        >
-          {lang === 'en' 
-            ? "I'm a Computer Engineering student at Insper, passionate about solving complex problems through data and efficient systems."
-            : "Sou estudante de Engenharia da Computação no Insper, apaixonado por resolver problemas complexos através de dados e sistemas eficientes."}
-        </motion.p>
-
-        <div className="flex justify-center p-1 card-block border border-white/10 rounded-full w-fit mx-auto">
-          <button
-            onClick={() => setLang('en')}
-            className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-              lang === 'en' ? 'bg-white text-black shadow-lg' : 'text-neutral-500 hover:text-white'
-            }`}
-          >
-            EN
-          </button>
-          <button
-            onClick={() => setLang('pt')}
-            className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-              lang === 'pt' ? 'bg-white text-black shadow-lg' : 'text-neutral-500 hover:text-white'
-            }`}
-          >
-            PT
-          </button>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+      <PageHeader
+        title={lang === 'en' ? 'About' : 'Sobre'}
+        highlight={lang === 'en' ? 'Me' : 'Mim'}
+        subtitle={lang === 'en'
+          ? "I'm a Computer Engineering student at Insper, passionate about solving complex problems through data and efficient systems."
+          : "Sou estudante de Engenharia da Computação no Insper, apaixonado por resolver problemas complexos através de dados e sistemas eficientes."}
+      >
+        <div className="flex justify-center">
+          <LangToggle lang={lang} onChange={setLang} />
         </div>
-      </section>
+      </PageHeader>
 
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
         {/* Programming Languages */}
-        <motion.div variants={itemVariants} className="md:col-span-2 glass p-6 md:p-8 rounded-3xl mb-4">
-          <div className="flex items-center gap-3 mb-4 md:mb-6 text-white text-xl md:text-2xl">
-            <Code size={24} className="md:w-7 md:h-7 text-neutral-300" />
-            <h2 className="font-display font-light">
+        <motion.div variants={itemVariants} className={`md:col-span-2 ${CARD}`}>
+          <div className={CARD_HEADER}>
+            <Code className={CARD_ICON} />
+            <h2 className={CARD_TITLE}>
               {lang === 'en' ? 'Programming Languages' : 'Linguagens de Programação'}
             </h2>
           </div>
@@ -85,10 +61,10 @@ export default function About() {
         </motion.div>
 
         {/* Knowledge Base / Courses */}
-        <motion.div variants={itemVariants} className="glass p-6 md:p-8 rounded-3xl">
-          <div className="flex items-center gap-3 mb-6 md:mb-8 text-white text-xl md:text-2xl">
-            <Book size={24} className="md:w-7 md:h-7 text-neutral-300" />
-            <h2 className="font-display font-light">
+        <motion.div variants={itemVariants} className={CARD}>
+          <div className={CARD_HEADER}>
+            <Book className={CARD_ICON} />
+            <h2 className={CARD_TITLE}>
               {lang === 'en' ? 'Academic Focus' : 'Foco Acadêmico'}
             </h2>
           </div>
@@ -111,10 +87,10 @@ export default function About() {
 
         <div className="space-y-6 md:space-y-8">
           {/* Tools & Environment */}
-          <motion.div variants={itemVariants} className="glass p-6 md:p-8 rounded-3xl">
-            <div className="flex items-center gap-3 mb-4 md:mb-6 text-white text-xl md:text-2xl">
-              <Wrench size={24} className="md:w-7 md:h-7 text-neutral-300" />
-              <h2 className="font-display font-light">
+          <motion.div variants={itemVariants} className={CARD}>
+            <div className={CARD_HEADER}>
+              <Wrench className={CARD_ICON} />
+              <h2 className={CARD_TITLE}>
                 {lang === 'en' ? 'Tools & Environment' : 'Ferramentas e Ambiente'}
               </h2>
             </div>
@@ -129,10 +105,10 @@ export default function About() {
           </motion.div>
 
           {/* Certifications Highlights */}
-          <motion.div variants={itemVariants} className="glass p-6 md:p-8 rounded-3xl">
-            <div className="flex items-center gap-3 mb-4 md:mb-6 text-white text-xl md:text-2xl">
-              <Award size={24} className="md:w-7 md:h-7 text-neutral-300" />
-              <h2 className="font-display font-light">
+          <motion.div variants={itemVariants} className={CARD}>
+            <div className={CARD_HEADER}>
+              <Award className={CARD_ICON} />
+              <h2 className={CARD_TITLE}>
                 {lang === 'en' ? 'Key Certifications' : 'Principais Certificações'}
               </h2>
             </div>
@@ -156,8 +132,8 @@ export default function About() {
         </div>
 
         {/* Resume Strategy Section */}
-        <motion.div variants={itemVariants} className="md:col-span-2 glass border border-white/5 p-8 rounded-3xl">
-          <h2 className="text-2xl font-display font-light text-white mb-4">
+        <motion.div variants={itemVariants} className={`md:col-span-2 ${CARD}`}>
+          <h2 className={`${CARD_TITLE} mb-4`}>
             {lang === 'en' ? 'Professional Strategy' : 'Estratégia Profissional'}
           </h2>
           <p className="text-neutral-400 leading-relaxed max-w-4xl">

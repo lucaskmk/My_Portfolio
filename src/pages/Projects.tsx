@@ -1,21 +1,33 @@
 import React from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform, animate } from 'motion/react';
-import { PROJECTS, ACADEMIC_PROJECTS } from '../constants';
-import { ExternalLink, ChevronLeft, ChevronRight, BookOpen, Calendar, Tag, Play, FileText, Github } from 'lucide-react';
-import { SafeImage } from '../components/SafeImage';
+import { motion, useMotionValue, animate } from 'motion/react';
+import {
+  ChevronLeft, ChevronRight, Github, Play, ExternalLink, FileText,
+  LayoutGrid, Sparkles, ChartColumn, Cloud, Server, Puzzle, Cpu, type LucideIcon,
+} from 'lucide-react';
+import { PROJECTS } from '../constants';
+import type { Project, ProjectArea } from '../types';
+import PageHeader from '../components/PageHeader';
 
-const LANGUAGES = [
-  { id: 'data', name: 'Data Engineering', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' },
-  { id: 'api', name: 'APIs & Backend', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg' },
-  { id: 'c', name: 'Problem Solving', icon: 'images/c-icon.png' },
-  { id: 'python', name: 'Python/ML', icon: 'images/python-icon.png' },
-  { id: 'devops', name: 'Interests (Cloud)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg' },
-  { id: 'embedded', name: 'Interests (Embedded)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ieee/ieee-original.svg' },
+type AreaId = 'all' | ProjectArea;
+
+const AREAS: { id: AreaId; name: string; icon: LucideIcon }[] = [
+  { id: 'all', name: 'All Projects', icon: LayoutGrid },
+  { id: 'ai', name: 'AI & LLMs', icon: Sparkles },
+  { id: 'data', name: 'Data Science', icon: ChartColumn },
+  { id: 'cloud', name: 'Cloud & Infra', icon: Cloud },
+  { id: 'backend', name: 'Backend & APIs', icon: Server },
+  { id: 'systems', name: 'Problem Solving', icon: Puzzle },
+  { id: 'hardware', name: 'Hardware', icon: Cpu },
 ];
+
+const AREA_NAME = Object.fromEntries(AREAS.map((a) => [a.id, a.name])) as Record<AreaId, string>;
+const UNIT_ANGLE = 360 / AREAS.length;
+
+const projectsIn = (area: AreaId) =>
+  area === 'all' ? PROJECTS : PROJECTS.filter((p) => p.areas.includes(area));
 
 export default function Projects() {
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const [showAcademic, setShowAcademic] = React.useState(true);
   const rotation = useMotionValue(0);
   const currentStep = React.useRef(0);
   const isDragging = React.useRef(false);
@@ -28,349 +40,197 @@ export default function Projects() {
   React.useEffect(() => {
     return rotation.on('change', (v) => {
       if (isDragging.current) {
-        const unitAngle = 360 / LANGUAGES.length;
         const normalizedRotation = (-v % 360 + 360) % 360;
-        const index = Math.round(normalizedRotation / unitAngle) % LANGUAGES.length;
+        const index = Math.round(normalizedRotation / UNIT_ANGLE) % AREAS.length;
         if (index !== activeIndexRef.current) {
           activeIndexRef.current = index;
           setActiveIndex(index);
         }
       }
     });
-  }, [rotation]); // stable dep — no re-subscription on every index change
+  }, [rotation]);
 
   const rotateTo = (step: number) => {
     currentStep.current = step;
-    const newIndex = (step % LANGUAGES.length + LANGUAGES.length) % LANGUAGES.length;
-    setActiveIndex(newIndex);
-    
-    const unitAngle = 360 / LANGUAGES.length;
-    animate(rotation, -step * unitAngle, {
-      type: 'spring',
-      stiffness: 300,
-      damping: 30
-    });
+    setActiveIndex((step % AREAS.length + AREAS.length) % AREAS.length);
+    animate(rotation, -step * UNIT_ANGLE, { type: 'spring', stiffness: 300, damping: 30 });
   };
 
-  const rotate = (direction: number) => {
-    rotateTo(currentStep.current + direction);
+  // Shortest way around the wheel to a given index
+  const rotateToIndex = (index: number) => {
+    const diff = ((index - activeIndex + AREAS.length / 2) % AREAS.length + AREAS.length) % AREAS.length - AREAS.length / 2;
+    rotateTo(currentStep.current + Math.round(diff));
   };
 
-  // Drag handling
-  const onPan = (_: any, info: { delta: { x: number } }) => {
+  const onPan = (_: unknown, info: { delta: { x: number } }) => {
     isDragging.current = true;
-    // Stop any ongoing animation to prevent fighting the user
     rotation.stop();
-    const sensitivity = 0.4; // Slightly lower for smoother control
-    rotation.set(rotation.get() + info.delta.x * sensitivity);
+    rotation.set(rotation.get() + info.delta.x * 0.4);
   };
 
   const onPanEnd = () => {
-    // Add a small delay before clearing isDragging to prevent accidental clicks
-    setTimeout(() => {
-      isDragging.current = false;
-    }, 50);
-    
-    const unitAngle = 360 / LANGUAGES.length;
-    const currentRotation = rotation.get();
-    
-    // Calculate nearest step based on current rotation
-    const nearestStep = Math.round(-currentRotation / unitAngle);
-    rotateTo(nearestStep);
+    // Small delay before clearing isDragging to prevent accidental clicks
+    setTimeout(() => { isDragging.current = false; }, 50);
+    rotateTo(Math.round(-rotation.get() / UNIT_ANGLE));
   };
 
-  const activeLanguage = LANGUAGES[activeIndex];
-  const activeProjects = PROJECTS[activeLanguage.id] || [];
+  const activeArea = AREAS[activeIndex];
+  const activeProjects = projectsIn(activeArea.id);
+  const radius = typeof window !== 'undefined' && window.innerWidth < 768 ? 90 : 150;
 
   return (
-    <div className="min-h-screen py-8 md:py-12 px-4 md:px-8 lg:px-12">
-      <div className="max-w-full mx-auto">
-        <div className="text-center mb-6 md:mb-12">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold mb-3 md:mb-4 text-white">Project <span className="text-gradient">Portfolio</span></h1>
-          <p className="text-xs md:text-base text-neutral-500 max-w-xl mx-auto px-4">Explore technical skills with the interactive roulette.</p>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+      <PageHeader
+        title="Project"
+        highlight="Portfolio"
+        subtitle="Spin the wheel or use the arrows to explore projects by area."
+      />
+
+      {/* 3D wheel of areas */}
+      <section className="mb-10 md:mb-14">
+        <div className="relative h-[170px] md:h-[240px] flex items-center justify-center cursor-grab active:cursor-grabbing touch-pan-y select-none">
+          <motion.div onPan={onPan} onPanEnd={onPanEnd} className="absolute inset-0 z-0" />
+
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-[120px] h-[120px] md:w-[220px] md:h-[220px] rounded-full border border-dashed border-white/10" />
+          </div>
+
+          <motion.div
+            style={{ rotateY: rotation, transformStyle: 'preserve-3d' }}
+            className="relative w-14 h-14 md:w-20 md:h-20 z-10"
+          >
+            {AREAS.map((area, index) => {
+              const Icon = area.icon;
+              const isActive = index === activeIndex;
+              return (
+                <div
+                  key={area.id}
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{
+                    transform: `rotateY(${index * UNIT_ANGLE}deg) translateZ(${radius}px)`,
+                    backfaceVisibility: 'hidden',
+                  }}
+                >
+                  <motion.button
+                    type="button"
+                    aria-label={area.name}
+                    aria-pressed={isActive}
+                    whileHover={{ scale: 1.08 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => { if (!isDragging.current) rotateToIndex(index); }}
+                    className={`w-14 h-14 md:w-20 md:h-20 rounded-2xl border flex items-center justify-center transition-all duration-500 pointer-events-auto ${
+                      isActive
+                        ? 'bg-white/10 border-white/50 text-white shadow-xl shadow-white/5 scale-110'
+                        : 'card-block border-white/5 text-neutral-500 opacity-40 hover:opacity-100'
+                    }`}
+                  >
+                    <Icon className="w-6 h-6 md:w-8 md:h-8" strokeWidth={1.5} />
+                  </motion.button>
+                </div>
+              );
+            })}
+          </motion.div>
         </div>
 
-        <motion.div 
-          layout
-          className="grid grid-cols-1 xl:grid-cols-12 gap-6 md:gap-8 lg:gap-12 items-start transition-all duration-700 ease-in-out"
-        >
-          {/* Left Column: Language Projects */}
-          <motion.div 
-            layout
-            className={`space-y-6 md:space-y-12 ${showAcademic ? 'xl:col-span-7' : 'xl:col-span-12 max-w-5xl mx-auto w-full'}`}
+        {/* Active area + controls */}
+        <div className="flex items-center justify-center gap-4 md:gap-6 mt-2">
+          <button
+            type="button"
+            onClick={() => rotateTo(currentStep.current - 1)}
+            aria-label="Previous area"
+            className="p-2.5 card-block rounded-full border border-white/10 text-white hover:bg-white/10 transition-colors"
           >
-            <div className="glass p-4 md:p-10 rounded-[1.5rem] md:rounded-[3rem] relative overflow-hidden h-full">
-              <button 
-                onClick={() => setShowAcademic(!showAcademic)}
-                className={`hidden xl:block absolute top-0 right-0 p-8 text-neutral-400 hover:text-white transition-all duration-300 z-10 ${showAcademic ? 'opacity-20 hover:opacity-100' : 'opacity-100'}`}
-                title={showAcademic ? "Hide Academic Projects" : "Show Academic Projects"}
-              >
-                <motion.div
-                  animate={{ rotate: showAcademic ? 0 : 180 }}
-                  transition={{ type: "spring", stiffness: 150, damping: 20 }}
-                >
-                  <ChevronRight size={56} />
-                </motion.div>
-              </button>
-              <h2 className="text-lg md:text-2xl font-display font-light mb-4 md:mb-8 flex items-center gap-2 text-white">
-                <span className="w-5 h-5 md:w-8 md:h-8 bg-white rounded-lg flex items-center justify-center text-black text-[10px] md:text-xs font-bold">01</span>
-                Technical Skills
-              </h2>
-
-              {/* 3D Carousel Section */}
-              <div 
-                className="relative h-[180px] md:h-[300px] mb-6 md:mb-12 flex items-center justify-center cursor-grab active:cursor-grabbing touch-none select-none overflow-visible"
-                onPointerDown={(e) => {
-                  (e.currentTarget as HTMLElement).setAttribute('data-dragging', 'true');
-                }}
-              >
-                {/* Pan Handler Container - Now wraps the carousel but doesn't block icons */}
-                <motion.div
-                  onPan={onPan}
-                  onPanEnd={onPanEnd}
-                  className="absolute inset-0 z-0 bg-transparent" // Lower Z so icons are clickable
-                />
-                
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-[100px] h-[100px] md:w-[200px] md:h-[200px] rounded-full border border-dashed border-white/10" />
-                </div>
-
-                <motion.div 
-                  style={{ rotateY: rotation, transformStyle: 'preserve-3d' }}
-                  className="relative w-12 h-12 md:w-24 md:h-24 z-10"
-                >
-                  {LANGUAGES.map((lang, index) => {
-                    const angle = (index * (360 / LANGUAGES.length));
-                    const translateZ = typeof window !== 'undefined' && window.innerWidth < 768 ? 80 : 140;
-                    return (
-                      <motion.div
-                        key={lang.id}
-                        className="absolute inset-0 flex items-center justify-center"
-                        style={{
-                          transform: `rotateY(${angle}deg) translateZ(${translateZ}px)`,
-                          backfaceVisibility: 'hidden'
-                        }}
-                      >
-                        <motion.div 
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => {
-                            if (!isDragging.current) {
-                              const diff = ((index - activeIndex + LANGUAGES.length / 2) % LANGUAGES.length + LANGUAGES.length) % LANGUAGES.length - LANGUAGES.length / 2;
-                              rotateTo(currentStep.current + diff);
-                            }
-                          }}
-                          className={`w-12 h-12 md:w-20 md:h-20 p-2 md:p-4 rounded-xl md:rounded-2xl card-block border flex items-center justify-center transition-all duration-500 cursor-pointer pointer-events-auto ${
-                            activeIndex === index ? 'scale-110 md:scale-125 border-white shadow-xl shadow-white/10' : 'opacity-20 grayscale border-white/5 hover:opacity-100 hover:grayscale-0'
-                          }`}
-                        >
-                          <SafeImage src={lang.icon} alt={lang.name} loading="eager" className="w-8 h-8 md:w-full md:h-full !bg-transparent pointer-events-none" />
-                        </motion.div>
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-
-                {/* Controls */}
-                <div className="absolute bottom-0 flex gap-2 md:gap-3">
-                  <button 
-                    onClick={() => rotate(-1)}
-                    className="p-2 md:p-3 card-block rounded-full shadow-md hover:bg-white/10 transition-colors border border-white/10 text-white"
-                  >
-                    <ChevronLeft size={16} className="md:w-5 md:h-5" />
+            <ChevronLeft size={18} />
+          </button>
+          <div className="w-44 md:w-56 text-center">
+            <p className="font-display text-lg md:text-xl text-white leading-tight">{activeArea.name}</p>
+            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">
+              {activeProjects.length} {activeProjects.length === 1 ? 'project' : 'projects'}
+              {activeArea.id !== 'all' && (
+                <>
+                  {' · '}
+                  <button type="button" onClick={() => rotateToIndex(0)} className="uppercase hover:text-white transition-colors">
+                    View all
                   </button>
-                  <button 
-                    onClick={() => rotate(1)}
-                    className="p-2 md:p-3 card-block rounded-full shadow-md hover:bg-white/10 transition-colors border border-white/10 text-white"
-                  >
-                    <ChevronRight size={16} className="md:w-5 md:h-5" />
-                  </button>
-                </div>
-              </div>
+                </>
+              )}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => rotateTo(currentStep.current + 1)}
+            aria-label="Next area"
+            className="p-2.5 card-block rounded-full border border-white/10 text-white hover:bg-white/10 transition-colors"
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      </section>
 
-              {/* Project List Section */}
-              <div className="space-y-4 md:space-y-6">
-                <div className="flex items-center justify-between mb-2 md:mb-4">
-                  <h3 className="text-lg md:text-xl font-display font-light text-white">
-                    {activeLanguage.name} Projects
-                  </h3>
-                  <span className="text-[10px] md:text-xs font-bold text-neutral-500 uppercase tracking-widest">
-                    {activeProjects.length} Items
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 gap-3 md:gap-4">
-                  <AnimatePresence mode="wait">
-                    {activeProjects.map((project, idx) => {
-                      const primaryUrl = project.url || project.videoUrl || project.fileUrl;
-                      return (
-                        <motion.div
-                          key={`${activeLanguage.id}-${project.title}`}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 10 }}
-                          transition={{ delay: idx * 0.05 }}
-                          onClick={() => primaryUrl && window.open(primaryUrl, '_blank')}
-                          className={`group p-4 md:p-5 rounded-xl md:rounded-2xl border-0 bg-white/[0.06] hover:bg-white/[0.09] transition-all ${primaryUrl ? 'cursor-pointer' : ''}`}
-                        >
-                          <div className="flex justify-between items-start mb-1 md:mb-2">
-                            <h4 className="font-bold text-white text-sm md:text-base group-hover:text-neutral-300 transition-colors">
-                              {project.title}
-                            </h4>
-                            <div className="flex gap-3 text-neutral-500">
-                              {project.videoUrl && (
-                                <a
-                                  href={project.videoUrl}
-                                  target="_blank"
-                                  onClick={e => e.stopPropagation()}
-                                  className="hover:text-white transition-colors"
-                                  title="Watch Demo"
-                                >
-                                  <Play size={14} className="md:w-4 md:h-4" />
-                                </a>
-                              )}
-                              {project.fileUrl && (
-                                <a
-                                  href={project.fileUrl}
-                                  target="_blank"
-                                  onClick={e => e.stopPropagation()}
-                                  className="hover:text-white transition-colors"
-                                  title="View Document"
-                                >
-                                  <FileText size={14} className="md:w-4 md:h-4" />
-                                </a>
-                              )}
-                              {project.url && (
-                                <a
-                                  href={project.url}
-                                  target="_blank"
-                                  onClick={e => e.stopPropagation()}
-                                  className="hover:text-white transition-colors"
-                                  title="View Source"
-                                >
-                                  <ExternalLink size={14} className="md:w-4 md:h-4" />
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                          <p className="text-xs md:text-sm text-neutral-400 leading-relaxed line-clamp-2 md:line-clamp-none">
-                            {project.description}
-                          </p>
-                        </motion.div>
-                      );
-                    })}
-                  </AnimatePresence>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Academic Projects */}
-          <AnimatePresence mode="popLayout">
-            {showAcademic && (
-              <motion.div 
-                layout
-                initial={{ opacity: 0, x: 100, scale: 0.95 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: 100, scale: 0.95 }}
-                transition={{ 
-                  type: "spring", 
-                  damping: 28, 
-                  stiffness: 180,
-                  opacity: { duration: 0.4 }
-                }}
-                className="xl:col-span-5 space-y-8"
-              >
-                <h2 className="text-xl md:text-2xl font-display font-light mb-8 flex items-center gap-2 px-4 pt-4 md:pt-10 text-white">
-                  <span className="w-6 h-6 md:w-8 md:h-8 bg-white rounded-lg flex items-center justify-center text-neutral-900 text-[10px] md:text-xs font-bold">02</span>
-                  Academic Journey
-                </h2>
-                
-                <div className="space-y-4 md:space-y-6">
-                  {ACADEMIC_PROJECTS.map((project) => {
-                    const primaryUrl = project.url || project.videoUrl || project.fileUrl;
-                    return (
-                      <div
-                        key={project.id}
-                        onClick={() => primaryUrl && window.open(primaryUrl, '_blank')}
-                        className={`group flex flex-col md:flex-row rounded-2xl md:rounded-3xl overflow-hidden border-0 bg-white/[0.06] hover:bg-white/[0.09] transition-all duration-300 ${primaryUrl ? 'cursor-pointer' : ''}`}
-                      >
-                        <div className="p-4 md:p-6 flex flex-col justify-center">
-                          <div className="flex items-center justify-between mb-1 md:mb-2 text-sm md:text-base">
-                            <h3 className="font-display font-medium text-white group-hover:text-neutral-300 transition-colors leading-tight">
-                              {project.title}
-                            </h3>
-                            <div className="flex items-center gap-2 md:gap-3 text-neutral-500">
-                              {project.videoUrl && (
-                                <a
-                                  href={project.videoUrl}
-                                  target="_blank"
-                                  onClick={e => e.stopPropagation()}
-                                  className="hover:text-white transition-colors"
-                                >
-                                  <Play size={14} className="md:w-4 md:h-4" />
-                                </a>
-                              )}
-                              {project.githubUrl && (
-                                <a
-                                  href={project.githubUrl}
-                                  target="_blank"
-                                  onClick={e => e.stopPropagation()}
-                                  className="hover:text-white transition-colors"
-                                  title="View on GitHub"
-                                >
-                                  <Github size={14} className="md:w-4 md:h-4" />
-                                </a>
-                              )}
-                              {project.fileUrl && (
-                                <a
-                                  href={project.fileUrl}
-                                  target="_blank"
-                                  onClick={e => e.stopPropagation()}
-                                  className="hover:text-white transition-colors"
-                                  title="Technical Report"
-                                >
-                                  <FileText size={14} className="md:w-4 md:h-4" />
-                                </a>
-                              )}
-                              <span className="text-[9px] md:text-[10px] font-bold text-neutral-600 card-block px-2 py-0.5 md:py-1 rounded-md">
-                                {project.date}
-                              </span>
-                            </div>
-                          </div>
-                          <p className="text-[11px] md:text-sm text-neutral-400 line-clamp-2 mb-2 md:mb-4">
-                            {project.description}
-                          </p>
-                          <div className="flex flex-wrap gap-1.5 md:gap-2">
-                            {project.tags.slice(0, 3).map(tag => (
-                              <span key={tag} className="text-[9px] md:text-[10px] font-medium text-neutral-500 card-block px-2 py-0.5 rounded-full border border-white/10">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Academic Info Card */}
-                <div className="p-4 md:p-6 glass rounded-2xl md:rounded-3xl flex items-center gap-3 md:gap-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 card-block rounded-xl md:rounded-2xl flex items-center justify-center text-white shrink-0">
-                    <BookOpen size={20} className="md:w-6 md:h-6" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-white text-[10px] uppercase tracking-widest leading-tight">Academic Excellence</h4>
-                    <p className="text-neutral-500 text-[10px] md:text-xs">
-                      Engineering projects @ Insper.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
-      </div>
+      {/* Project grid */}
+      <motion.div
+        key={activeArea.id}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.25 }}
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5"
+      >
+        {activeProjects.map((project) => (
+          <ProjectCard key={project.title} project={project} showArea={activeArea.id === 'all'} />
+        ))}
+      </motion.div>
     </div>
   );
 }
+
+const LINK_CLASS = 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-bold text-neutral-400 hover:text-white hover:bg-white/10 transition-colors';
+
+const ProjectCard: React.FC<{ project: Project; showArea: boolean }> = ({ project, showArea }) => {
+  const links = [
+    project.repoUrl && { href: project.repoUrl, label: 'Code', icon: Github },
+    project.demoUrl && { href: project.demoUrl, label: 'Demo', icon: Play },
+    project.liveUrl && { href: project.liveUrl, label: 'Live', icon: ExternalLink },
+    project.reportUrl && { href: project.reportUrl, label: 'Report', icon: FileText },
+  ].filter(Boolean) as { href: string; label: string; icon: LucideIcon }[];
+
+  return (
+    <article className="flex flex-col h-full p-5 md:p-6 rounded-2xl bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.06] hover:border-white/10 transition-colors">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          {showArea && (
+            <p className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">
+              {AREA_NAME[project.areas[0]]}
+            </p>
+          )}
+          <h3 className="font-display font-medium text-white text-base md:text-lg leading-snug">{project.title}</h3>
+        </div>
+        {project.date && (
+          <span className="shrink-0 mt-0.5 text-[10px] md:text-xs font-bold text-neutral-500">{project.date}</span>
+        )}
+      </div>
+
+      <p className="mt-2 text-sm text-neutral-400 leading-relaxed">{project.description}</p>
+
+      <div className="mt-4 flex flex-wrap gap-1.5">
+        {project.tags.map((tag) => (
+          <span key={tag} className="px-2 py-0.5 rounded-full border border-white/10 text-[10px] md:text-[11px] font-medium text-neutral-400">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      {links.length > 0 && (
+        <div className="mt-auto pt-4">
+          <div className="flex flex-wrap gap-1 pt-3 border-t border-white/5 -ml-2.5">
+            {links.map(({ href, label, icon: Icon }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer" className={LINK_CLASS}>
+                <Icon size={14} />
+                {label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </article>
+  );
+};

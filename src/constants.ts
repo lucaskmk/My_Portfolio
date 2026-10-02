@@ -1,99 +1,153 @@
-import { LanguageProjects, Certificate, ResumeContent, AcademicProject } from './types';
+import { Project, Certificate, ResumeContent } from './types';
 
-export const PROJECTS: LanguageProjects = {
-  data: [
-    {
-      title: "Ollama AI Agent Demo",
-      description: "Local AI agent that uses an LLM (via Ollama/LLaMA 3.2) to reason over tools: web search, math, file ops, and memory — demonstrating a full tool-use loop with planning and self-correction.",
-      url: "https://github.com/lucaskmk/Ollama_AI-AgentDemo",
-      videoUrl: "https://youtu.be/GWQIyWlHVg4"
-    },
-    {
-      title: "Financial RAG",
-      description: "Retrieval-Augmented Generation pipeline for financial documents. Combines vector search with LLMs to answer queries over structured financial data.",
-      url: "https://github.com/lucaskmk/Financial-RAG",
-      videoUrl: "https://youtu.be/nk8veFssCHg"
-    },
-    {
-      title: "Churn Prediction Interface",
-      description: "End-to-end ML solution from Databricks Hackathon. Integrates a predictive model with a clean web interface for decision makers.",
-      url: "https://github.com/lucaskmk/Databricks-Hackathon",
-      videoUrl: "https://www.youtube.com/watch?v=JsDl4ME_sWU"
-    },
-    {
-      title: "Machine Learning (Adult Census)",
-      description: "Advanced EDA, feature engineering, and predictive modeling for income classification (Classification & Regression).",
-      url: "https://github.com/lucaskmk/Machine-Learning-Adult-Census"
-    }
-  ],
-  api: [
-    {
-      title: "FastAPI NoSQL REST",
-      description: "Recent development of high-performance APIs using FastAPI, implementing NoSQL logic and RESTful architectural patterns.",
-      url: null,
-      videoUrl: "https://youtu.be/WZ7uJ-U6sPU?si=1CaozLn-pBMCkZbo"
-    },
-    {
-      title: "Full Stack Web Player",
-      description: "Streaming platform with Django REST and React. Handled complex API integration and backend logic.",
-      url: "https://github.com/lucaskmk/Web-Player"
-    },
-    {
-      title: "Django Notes Platform",
-      description: "Full-stack notes service with PostgreSQL and Docker.",
-      url: "https://github.com/insper-tecnologias-web/projeto-1b-lucaskmk"
-    }
-  ],
-  c: [
-    {
-      title: "Parallel Downloader (C)",
-      description: "Demonstrates complex problem solving: multi-process management with fork(), signal handling, and robust resource cleanup.",
-      url: "https://github.com/lucaskmk/Multi-process-Downloader",
-      videoUrl: "https://youtu.be/o0PQdfjXw7I"
-    },
-    {
-      title: "Algorithm Analysis & Optimization",
-      description: "Deep study of O, Ω, Θ complexity and implementation of efficient data structures for large-scale information.",
-      url: "https://github.com/lucaskmk/Algorithms-Analysis"
-    }
-  ],
-  python: [
-    {
-      title: "Portfolio Optimization with HERC",
-      description: "Backtesting framework validating whether the Hierarchical Equal Risk Contribution (HERC) method reduces max drawdown vs. buy-and-hold during market stress periods.",
-      url: "https://github.com/lucaskmk/Otimiza-o-de-Portf-lio-com-HERC"
-    },
-    {
-      title: "Battleship Strategy",
-      description: "Strategic ocean battles with AI decision making logic.",
-      url: "https://github.com/lucaskmk/EP2"
-    }
-  ],
-  devops: [
-    {
-      title: "Terraform & IaC",
-      description: "Infrastructure as Code for automated provisioning.",
-      url: null
-    },
-    {
-      title: "OpenStack Private Cloud",
-      description: "Configuration of multi-tenant virtualized environments.",
-      url: null
-    }
-  ],
-  embedded: [
-    {
-      title: "MPU6050 Driver",
-      description: "C library for real-time sensor reading with RTOS.",
-      url: null
-    },
-    {
-      title: "ALU & FSM Logic (VHDL)",
-      description: "Hardware level logic design and implementation.",
-      url: null
-    }
-  ]
-};
+export const PROJECTS: Project[] = [
+  {
+    title: "Financial RAG",
+    description: "RAG pipeline for Q&A over financial documents: LLM + vector search over structured financial data. Dockerized full-stack app with separate frontend and backend containers and local LLM inference via Ollama.",
+    areas: ['ai', 'data'],
+    tags: ["Python", "RAG", "LLM", "Ollama", "Docker"],
+    date: "2026",
+    repoUrl: "https://github.com/lucaskmk/Financial-RAG",
+    demoUrl: "https://youtu.be/nk8veFssCHg"
+  },
+  {
+    title: "Ollama AI Agent Demo",
+    description: "Local AI agent using Ollama (LLaMA 3.2). Full tool-use loop with planning, self-correction, confirmation for risky operations, and persistent memory across sessions.",
+    areas: ['ai'],
+    tags: ["Python", "LLM", "Ollama", "AI Agents"],
+    date: "2025",
+    repoUrl: "https://github.com/lucaskmk/Ollama_AI-AgentDemo",
+    demoUrl: "https://youtu.be/GWQIyWlHVg4"
+  },
+  {
+    title: "CloudPay — Serverless Payments on AWS",
+    description: "100% serverless payments platform MVP on AWS: 6 Lambda functions (Node.js), API Gateway, async processing via SQS, DynamoDB persistence, and a React frontend on S3. Load-tested with JMeter (100 concurrent users).",
+    areas: ['cloud', 'backend'],
+    tags: ["AWS", "Node.js", "Lambda", "SQS", "DynamoDB"],
+    date: "2025",
+    repoUrl: "https://github.com/lucaskmk/ComputacaoNuvem_Projeto",
+    reportUrl: "images/projects/relatorio-tecnico-cloudpay.pdf"
+  },
+  {
+    title: "Portfolio Optimization with HRP/HERC",
+    description: "Hierarchical Risk Parity and Hierarchical Equal Risk Contribution allocation with a backtesting pipeline comparing them to Equal-Weight and Buy & Hold (Sharpe, Sortino, Maximum Drawdown).",
+    areas: ['data'],
+    tags: ["Python", "Quant Finance", "Backtesting"],
+    date: "2025",
+    repoUrl: "https://github.com/lucaskmk/Otimiza-o-de-Portf-lio-com-HERC"
+  },
+  {
+    title: "Triage System — Organizational Network Diagnosis",
+    description: "Graph-based triage system for diagnosing organizational network structures. Identifies bottlenecks, key nodes, and communication failure points.",
+    areas: ['data'],
+    tags: ["Python", "Graph Theory", "Network Analysis"],
+    date: "2025",
+    liveUrl: "https://lucaskmk.github.io/Sistema-de-Triagem-para-Diagn-stico-de-Redes-Organizacionais/",
+    repoUrl: "https://github.com/lucaskmk/Sistema-de-Triagem-para-Diagn-stico-de-Redes-Organizacionais"
+  },
+  {
+    title: "Churn Prediction Interface",
+    description: "End-to-end solution from the Databricks Hackathon: an ML churn model integrated with a manager-focused web interface for decision makers.",
+    areas: ['data'],
+    tags: ["Databricks", "Machine Learning", "Hackathon"],
+    date: "2024",
+    repoUrl: "https://github.com/lucaskmk/Databricks-Hackathon",
+    demoUrl: "https://www.youtube.com/watch?v=JsDl4ME_sWU"
+  },
+  {
+    title: "Machine Learning — Adult Census",
+    description: "Advanced EDA, feature engineering, and predictive modeling for income classification, evaluated with accuracy, F1, and ROC-AUC.",
+    areas: ['data'],
+    tags: ["Python", "Scikit-learn", "Pandas"],
+    repoUrl: "https://github.com/lucaskmk/Machine-Learning-Adult-Census"
+  },
+  {
+    title: "FastAPI NoSQL REST",
+    description: "High-performance REST API built with FastAPI, implementing NoSQL data modeling and RESTful architectural patterns.",
+    areas: ['backend'],
+    tags: ["Python", "FastAPI", "NoSQL"],
+    demoUrl: "https://youtu.be/WZ7uJ-U6sPU?si=1CaozLn-pBMCkZbo"
+  },
+  {
+    title: "Full Stack Web Player",
+    description: "Audio streaming and download platform integrated with the YouTube API. Django REST backend and React (Vite) frontend.",
+    areas: ['backend'],
+    tags: ["Python", "Django REST", "React"],
+    date: "2024",
+    repoUrl: "https://github.com/lucaskmk/Web-Player"
+  },
+  {
+    title: "Django Notes Platform",
+    description: "Full-stack notes service with PostgreSQL, containerized with Docker.",
+    areas: ['backend'],
+    tags: ["Python", "Django", "PostgreSQL", "Docker"],
+    repoUrl: "https://github.com/insper-tecnologias-web/projeto-1b-lucaskmk"
+  },
+  {
+    title: "Multi-process Downloader",
+    description: "Parallel downloader using fork() and waitpid(), with robust signal handling, resource cleanup, and real-time process status monitoring.",
+    areas: ['systems'],
+    tags: ["C", "Linux", "Processes"],
+    date: "2024",
+    repoUrl: "https://github.com/lucaskmk/Multi-process-Downloader",
+    demoUrl: "https://youtu.be/o0PQdfjXw7I"
+  },
+  {
+    title: "Algorithm Analysis & Optimization",
+    description: "Study of computational complexity (O, Ω, Θ), comparison of sorting and search algorithms, and pattern matching with Rabin-Karp for large volumes of data.",
+    areas: ['systems'],
+    tags: ["C", "Big O", "Rabin-Karp"],
+    repoUrl: "https://github.com/lucaskmk/Algorithms-Analysis"
+  },
+  {
+    title: "Battleship Strategy",
+    description: "Battleship game with AI decision-making logic for the computer opponent.",
+    areas: ['systems'],
+    tags: ["Python", "Game AI"],
+    repoUrl: "https://github.com/lucaskmk/EP2"
+  },
+  {
+    title: "Private Cloud with OpenStack",
+    description: "Multi-tenant environments, SDN virtual networks, and Keystone identity management, with a focus on isolation and security.",
+    areas: ['cloud'],
+    tags: ["OpenStack", "SDN", "Linux"],
+    date: "2024"
+  },
+  {
+    title: "Bare-Metal Provisioning",
+    description: "Automated infrastructure for hardware management and orchestration of distributed applications using MAAS and Juju.",
+    areas: ['cloud'],
+    tags: ["MAAS", "Juju", "Infrastructure"],
+    date: "2024"
+  },
+  {
+    title: "Terraform Automation (IaC)",
+    description: "Declarative infrastructure provisioning scripts with full idempotency and environment standardization.",
+    areas: ['cloud'],
+    tags: ["Terraform", "IaC"],
+    date: "2024"
+  },
+  {
+    title: "MPU6050 Firmware Driver",
+    description: "C library for accelerometer and gyroscope reading via I2C, integrated with an RTOS (tasks and semaphores) on Raspberry Pi Pico.",
+    areas: ['hardware'],
+    tags: ["C", "RTOS", "I2C"],
+    date: "2024"
+  },
+  {
+    title: "Light Following Robot",
+    description: "Autonomous vehicle with PWM control via oscillator circuits and operational amplifiers: speed controlled by LDRs, without microcontrollers.",
+    areas: ['hardware'],
+    tags: ["Analog Electronics", "PWM"],
+    date: "2024"
+  },
+  {
+    title: "ALU & FSM Logic",
+    description: "Hardware-level design and implementation of an arithmetic logic unit and finite state machines.",
+    areas: ['hardware'],
+    tags: ["VHDL", "Digital Logic"]
+  }
+];
 
 export const CERTIFICATES: Certificate[] = [
   {
@@ -210,124 +264,6 @@ export const CERTIFICATES: Certificate[] = [
   }
 ];
 
-export const ACADEMIC_PROJECTS: AcademicProject[] = [
-  {
-    id: 11,
-    title: "Financial RAG",
-    description: "Retrieval-Augmented Generation pipeline for financial documents. Combines vector search with LLMs to answer queries over structured financial data.",
-    image: "",
-    tags: ["Python", "RAG", "LLM", "Vector Search"],
-    date: "2026",
-    url: "https://github.com/lucaskmk/Financial-RAG",
-    videoUrl: "https://youtu.be/nk8veFssCHg"
-  },
-  {
-    id: 13,
-    title: "Ollama AI Agent Demo",
-    description: "Local AI agent built in Python using Ollama (LLaMA 3.2). Implements a full tool-use loop with planning, self-correction, confirmation for risky ops, and persistent memory across sessions.",
-    image: "",
-    tags: ["Python", "LLM", "Ollama", "AI Agents"],
-    date: "2025",
-    url: "https://github.com/lucaskmk/Ollama_AI-AgentDemo",
-    videoUrl: "https://youtu.be/GWQIyWlHVg4"
-  },
-  {
-    id: 12,
-    title: "Portfolio Optimization with HERC",
-    description: "Backtesting study validating whether the Hierarchical Equal Risk Contribution (HERC) method achieves lower maximum drawdown than buy-and-hold during market stress periods through hierarchical risk diversification.",
-    image: "",
-    tags: ["Python", "Quant Finance", "Backtesting", "Risk"],
-    date: "2025",
-    url: "https://github.com/lucaskmk/Otimiza-o-de-Portf-lio-com-HERC"
-  },
-  {
-    id: 9,
-    title: "CloudPay — Serverless Payments on AWS",
-    description: "100% serverless payments platform MVP on AWS: 6 Lambda functions (Node.js), API Gateway, async processing via SQS, DynamoDB persistence, and a React frontend on S3. Load-tested with JMeter (100 concurrent users).",
-    image: "",
-    tags: ["AWS", "Serverless", "Node.js"],
-    date: "2025",
-    url: "https://github.com/lucaskmk/ComputacaoNuvem_Projeto",
-    fileUrl: "images/projects/relatorio-tecnico-cloudpay.pdf"
-  },
-  {
-    id: 10,
-    title: "Triage System — Organizational Network Diagnosis",
-    description: "Graph-based triage system for diagnosing organizational network structures. Identifies bottlenecks, key nodes, and communication failure points.",
-    image: "",
-    tags: ["Networks", "Python", "Graph Theory"],
-    date: "2025",
-    url: "https://lucaskmk.github.io/Sistema-de-Triagem-para-Diagn-stico-de-Redes-Organizacionais/",
-    githubUrl: "https://github.com/lucaskmk/Sistema-de-Triagem-para-Diagn-stico-de-Redes-Organizacionais"
-  },
-  {
-    id: 7,
-    title: "Churn Prediction Interface",
-    description: "End-to-end solution developed during the Databricks Hackathon. Integrates an ML model with a manager-focused web interface to democratize data analysis.",
-    image: "https://picsum.photos/seed/databricks/800/600",
-    tags: ["Databricks", "ML", "Hackathon"],
-    date: "2024",
-    videoUrl: "https://www.youtube.com/watch?v=JsDl4ME_sWU"
-  },
-  {
-    id: 8,
-    title: "Multi-process Downloader",
-    description: "C-based parallel downloader using fork() and waitpid(). Features robust signal handling and real-time process status monitoring.",
-    image: "https://picsum.photos/seed/downloader/800/600",
-    tags: ["C", "Linux", "Systems"],
-    date: "2024",
-    videoUrl: "https://youtu.be/o0PQdfjXw7I"
-  },
-  {
-    id: 1,
-    title: "Private Cloud OpenStack",
-    description: "Configuration of multi-tenant environments, SDN virtual networks, and Keystone identity management with a focus on isolation and security.",
-    image: "https://picsum.photos/seed/openstack/800/600",
-    tags: ["OpenStack", "SDN", "Cloud"],
-    date: "2024"
-  },
-  {
-    id: 2,
-    title: "Bare-Metal Provisioning",
-    description: "Implementation of automated infrastructure for hardware management and orchestration of large-scale distributed applications using MAAS and Juju.",
-    image: "https://picsum.photos/seed/maas/800/600",
-    tags: ["MAAS", "Juju", "Infrastructure"],
-    date: "2024"
-  },
-  {
-    id: 3,
-    title: "Terraform Automation (IaC)",
-    description: "Development of declarative scripts for infrastructure provisioning with full idempotency and environment standardization.",
-    image: "https://picsum.photos/seed/terraform/800/600",
-    tags: ["Terraform", "IaC", "Automation"],
-    date: "2024"
-  },
-  {
-    id: 4,
-    title: "Light Following Robot",
-    description: "Autonomous vehicle project with PWM control via oscillator circuits and operational amplifiers — speed control by LDR without microcontrollers.",
-    image: "https://picsum.photos/seed/robot/800/600",
-    tags: ["Analog", "PWM", "Robotics"],
-    date: "2024"
-  },
-  {
-    id: 5,
-    title: "MPU6050 Firmware Driver",
-    description: "C library development for accelerometer and gyroscope reading via I2C, integrated with RTOS (tasks and semaphores) on Raspberry Pi Pico.",
-    image: "https://picsum.photos/seed/pico/800/600",
-    tags: ["C", "RTOS", "Embedded"],
-    date: "2024"
-  },
-  {
-    id: 6,
-    title: "Full Stack Web Player",
-    description: "Audio streaming and download platform integrated with the YouTube API. Django REST backend and React (Vite) frontend.",
-    image: "https://picsum.photos/seed/webplayer/800/600",
-    tags: ["Django", "React", "API"],
-    date: "2024",
-  }
-];
-
 export const RESUME_EN: ResumeContent = {
   profile: "I am a Computer Engineering student at Insper with a solid foundation in Python, SQL, and Data Science libraries. I have practical experience in exploratory analysis, predictive modeling (classification and regression), network analysis, ML pipelines, and RAG (Retrieval-Augmented Generation) architectures with LLMs. I was a participant in the Databricks Hackathon, where I developed an end-to-end Churn prediction solution with a web interface accessible to managers. I am disciplined and results-oriented, with fluency in English and the ability to communicate technical insights to non-technical audiences.",
   education: [
@@ -337,6 +273,11 @@ export const RESUME_EN: ResumeContent = {
   international: [
     { location: "United States", detail: "Lived for 4 years (2006–2011), achieving full cultural and linguistic immersion." },
     { location: "Canada", detail: "Exchange program, developing intercultural adaptability and advanced technical conversation skills." }
+  ],
+  languages: [
+    { name: "English", level: "Fluent (C1)" },
+    { name: "Portuguese", level: "Native" },
+    { name: "German", level: "Intermediate (B1)" }
   ],
   skills: [
     { category: "Languages", items: ["Python", "SQL (MySQL · SQLite)", "C", "Java", "C#", "JavaScript", "VHDL", "Assembly (MIPS)"] },
@@ -357,6 +298,11 @@ export const RESUME_PT: ResumeContent = {
   international: [
     { location: "Estados Unidos", detail: "Residência por 4 anos (2006–2011), alfabetização e vivência cultural completa em inglês." },
     { location: "Canadá", detail: "Intercâmbio, desenvolvimento de adaptabilidade intercultural e fluência avançada em conversação técnica." }
+  ],
+  languages: [
+    { name: "Inglês", level: "Fluente (C1)" },
+    { name: "Português", level: "Nativo" },
+    { name: "Alemão", level: "Intermediário (B1)" }
   ],
   skills: [
     { category: "Linguagens", items: ["Python", "SQL (MySQL · SQLite)", "C", "Java", "C#", "JavaScript", "VHDL", "Assembly (MIPS)"] },

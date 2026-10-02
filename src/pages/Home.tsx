@@ -5,6 +5,9 @@ import { CERTIFICATES, RESUME_EN, RESUME_PT } from '../constants';
 import { GraduationCap, Globe, Code, User, ChevronRight, Play, Award, ExternalLink, Terminal, FileText } from 'lucide-react';
 import { useLang } from '../useLang';
 import { CertificateLightbox, useCertificateViewer } from '../components/CertificateLightbox';
+import PageHeader from '../components/PageHeader';
+import LangToggle from '../components/LangToggle';
+import { CARD, CARD_HEADER, CARD_ICON, CARD_TITLE, LABEL } from '../ui';
 
 const CV_URL = {
   en: 'cv/Lucas_Kamikawa_CV_EN.pdf',
@@ -46,44 +49,14 @@ export default function Home() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Hero Section */}
-      <section className="mb-12 md:mb-20 text-center">
-        <motion.h1
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="text-4xl sm:text-5xl md:text-7xl font-display font-bold mb-4 md:mb-6 tracking-tight leading-tight"
-        >
-          Lucas <span className="text-gradient">Kamikawa</span>
-        </motion.h1>
-        <motion.p 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          className="text-lg md:text-xl text-neutral-500 max-w-2xl mx-auto mb-8 md:mb-10 px-4"
-        >
-          {lang === 'en' ? `${age} years old` : `${age} anos`} • São Paulo (SP) • Computer Engineering Student @ Insper
-        </motion.p>
-
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+      <PageHeader
+        title="Lucas"
+        highlight="Kamikawa"
+        subtitle={`${lang === 'en' ? `${age} years old` : `${age} anos`} • São Paulo (SP) • Computer Engineering Student @ Insper`}
+      >
         <div className="flex flex-wrap justify-center items-center gap-3">
-          <div className="flex p-1 card-block border border-white/10 rounded-full w-fit">
-            <button
-              onClick={() => setLang('en')}
-              className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-                lang === 'en' ? 'bg-white text-black shadow-lg' : 'text-neutral-500 hover:text-white'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLang('pt')}
-              className={`px-6 py-2 rounded-full text-sm font-bold transition-all ${
-                lang === 'pt' ? 'bg-white text-black shadow-lg' : 'text-neutral-500 hover:text-white'
-              }`}
-            >
-              PT
-            </button>
-          </div>
+          <LangToggle lang={lang} onChange={setLang} />
           <a
             href={CV_URL[lang]}
             target="_blank"
@@ -94,7 +67,7 @@ export default function Home() {
             {lang === 'en' ? 'Download CV' : 'Baixar Currículo'}
           </a>
         </div>
-      </section>
+      </PageHeader>
 
       {/* Resume Grid */}
       <motion.div 
@@ -104,10 +77,10 @@ export default function Home() {
         className="grid grid-cols-1 md:grid-cols-12 gap-6"
       >
         {/* Profile Section & Mini Resume */}
-        <motion.div variants={itemVariants} className="md:col-span-8 glass p-6 md:p-8 rounded-3xl">
-          <div className="flex items-center gap-3 mb-4 md:mb-6 text-white">
-            <User size={20} className="md:w-6 md:h-6 text-neutral-300" />
-            <h2 className="text-xl md:text-2xl font-display font-light">
+        <motion.div variants={itemVariants} className={`md:col-span-8 ${CARD}`}>
+          <div className={CARD_HEADER}>
+            <User className={CARD_ICON} />
+            <h2 className={CARD_TITLE}>
               {lang === 'en' ? 'Professional Profile' : 'Perfil Profissional'}
             </h2>
           </div>
@@ -118,7 +91,7 @@ export default function Home() {
             </p>
 
             <div className="border-t border-white/10 pt-6 md:pt-8">
-              <h3 className="text-xs md:text-sm font-display font-bold text-white mb-4 md:mb-6 uppercase tracking-wider text-blue-400">
+              <h3 className={`${LABEL} mb-4 md:mb-6`}>
                 {lang === 'en' ? 'Featured Projects' : 'Projetos em Destaque'}
               </h3>
               
@@ -158,7 +131,7 @@ export default function Home() {
             </div>
 
             <div className="border-t border-white/10 pt-6 md:pt-8">
-              <h3 className="text-[10px] md:text-sm font-light uppercase tracking-widest text-neutral-400 mb-4 md:mb-6">
+              <h3 className={`${LABEL} mb-4 md:mb-6`}>
                 {lang === 'en' ? 'Key Certifications' : 'Principais Certificações'}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
@@ -186,17 +159,17 @@ export default function Home() {
         </motion.div>
 
         {/* Skills Section */}
-        <motion.div variants={itemVariants} className="md:col-span-4 glass p-8 rounded-3xl text-white">
-          <div className="flex items-center gap-3 mb-6 text-neutral-400">
-            <Code size={24} className="text-neutral-300" />
-            <h2 className="text-2xl font-display font-light">
+        <motion.div variants={itemVariants} className={`md:col-span-4 ${CARD}`}>
+          <div className={CARD_HEADER}>
+            <Code className={CARD_ICON} />
+            <h2 className={CARD_TITLE}>
               {lang === 'en' ? 'Skills' : 'Habilidades'}
             </h2>
           </div>
           <div className="space-y-6">
             {content.skills.map((skillGroup) => (
               <div key={skillGroup.category}>
-                <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 mb-3">
+                <h3 className={`${LABEL} mb-3`}>
                   {skillGroup.category}
                 </h3>
                 <div className="flex flex-wrap gap-2">
@@ -212,10 +185,10 @@ export default function Home() {
         </motion.div>
 
         {/* Education Section */}
-        <motion.div variants={itemVariants} className="md:col-span-6 glass p-8 rounded-3xl">
-          <div className="flex items-center gap-3 mb-6 text-neutral-300">
-            <GraduationCap size={24} />
-            <h2 className="text-2xl font-display font-light text-white">
+        <motion.div variants={itemVariants} className={`md:col-span-6 ${CARD}`}>
+          <div className={CARD_HEADER}>
+            <GraduationCap className={CARD_ICON} />
+            <h2 className={CARD_TITLE}>
               {lang === 'en' ? 'Education' : 'Formação'}
             </h2>
           </div>
@@ -233,10 +206,10 @@ export default function Home() {
         </motion.div>
 
         {/* International Section */}
-        <motion.div variants={itemVariants} className="md:col-span-6 glass p-8 rounded-3xl">
-          <div className="flex items-center gap-3 mb-6 text-neutral-300">
-            <Globe size={24} />
-            <h2 className="text-2xl font-display font-light text-white">
+        <motion.div variants={itemVariants} className={`md:col-span-6 ${CARD}`}>
+          <div className={CARD_HEADER}>
+            <Globe className={CARD_ICON} />
+            <h2 className={CARD_TITLE}>
               {lang === 'en' ? 'International Experience' : 'Experiência Internacional'}
             </h2>
           </div>
@@ -250,6 +223,18 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-6 md:mt-8 pt-6 border-t border-white/10">
+            <h3 className={`${LABEL} mb-4`}>{lang === 'en' ? 'Spoken Languages' : 'Idiomas'}</h3>
+            <div className="grid grid-cols-3 gap-3">
+              {content.languages.map((language) => (
+                <div key={language.name}>
+                  <p className="font-bold text-white text-sm md:text-base">{language.name}</p>
+                  <p className="text-xs md:text-sm text-neutral-400">{language.level}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
 

@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Mail, Linkedin, Github, Menu, X, User, Code, Award, GraduationCap } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { Mail, Linkedin, Github, User, Code, Award, GraduationCap } from 'lucide-react';
 import WaveBackground from './WaveBackground';
 
+const GITHUB_URL = 'https://github.com/lucaskmk';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/lucas-kenji-malheiros-kamikawa-28417629a';
+
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const location = useLocation();
 
-  React.useEffect(() => {
+  // Layout effect: reset the scroll before the new page paints, so it doesn't jump
+  React.useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
@@ -57,33 +59,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               ))}
             </nav>
 
-            {/* Social Icons (Desktop) */}
-            <div className="hidden md:flex items-center gap-4">
-              <a href="https://github.com/lucaskmk" target="_blank" className="text-neutral-400 hover:text-white transition-colors">
+            <div className="flex items-center gap-4">
+              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-neutral-400 hover:text-white transition-colors">
                 <Github size={20} />
               </a>
-              <a href="https://www.linkedin.com/in/lucas-kenji-malheiros-kamikawa-28417629a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" className="text-neutral-400 hover:text-white transition-colors">
+              <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-neutral-400 hover:text-white transition-colors">
                 <Linkedin size={20} />
-              </a>
-            </div>
-            
-            {/* Mobile Menu Button - Simplified */}
-            <div className="md:hidden flex items-center gap-4">
-               <a href="https://github.com/lucaskmk" target="_blank" className="text-neutral-400">
-                <Github size={20} />
               </a>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="flex-grow pb-20 md:pb-0">
+      <main className="flex-grow pb-24 md:pb-0">
         {children}
       </main>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-6 left-6 right-6 z-50 flex justify-center">
-        <div className="px-6 py-3 rounded-full flex gap-8 items-center border border-white/10 shadow-2xl" style={{ background: 'rgba(8,11,20,0.80)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)' }}>
+      <nav aria-label="Main" className="md:hidden fixed bottom-4 inset-x-4 z-50 flex justify-center">
+        <div className="w-full max-w-sm p-1.5 rounded-2xl flex justify-between items-center border border-white/10 shadow-2xl" style={{ background: 'rgba(8,11,20,0.85)', backdropFilter: 'blur(32px)', WebkitBackdropFilter: 'blur(32px)' }}>
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = location.pathname === link.path;
@@ -92,9 +86,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 key={link.path}
                 to={link.path}
                 onClick={() => handleNavClick(link.path)}
-                className={`transition-all ${isActive ? 'text-white scale-125' : 'text-neutral-500 hover:text-neutral-300'}`}
+                aria-current={isActive ? 'page' : undefined}
+                className={`flex-1 flex flex-col items-center gap-1 py-2 rounded-xl transition-colors ${
+                  isActive ? 'bg-white/10 text-white' : 'text-neutral-500 active:text-neutral-300'
+                }`}
               >
-                <Icon size={20} />
+                <Icon size={20} strokeWidth={isActive ? 2 : 1.75} />
+                <span className="text-[10px] font-medium leading-none">{link.name}</span>
               </Link>
             );
           })}
@@ -109,13 +107,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
           
           <div className="flex justify-center gap-8 mb-12">
-            <a href="mailto:lucaskamikawa@gmail.com" className="text-neutral-500 hover:text-white transition-colors">
+            <a href="mailto:lucaskamikawa@gmail.com" aria-label="Email" className="text-neutral-500 hover:text-white transition-colors">
               <Mail size={24} strokeWidth={1.5} />
             </a>
-            <a href="https://www.linkedin.com/in/lucas-kenji-malheiros-kamikawa-28417629a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" className="text-neutral-500 hover:text-white transition-colors">
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-neutral-500 hover:text-white transition-colors">
               <Linkedin size={24} strokeWidth={1.5} />
             </a>
-            <a href="https://github.com/lucaskmk" target="_blank" className="text-neutral-500 hover:text-white transition-colors">
+            <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-neutral-500 hover:text-white transition-colors">
               <Github size={24} strokeWidth={1.5} />
             </a>
           </div>

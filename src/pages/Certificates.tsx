@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'motion/react';
 import { CERTIFICATES } from '../constants';
-import { Award, ExternalLink, Maximize2 } from 'lucide-react';
+import { ExternalLink, Maximize2 } from 'lucide-react';
 import { SafeImage } from '../components/SafeImage';
 import { CertificateLightbox, getCertificateView, useCertificateViewer } from '../components/CertificateLightbox';
 import type { Certificate } from '../types';
+import PageHeader from '../components/PageHeader';
+import { LABEL } from '../ui';
 
 interface CertificateCardProps {
   cert: Certificate;
@@ -95,7 +97,7 @@ const CertificateCard: React.FC<CertificateCardProps> = ({ cert, index, onOpen }
       {/* Content Container */}
       <div className="w-full md:w-1/2 space-y-3 md:space-y-6 px-2 md:px-0">
         <div className="flex flex-col gap-1 md:gap-2">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">
+          <span className={LABEL}>
             {cert.category}
           </span>
           <h2 className="text-xl md:text-3xl font-display font-light text-white leading-tight">
@@ -141,27 +143,16 @@ export default function Certificates() {
     : CERTIFICATES.filter(cert => cert.category === activeCategory);
 
   return (
-    <div className="py-12 md:py-20 px-4 overflow-x-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12 md:mb-20">
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full card-block text-white font-medium text-xs md:text-sm border border-white/10"
-          >
-            <Award size={16} />
-            Verified Achievements
-          </motion.div>
-          <h1 className="text-3xl md:text-6xl font-display font-light mb-4 text-white uppercase tracking-tight">
-            My <span className="text-gradient">Certifications</span>
-          </h1>
-          <p className="text-sm md:text-base text-neutral-500 max-w-2xl mx-auto px-4">
-            A collection of my professional certifications and educational milestones in technology and cybersecurity.
-          </p>
-        </div>
+    <div className="overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24">
+        <PageHeader
+          title="My"
+          highlight="Certifications"
+          subtitle="A collection of my professional certifications and educational milestones in technology and cybersecurity."
+        />
 
         {/* Filter UI */}
-        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-16 md:mb-24">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-14 md:mb-20">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
